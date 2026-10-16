@@ -48,6 +48,11 @@
     .project img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;transition:transform .25s}
     .project:hover img{transform:scale(1.025)}
     .project-info{display:block;padding:14px 14px 16px;border-top:1px solid var(--line);min-height:100px}
+    .publication-cover{flex-direction:column;gap:12px;padding:24px!important;background:linear-gradient(145deg,#f7f0df,#fffdf7 58%,#e9d8b0);color:#8c2430;text-align:center;border-bottom:1px solid #d8b66a}
+    .publication-kicker{font-size:10px;letter-spacing:2px;font-weight:bold}
+    .publication-cover strong{font-family:Georgia,serif;font-size:clamp(22px,2.4vw,34px);line-height:1.12;letter-spacing:1px}
+    .publication-subtitle{font-size:10px;color:#4a4034}
+    .publication-footer{margin-top:auto;padding-top:10px;border-top:1px solid #c9a45c;font-size:9px;letter-spacing:2px;font-weight:bold}
     .project-category{display:block;color:var(--gold);font-size:9px;font-weight:bold;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:7px}
     .project-title{display:block;margin-bottom:5px;font-size:15px;font-weight:700;line-height:1.35}
     .project-desc{display:block;color:var(--muted);font-size:12px;line-height:1.5}
@@ -123,6 +128,7 @@
         <button class="filter-btn" type="button" data-filter="posters" aria-pressed="false"><span aria-hidden="true">▧</span> Posters</button>
         <button class="filter-btn" type="button" data-filter="banners" aria-pressed="false"><span aria-hidden="true">▱</span> Flex & Banners</button>
         <button class="filter-btn" type="button" data-filter="logos" aria-pressed="false"><span aria-hidden="true">◉</span> Logo Design</button>
+        <button class="filter-btn" type="button" data-filter="publication" aria-pressed="false"><span aria-hidden="true">▤</span> Print & Publication</button>
       </div>
       <div class="portfolio-grid">
         <button class="project" type="button" data-category="posters" aria-label="View SAGE Sports Event Poster in full size">
@@ -156,6 +162,10 @@
         <button class="project" type="button" data-category="workshops" aria-label="View Financial Modelling workshop creative in full size">
           <div class="project-image"><img src="workshop%203.jpg" alt="Financial Modelling workshop creative" loading="lazy"></div>
           <span class="project-info"><span class="project-category">Workshop</span><span class="project-title">Financial Modelling Workshop</span><span class="project-desc">Hands-on workshop promotional design.</span></span>
+        </button>
+        <button class="project publication-project" type="button" data-category="publication" data-pdf="coffee-table-book-final.pdf" aria-label="Open SAGE University Bhopal Coffee Table Book PDF">
+          <div class="project-image publication-cover" aria-hidden="true"><span class="publication-kicker">SAGE UNIVERSITY BHOPAL</span><strong>COFFEE<br>TABLE BOOK</strong><span class="publication-subtitle">Campus • People • Achievements</span><span class="publication-footer">THOUGHTS & INNOVATIONS</span></div>
+          <span class="project-info"><span class="project-category">Print & Publication</span><span class="project-title">SAGE University Bhopal — Coffee Table Book</span><span class="project-desc">36-page university publication. Click to view the complete book.</span></span>
         </button>
         <button class="project" type="button" data-category="logos" aria-label="View SAGE Phoenix logo in full size">
           <div class="project-image"><img src="logo-sage-phoenix.png" alt="SAGE Phoenix logo design" loading="lazy"></div>
@@ -289,7 +299,10 @@
       document.body.style.overflow="hidden";
     }
     function closeArtwork(){lightbox.hidden=true;lightboxImage.src="";document.body.style.overflow="";}
-    projectCards.forEach(card=>card.addEventListener("click",()=>showArtwork(projectCards.filter(item=>!item.hidden).indexOf(card))));
+    projectCards.forEach(card=>card.addEventListener("click",()=>{
+      if(card.dataset.pdf){window.open(card.dataset.pdf,"_blank","noopener");return;}
+      showArtwork(projectCards.filter(item=>!item.hidden).indexOf(card));
+    }));
     lightbox.querySelector(".lightbox-close").addEventListener("click",closeArtwork);
     lightbox.querySelector(".lightbox-prev").addEventListener("click",()=>showArtwork(currentArtwork-1));
     lightbox.querySelector(".lightbox-next").addEventListener("click",()=>showArtwork(currentArtwork+1));
