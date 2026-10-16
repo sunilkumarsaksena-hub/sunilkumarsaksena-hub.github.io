@@ -36,25 +36,35 @@
     .service h3{margin:16px 0 8px;font-size:20px}
     .service p{color:var(--muted);font-size:14px}
     .portfolio-filters{display:flex;flex-wrap:wrap;gap:10px;margin:-8px 0 28px}
-    .filter-btn{padding:9px 15px;border:1px solid var(--line);background:transparent;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;transition:.2s}
+    .filter-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font:inherit;font-size:13px;cursor:pointer;transition:.2s}
+    .filter-btn span{font-size:16px;color:var(--gold)}
     .filter-btn:hover,.filter-btn.active{color:#111;background:var(--gold);border-color:var(--gold)}
-    .portfolio-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch}
-    .project{background:var(--panel);border:1px solid var(--line);border-radius:3px;overflow:hidden;transition:border-color .25s,transform .25s}
-    .project:hover{border-color:var(--gold);transform:translateY(-3px)}
+    .filter-btn.active span,.filter-btn:hover span{color:#111}
+    .portfolio-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;align-items:stretch}
+    .project{display:block;width:100%;padding:0;text-align:left;color:inherit;font:inherit;background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .2s}
+    .project:hover,.project:focus-visible{border-color:var(--gold);transform:translateY(-3px);outline:none}
     .project[hidden]{display:none}
-    .project-image{height:340px;overflow:hidden;background:#141414;display:flex;align-items:center;justify-content:center;padding:12px}
-    .project img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;transition:transform .3s}
-    .project:hover img{transform:scale(1.015)}
-    .project-info{padding:18px 18px 20px;border-top:1px solid var(--line);min-height:118px}
-    .project-category{display:inline-block;color:var(--gold);font-size:10px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
-    .project-info h3{margin-bottom:5px;font-size:18px;line-height:1.3}
-    .project-info p{color:var(--muted);font-size:13px;line-height:1.55}
+    .project-image{height:230px;overflow:hidden;background:#141414;display:flex;align-items:center;justify-content:center;padding:8px}
+    .project img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;transition:transform .25s}
+    .project:hover img{transform:scale(1.025)}
+    .project-info{display:block;padding:14px 14px 16px;border-top:1px solid var(--line);min-height:100px}
+    .project-category{display:block;color:var(--gold);font-size:9px;font-weight:bold;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:7px}
+    .project-title{display:block;margin-bottom:5px;font-size:15px;font-weight:700;line-height:1.35}
+    .project-desc{display:block;color:var(--muted);font-size:12px;line-height:1.5}
+    .lightbox[hidden]{display:none}
+    .lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.94);display:flex;align-items:center;justify-content:center;padding:64px 76px 54px}
+    .lightbox-image{display:block;max-width:100%;max-height:calc(100vh - 125px);width:auto;height:auto;object-fit:contain;box-shadow:0 10px 55px rgba(0,0,0,.55)}
+    .lightbox-close,.lightbox-prev,.lightbox-next{position:fixed;display:flex;align-items:center;justify-content:center;background:#1b1b1b;color:#fff;border:1px solid #555;border-radius:50%;width:44px;height:44px;font-size:28px;cursor:pointer}
+    .lightbox-close{top:18px;right:22px;font-size:30px}
+    .lightbox-prev{left:18px;top:50%;font-size:34px}
+    .lightbox-next{right:18px;top:50%;font-size:34px}
+    .lightbox-hint{position:fixed;bottom:14px;left:0;right:0;text-align:center;color:#bbb;font-size:12px}
     .skills{display:flex;flex-wrap:wrap;gap:12px}
     .skill{padding:12px 18px;border:1px solid var(--line);background:var(--panel);font-size:14px}
     .contact-box{padding:38px;background:var(--panel);border:1px solid var(--line)}
     .contact-box p{color:var(--muted);margin:14px 0 24px}
     footer{padding:28px 0;color:var(--muted);font-size:13px}
-    @media(max-width:900px){.portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.project-image{height:320px}}\n    @media(max-width:700px){.nav-links{gap:12px}.hero{min-height:480px;padding:65px 0}h1{letter-spacing:-2px}.services,.portfolio-grid{grid-template-columns:1fr}.project-image{height:360px}.contact-box{padding:24px}}
+    @media(max-width:1050px){.portfolio-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.project-image{height:230px}}\n    @media(max-width:800px){.portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.project-image{height:260px}}\n    @media(max-width:700px){.nav-links{gap:12px}.hero{min-height:480px;padding:65px 0}h1{letter-spacing:-2px}.services{grid-template-columns:1fr}.portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.project-image{height:210px;padding:5px}.project-info{padding:11px;min-height:98px}.project-title{font-size:13px}.project-desc{font-size:11px}.lightbox{padding:60px 48px 52px}.lightbox-prev{left:5px}.lightbox-next{right:5px}.contact-box{padding:24px}}\n    @media(max-width:430px){.portfolio-grid{grid-template-columns:1fr}.project-image{height:300px}}
   </style>
 </head>
 <body>
@@ -100,53 +110,62 @@
     </section>
     <section id="work">
       <div class="eyebrow">Selected Projects</div>
-      <h2 class="section-heading">A Curated <span class="gold">Gallery.</span></h2>
-      <p class="about-text" style="margin-bottom:28px">A selection of original design work across university events, workshops, campaigns and print creatives.</p>
-      <div class="portfolio-filters" aria-label="Filter portfolio projects">
-        <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All Work</button>
-        <button class="filter-btn" type="button" data-filter="events" aria-pressed="false">Events & Posters</button>
-        <button class="filter-btn" type="button" data-filter="workshops" aria-pressed="false">Workshop Creatives</button>
-        <button class="filter-btn" type="button" data-filter="campaigns" aria-pressed="false">Campaigns</button>
+      <h2 class="section-heading">Explore My <span class="gold">Work.</span></h2>
+      <p class="about-text" style="margin-bottom:26px">Choose a category to browse projects. Click any artwork to view the complete design in a large preview.</p>
+      <div class="portfolio-filters" aria-label="Portfolio categories">
+        <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true"><span aria-hidden="true">✦</span> All Work</button>
+        <button class="filter-btn" type="button" data-filter="workshops" aria-pressed="false"><span aria-hidden="true">▣</span> Workshop</button>
+        <button class="filter-btn" type="button" data-filter="social" aria-pressed="false"><span aria-hidden="true">▤</span> Social Media</button>
+        <button class="filter-btn" type="button" data-filter="posters" aria-pressed="false"><span aria-hidden="true">▧</span> Posters & Banners</button>
+        <button class="filter-btn" type="button" data-filter="logos" aria-pressed="false"><span aria-hidden="true">◉</span> Logo Design</button>
       </div>
       <div class="portfolio-grid">
-        <article class="project" data-category="events">
+        <button class="project" type="button" data-category="posters" aria-label="View SAGE Sports Event Poster in full size">
           <div class="project-image"><img src="event.jpg" alt="SAGE sports event poster" loading="lazy"></div>
-          <div class="project-info"><span class="project-category">Events & Posters</span><h3>SAGE Sports Event Poster</h3><p>Sports event artwork with bold, colourful competition visuals.</p></div>
-        </article>
-        <article class="project" data-category="events">
+          <span class="project-info"><span class="project-category">Posters & Banners</span><span class="project-title">SAGE Sports Event Poster</span><span class="project-desc">Colourful sports event artwork.</span></span>
+        </button>
+        <button class="project" type="button" data-category="posters" aria-label="View Communicating Science banner in full size">
           <div class="project-image"><img src="1.jpg" alt="Communicating Science workshop banner" loading="lazy"></div>
-          <div class="project-info"><span class="project-category">Events & Posters</span><h3>Communicating Science</h3><p>Workshop banner design for scientific journalism and communication.</p></div>
-        </article>
-        <article class="project" data-category="events">
+          <span class="project-info"><span class="project-category">Posters & Banners</span><span class="project-title">Communicating Science</span><span class="project-desc">Scientific journalism workshop banner.</span></span>
+        </button>
+        <button class="project" type="button" data-category="posters" aria-label="View FIMIS 2026 conference poster in full size">
           <div class="project-image"><img src="2.jpg" alt="FIMIS 2026 national conference poster" loading="lazy"></div>
-          <div class="project-info"><span class="project-category">Events & Posters</span><h3>FIMIS 2026 Conference</h3><p>National conference poster on Industry 4.0 to 5.0.</p></div>
-        </article>
-        <article class="project" data-category="campaigns">
+          <span class="project-info"><span class="project-category">Posters & Banners</span><span class="project-title">FIMIS 2026 Conference</span><span class="project-desc">Industry 4.0 to 5.0 conference design.</span></span>
+        </button>
+        <button class="project" type="button" data-category="posters" aria-label="View FIMIS conference flex banner in full size">
           <div class="project-image"><img src="11.jpg" alt="FIMIS 2026 conference flex banner" loading="lazy"></div>
-          <div class="project-info"><span class="project-category">Campaigns</span><h3>Conference Flex Banner</h3><p>Wide-format print design for a national conference.</p></div>
-        </article>
-        <article class="project" data-category="campaigns">
-          <div class="project-image"><img src="Oct%20Creative.jpg" alt="SAGE School of Management conference creative" loading="lazy"></div>
-          <div class="project-info"><span class="project-category">Campaigns</span><h3>School of Management Creative</h3><p>Conference communication for the School of Management.</p></div>
-        </article>
-        <article class="project" data-category="workshops">
+          <span class="project-info"><span class="project-category">Posters & Banners</span><span class="project-title">Conference Flex Banner</span><span class="project-desc">Wide-format print artwork.</span></span>
+        </button>
+        <button class="project" type="button" data-category="social" aria-label="View social media creative in full size">
+          <div class="project-image"><img src="Oct%20Creative.jpg" alt="SAGE university social media creative" loading="lazy"></div>
+          <span class="project-info"><span class="project-category">Social Media</span><span class="project-title">University Social Creative</span><span class="project-desc">Digital campaign artwork.</span></span>
+        </button>
+        <button class="project" type="button" data-category="social" aria-label="View World Food Day social media creative in full size">
           <div class="project-image"><img src="workshop%201.jpg" alt="World Food Day 2026 social media creative" loading="lazy"></div>
-          <div class="project-info"><span class="project-category">Workshop Creatives</span><h3>World Food Day 2026</h3><p>Social media creative themed “Innovate Today. Nourish Tomorrow”.</p></div>
-        </article>
-        <article class="project" data-category="workshops">
+          <span class="project-info"><span class="project-category">Social Media</span><span class="project-title">World Food Day 2026</span><span class="project-desc">“Innovate Today. Nourish Tomorrow”.</span></span>
+        </button>
+        <button class="project" type="button" data-category="posters" aria-label="View bilingual FIMIS conference creative in full size">
           <div class="project-image"><img src="workshop%202.jpg" alt="Bilingual FIMIS 2026 conference creative" loading="lazy"></div>
-          <div class="project-info"><span class="project-category">Workshop Creatives</span><h3>FIMIS 2026 — Bilingual</h3><p>Conference creative presenting the theme in Hindi and English.</p></div>
-        </article>
-        <article class="project" data-category="workshops">
+          <span class="project-info"><span class="project-category">Posters & Banners</span><span class="project-title">FIMIS 2026 — Bilingual</span><span class="project-desc">Hindi and English conference creative.</span></span>
+        </button>
+        <button class="project" type="button" data-category="workshops" aria-label="View Financial Modelling workshop creative in full size">
           <div class="project-image"><img src="workshop%203.jpg" alt="Financial Modelling workshop creative" loading="lazy"></div>
-          <div class="project-info"><span class="project-category">Workshop Creatives</span><h3>Financial Modelling Workshop</h3><p>Promotional creative for a hands-on financial modelling workshop.</p></div>
-        </article>
-        <article class="project" data-category="workshops">
+          <span class="project-info"><span class="project-category">Workshop</span><span class="project-title">Financial Modelling Workshop</span><span class="project-desc">Hands-on workshop promotional design.</span></span>
+        </button>
+        <button class="project" type="button" data-category="workshops" aria-label="View workshop creative in full size">
           <div class="project-image"><img src="workshop%204..jpg" alt="Workshop promotional creative" loading="lazy"></div>
-          <div class="project-info"><span class="project-category">Workshop Creatives</span><h3>Workshop Creative</h3><p>Academic workshop artwork for digital and print communication.</p></div>
-        </article>
+          <span class="project-info"><span class="project-category">Workshop</span><span class="project-title">Workshop Creative</span><span class="project-desc">Academic workshop promotion.</span></span>
+        </button>
       </div>
+      <p id="empty-category" class="about-text" hidden style="margin-top:20px">Logo design projects will appear here when the logo artwork files are added to this repository.</p>
     </section>
+    <div class="lightbox" id="artwork-lightbox" role="dialog" aria-modal="true" aria-label="Full artwork preview" hidden>
+      <button class="lightbox-close" type="button" aria-label="Close full artwork preview">×</button>
+      <button class="lightbox-prev" type="button" aria-label="Previous artwork">‹</button>
+      <img class="lightbox-image" src="" alt="Full-size portfolio artwork">
+      <button class="lightbox-next" type="button" aria-label="Next artwork">›</button>
+      <p class="lightbox-hint">Click outside the artwork or press Esc to close</p>
+    </div>
     <section id="freelance">
       <div class="eyebrow">Available for Freelance Projects</div>
       <h2 class="section-heading">Let’s work <span class="gold">together.</span></h2>
@@ -180,13 +199,40 @@
   <footer><div class="container">© <span id="year">2026</span> Sunil Kumar Saxena · Senior Graphic Designer. All rights reserved.</div></footer>
   <script>
     const filterButtons=document.querySelectorAll(".filter-btn");
-    const projectCards=document.querySelectorAll(".project");
+    const projectCards=Array.from(document.querySelectorAll(".project"));
+    const emptyCategory=document.getElementById("empty-category");
     filterButtons.forEach(button=>button.addEventListener("click",()=>{
       const selectedFilter=button.dataset.filter;
       filterButtons.forEach(item=>{const active=item===button;item.classList.toggle("active",active);item.setAttribute("aria-pressed",String(active));});
-      projectCards.forEach(card=>{card.hidden=!(selectedFilter==="all"||card.dataset.category===selectedFilter);});
+      let visibleCount=0;
+      projectCards.forEach(card=>{const visible=selectedFilter==="all"||card.dataset.category===selectedFilter;card.hidden=!visible;if(visible)visibleCount++;});
+      emptyCategory.hidden=visibleCount>0;
     }));
+    const lightbox=document.getElementById("artwork-lightbox");
+    const lightboxImage=lightbox.querySelector(".lightbox-image");
+    let currentArtwork=0;
+    function showArtwork(index){
+      const visibleCards=projectCards.filter(card=>!card.hidden);
+      if(!visibleCards.length)return;
+      currentArtwork=(index+visibleCards.length)%visibleCards.length;
+      const image=visibleCards[currentArtwork].querySelector("img");
+      lightboxImage.src=image.src;
+      lightboxImage.alt=image.alt;
+      lightbox.hidden=false;
+      document.body.style.overflow="hidden";
+    }
+    function closeArtwork(){lightbox.hidden=true;lightboxImage.src="";document.body.style.overflow="";}
+    projectCards.forEach(card=>card.addEventListener("click",()=>showArtwork(projectCards.filter(item=>!item.hidden).indexOf(card))));
+    lightbox.querySelector(".lightbox-close").addEventListener("click",closeArtwork);
+    lightbox.querySelector(".lightbox-prev").addEventListener("click",()=>showArtwork(currentArtwork-1));
+    lightbox.querySelector(".lightbox-next").addEventListener("click",()=>showArtwork(currentArtwork+1));
+    lightbox.addEventListener("click",event=>{if(event.target===lightbox)closeArtwork();});
+    document.addEventListener("keydown",event=>{
+      if(lightbox.hidden)return;
+      if(event.key==="Escape")closeArtwork();
+      if(event.key==="ArrowLeft")showArtwork(currentArtwork-1);
+      if(event.key==="ArrowRight")showArtwork(currentArtwork+1);
+    });
     document.getElementById("year").textContent=new Date().getFullYear();
-  </script>
-</body>
+  </script></body>
 </html>
