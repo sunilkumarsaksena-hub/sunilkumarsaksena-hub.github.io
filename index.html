@@ -51,6 +51,10 @@
     .project-category{display:block;color:var(--gold);font-size:9px;font-weight:bold;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:7px}
     .project-title{display:block;margin-bottom:5px;font-size:15px;font-weight:700;line-height:1.35}
     .project-desc{display:block;color:var(--muted);font-size:12px;line-height:1.5}
+    .load-more-wrap{display:flex;justify-content:center;margin-top:28px}
+    .load-more-btn{padding:12px 24px;border:1px solid var(--gold);background:transparent;color:var(--gold);font:inherit;font-size:13px;font-weight:bold;letter-spacing:.5px;cursor:pointer;transition:.2s}
+    .load-more-btn:hover{background:var(--gold);color:#111}
+    .portfolio-note{color:var(--muted);font-size:13px;margin:-14px 0 22px}
     .lightbox[hidden]{display:none}
     .lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.94);display:flex;align-items:center;justify-content:center;padding:64px 76px 54px}
     .lightbox-image{display:block;max-width:100%;max-height:calc(100vh - 125px);width:auto;height:auto;object-fit:contain;box-shadow:0 10px 55px rgba(0,0,0,.55)}
@@ -198,7 +202,9 @@
           <span class="project-info"><span class="project-category">Workshop</span><span class="project-title">Workshop Creative</span><span class="project-desc">Academic workshop promotion.</span></span>
         </button>
       </div>
-      <p id="empty-category" class="about-text" hidden style="margin-top:20px">Logo design projects will appear here when the logo artwork files are added to this repository.</p>
+      <p id="portfolio-note" class="portfolio-note">Showing selected projects. Choose a category to explore more, or load more work.</p>
+      <div class="load-more-wrap"><button id="load-more" class="load-more-btn" type="button">LOAD MORE PROJECTS ↓</button></div>
+      <p id="empty-category" class="about-text" hidden style="margin-top:20px">No projects in this category yet.</p>
     </section>
     <div class="lightbox" id="artwork-lightbox" role="dialog" aria-modal="true" aria-label="Full artwork preview" hidden>
       <button class="lightbox-close" type="button" aria-label="Close full artwork preview">×</button>
@@ -242,13 +248,33 @@
     const filterButtons=document.querySelectorAll(".filter-btn");
     const projectCards=Array.from(document.querySelectorAll(".project"));
     const emptyCategory=document.getElementById("empty-category");
+    const loadMoreButton=document.getElementById("load-more");
+    const portfolioNote=document.getElementById("portfolio-note");
+    const allWorkPageSize=8;
+    let selectedFilter="all";
+    let allWorkLimit=allWorkPageSize;
+    function renderProjects(){
+      const matchingCards=projectCards.filter(card=>selectedFilter==="all"||card.dataset.category===selectedFilter);
+      matchingCards.forEach((card,index)=>{card.hidden=selectedFilter==="all"&&index>=allWorkLimit;});
+      projectCards.filter(card=>!matchingCards.includes(card)).forEach(card=>card.hidden=true);
+      emptyCategory.hidden=matchingCards.length>0;
+      const hasMore=selectedFilter==="all"&&allWorkLimit<matchingCards.length;
+      loadMoreButton.hidden=!hasMore;
+      portfolioNote.hidden=matchingCards.length===0;
+      if(selectedFilter==="all"){
+        const shown=Math.min(allWorkLimit,matchingCards.length);
+        portfolioNote.textContent="Showing "+shown+" of "+matchingCards.length+" projects. Load more to explore the full portfolio.";
+      }else{
+        portfolioNote.textContent=matchingCards.length+" project"+(matchingCards.length===1?"":"s")+" in this category.";
+      }
+    }
     filterButtons.forEach(button=>button.addEventListener("click",()=>{
-      const selectedFilter=button.dataset.filter;
+      selectedFilter=button.dataset.filter;
+      allWorkLimit=allWorkPageSize;
       filterButtons.forEach(item=>{const active=item===button;item.classList.toggle("active",active);item.setAttribute("aria-pressed",String(active));});
-      let visibleCount=0;
-      projectCards.forEach(card=>{const visible=selectedFilter==="all"||card.dataset.category===selectedFilter;card.hidden=!visible;if(visible)visibleCount++;});
-      emptyCategory.hidden=visibleCount>0;
+      renderProjects();
     }));
+    loadMoreButton.addEventListener("click",()=>{allWorkLimit+=allWorkPageSize;renderProjects();});
     const lightbox=document.getElementById("artwork-lightbox");
     const lightboxImage=lightbox.querySelector(".lightbox-image");
     let currentArtwork=0;
