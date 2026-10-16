@@ -3,551 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunil Saxena | Graphic Designer</title>
-  <meta name="description" content="Graphic design portfolio of Sunil, specializing in branding, social media creatives and print design.">
-
+  <title>Sunil Kumar Saxena | Senior Graphic Designer</title>
+  <meta name="description" content="Portfolio of Sunil Kumar Saxena, Senior Graphic Designer with 20+ years of experience in branding, institutional design, digital campaigns and print production.">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --bg: #101010;
-      --panel: #191919;
-      --gold: #d8b66a;
-      --text: #f7f5ef;
-      --muted: #aaa69c;
-      --line: #33312b;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.6;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(1120px, 90%);
-      margin: auto;
-    }
-
-    header {
-      padding: 24px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: 2px;
-    }
-
-    .logo span,
-    .gold {
-      color: var(--gold);
-    }
-
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 22px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold);
-    }
-
-    .hero {
-      min-height: 590px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 90px 0;
-    }
-
-    .eyebrow {
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    h1 {
-      font-size: clamp(48px, 9vw, 100px);
-      line-height: 1.04;
-      letter-spacing: -4px;
-      margin: 24px 0;
-    }
-
-    h1 span {
-      color: var(--gold);
-      font-family: Georgia, serif;
-      font-weight: normal;
-      font-style: italic;
-    }
-
-    .hero p {
-      max-width: 600px;
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 32px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 13px 22px;
-      border: 1px solid var(--gold);
-      font-weight: bold;
-      font-size: 14px;
-      transition: 0.2s;
-    }
-
-    .btn.primary {
-      background: var(--gold);
-      color: #111;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    section {
-      padding: 75px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .section-heading {
-      font-size: clamp(32px, 5vw, 48px);
-      margin: 12px 0 32px;
-    }
-
-    .about-text {
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 17px;
-    }
-
-    .services {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .service {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      padding: 25px;
-    }
-
-    .service .number {
-      color: var(--gold);
-      font-size: 13px;
-    }
-
-    .service h3 {
-      margin: 16px 0 8px;
-      font-size: 20px;
-    }
-
-    .service p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .portfolio-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: -8px 0 28px;
-    }
-
-    .filter-btn {
-      padding: 9px 15px;
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--muted);
-      font: inherit;
-      font-size: 13px;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-      color: #111;
-      background: var(--gold);
-      border-color: var(--gold);
-    }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .project {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      overflow: hidden;
-      transition: border-color 0.25s, transform 0.25s;
-    }
-
-    .project:hover {
-      border-color: var(--gold);
-      transform: translateY(-4px);
-    }
-
-    .project[hidden] {
-      display: none;
-    }
-
-    .project-image {
-      overflow: hidden;
-      background: #222;
-    }
-
-    .project img {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.45s ease;
-    }
-
-    .project:hover img {
-      transform: scale(1.045);
-    }
-
-    .project-info {
-      padding: 20px;
-      border-top: 1px solid var(--line);
-    }
-
-    .project-category {
-      display: inline-block;
-      color: var(--gold);
-      font-size: 10px;
-      font-weight: bold;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .project-info h3 {
-      margin-bottom: 5px;
-      font-size: 20px;
-    }
-
-    .project-info p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .skill {
-      padding: 12px 18px;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      font-size: 14px;
-    }
-
-    .contact-box {
-      padding: 38px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-    }
-
-    .contact-box p {
-      color: var(--muted);
-      margin: 14px 0 24px;
-    }
-
-    footer {
-      padding: 28px 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    @media (max-width: 700px) {
-      .nav-links {
-        gap: 12px;
-      }
-
-      .hero {
-        min-height: 480px;
-        padding: 65px 0;
-      }
-
-      h1 {
-        letter-spacing: -2px;
-      }
-
-      .services,
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-box {
-        padding: 24px;
-      }
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#101010;--panel:#191919;--gold:#d8b66a;--text:#f7f5ef;--muted:#aaa69c;--line:#33312b}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1120px,90%);margin:auto}
+    header{padding:24px 0;border-bottom:1px solid var(--line)}
+    nav{display:flex;justify-content:space-between;align-items:center;gap:20px}
+    .logo{font-size:24px;font-weight:800;letter-spacing:2px}
+    .logo span,.gold{color:var(--gold)}
+    .nav-links{display:flex;flex-wrap:wrap;gap:22px;color:var(--muted);font-size:14px}
+    .nav-links a:hover{color:var(--gold)}
+    .hero{min-height:590px;display:flex;flex-direction:column;justify-content:center;padding:90px 0}
+    .eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:4px;font-size:12px;font-weight:bold}
+    h1{font-size:clamp(48px,9vw,100px);line-height:1.04;letter-spacing:-4px;margin:24px 0}
+    h1 span{color:var(--gold);font-family:Georgia,serif;font-weight:normal;font-style:italic}
+    .hero p{max-width:720px;color:var(--muted);font-size:18px}
+    .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+    .btn{display:inline-block;padding:13px 22px;border:1px solid var(--gold);font-weight:bold;font-size:14px;transition:.2s}
+    .btn.primary{background:var(--gold);color:#111}
+    .btn:hover{transform:translateY(-3px)}
+    section{padding:75px 0;border-top:1px solid var(--line)}
+    .section-heading{font-size:clamp(32px,5vw,48px);margin:12px 0 32px}
+    .about-text{max-width:850px;color:var(--muted);font-size:17px}
+    .services{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .service{background:var(--panel);border:1px solid var(--line);padding:25px}
+    .service .number{color:var(--gold);font-size:13px}
+    .service h3{margin:16px 0 8px;font-size:20px}
+    .service p{color:var(--muted);font-size:14px}
+    .portfolio-filters{display:flex;flex-wrap:wrap;gap:10px;margin:-8px 0 28px}
+    .filter-btn{padding:9px 15px;border:1px solid var(--line);background:transparent;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;transition:.2s}
+    .filter-btn:hover,.filter-btn.active{color:#111;background:var(--gold);border-color:var(--gold)}
+    .portfolio-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+    .project{background:var(--panel);border:1px solid var(--line);overflow:hidden;transition:border-color .25s,transform .25s}
+    .project:hover{border-color:var(--gold);transform:translateY(-4px)}
+    .project[hidden]{display:none}
+    .project-image{overflow:hidden;background:#222}
+    .project img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform .45s}
+    .project:hover img{transform:scale(1.045)}
+    .project-info{padding:20px;border-top:1px solid var(--line)}
+    .project-category{display:inline-block;color:var(--gold);font-size:10px;font-weight:bold;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:8px}
+    .project-info h3{margin-bottom:5px;font-size:20px}
+    .project-info p{color:var(--muted);font-size:14px}
+    .skills{display:flex;flex-wrap:wrap;gap:12px}
+    .skill{padding:12px 18px;border:1px solid var(--line);background:var(--panel);font-size:14px}
+    .contact-box{padding:38px;background:var(--panel);border:1px solid var(--line)}
+    .contact-box p{color:var(--muted);margin:14px 0 24px}
+    footer{padding:28px 0;color:var(--muted);font-size:13px}
+    @media(max-width:700px){.nav-links{gap:12px}.hero{min-height:480px;padding:65px 0}h1{letter-spacing:-2px}.services,.portfolio-grid{grid-template-columns:1fr}.contact-box{padding:24px}}
   </style>
 </head>
-
 <body>
-  <header>
-    <div class="container">
-      <nav>
-        <a class="logo" href="#home">Sunil<span>.</span></a>
-        <div class="nav-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#work">Work</a>
-          <a href="#skills">Skills</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <div class="container">
-      <section class="hero" id="home" style="border-top:0">
-        <div class="eyebrow">Graphic Designer · Visual Creator</div>
-        <h1>Ideas into<br><span>Visual Impact.</span></h1>
-        <p>
-          I create thoughtful visual experiences through graphic design,
-          branding, social media creatives and print design.
-        </p>
-        <div class="actions">
-          <a class="btn primary" href="#work">EXPLORE MY WORK ↗</a>
-          <a class="btn" href="#contact">LET'S CONNECT</a>
-        </div>
-      </section>
-
-      <section id="about">
-        <div class="eyebrow">A Little About Me</div>
-        <h2 class="section-heading">Design with a <span class="gold">purpose.</span></h2>
-        <p class="about-text">
-          I'm Sunil Saxena, a graphic designer passionate about turning ideas into
-          clear, engaging and memorable visuals. My work spans digital
-          creatives, branding, layouts and print communication. I enjoy
-          combining strong typography, thoughtful composition and meaningful
-          visual storytelling.
-        </p>
-      </section>
-
-      <section id="services">
-        <div class="eyebrow">What I Do</div>
-        <h2 class="section-heading">Creative <span class="gold">Services.</span></h2>
-
-        <div class="services">
-          <article class="service">
-            <div class="number">01 / DIGITAL</div>
-            <h3>Social Media Design</h3>
-            <p>Campaign creatives, promotional graphics and digital content.</p>
-          </article>
-
-          <article class="service">
-            <div class="number">02 / PRINT</div>
-            <h3>Print Design</h3>
-            <p>Brochures, posters, banners, invitations and print layouts.</p>
-          </article>
-
-          <article class="service">
-            <div class="number">03 / BRANDING</div>
-            <h3>Visual Identity</h3>
-            <p>Creative concepts, typography, layouts and brand visuals.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="work">
-        <div class="eyebrow">Selected Projects</div>
-        <h2 class="section-heading">A Curated <span class="gold">Gallery.</span></h2>
-        <p class="about-text" style="margin-bottom:28px">
-          A selection of visual directions across branding, digital campaigns and print design.
-          Explore the categories to find the kind of work you need.
-        </p>
-
-        <div class="portfolio-filters" role="group" aria-label="Filter portfolio projects">
-          <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All Projects</button>
-          <button class="filter-btn" type="button" data-filter="branding" aria-pressed="false">Branding</button>
-          <button class="filter-btn" type="button" data-filter="social" aria-pressed="false">Social Media</button>
-          <button class="filter-btn" type="button" data-filter="print" aria-pressed="false">Print Design</button>
-          <button class="filter-btn" type="button" data-filter="artwork" aria-pressed="false">Artwork</button>
-        </div>
-
-        <div class="portfolio-grid" id="portfolioGrid">
-          <article class="project" data-category="branding">
-            <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1000&q=85"
-                   alt="Sample branding and visual identity inspiration" loading="lazy">
-            </div>
-            <div class="project-info">
-              <span class="project-category">Branding</span>
-              <h3>Branding & Identity</h3>
-              <p>Visual identity · Creative direction</p>
-            </div>
-          </article>
-
-          <article class="project" data-category="social">
-            <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=85"
-                   alt="Sample colourful digital campaign artwork" loading="lazy">
-            </div>
-            <div class="project-info">
-              <span class="project-category">Social Media</span>
-              <h3>Digital Campaigns</h3>
-              <p>Colour · Composition · Digital visuals</p>
-            </div>
-          </article>
-
-          <article class="project" data-category="artwork">
-            <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1000&q=85"
-                   alt="Sample creative workspace and design inspiration" loading="lazy">
-            </div>
-            <div class="project-info">
-              <span class="project-category">Artwork</span>
-              <h3>Creative Direction</h3>
-              <p>Ideas · Research · Art direction</p>
-            </div>
-          </article>
-
-          <article class="project" data-category="print">
-            <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85"
-                   alt="Sample editorial and print layout inspiration" loading="lazy">
-            </div>
-            <div class="project-info">
-              <span class="project-category">Print Design</span>
-              <h3>Print & Layout</h3>
-              <p>Editorial · Layout · Print communication</p>
-            </div>
-          </article>
-
-          <article class="project" data-category="branding">
-            <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85"
-                   alt="Sample visual concept and art direction reference" loading="lazy">
-            </div>
-            <div class="project-info">
-              <span class="project-category">Branding</span>
-              <h3>Visual Concepts</h3>
-              <p>Concept development · Mood and tone</p>
-            </div>
-          </article>
-
-          <article class="project" data-category="social">
-            <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1000&q=85"
-                   alt="Sample creative artwork and colour exploration" loading="lazy">
-            </div>
-            <div class="project-info">
-              <span class="project-category">Social Media</span>
-              <h3>Colour & Composition</h3>
-              <p>Visual storytelling · Digital creativity</p>
-            </div>
-          </article>
-        </div>
-
-        <p class="about-text" style="margin-top:22px;font-size:13px">
-          Note: Gallery images are sample references for layout only, not verified client projects.
-          Replace them with your own finished designs before sharing this portfolio with clients.
-        </p>
-      </section>
-
-      <section id="skills">
-        <div class="eyebrow">My Toolkit</div>
-        <h2 class="section-heading">Tools & <span class="gold">Skills.</span></h2>
-        <div class="skills">
-          <span class="skill">Adobe Photoshop</span>
-          <span class="skill">Adobe Illustrator</span>
-          <span class="skill">CorelDRAW</span>
-          <span class="skill">Typography</span>
-          <span class="skill">Layout Design</span>
-          <span class="skill">Social Media</span>
-          <span class="skill">Print Production</span>
-          <span class="skill">Branding</span>
-        </div>
-      </section>
-
-      <section id="contact">
-        <div class="contact-box">
-          <div class="eyebrow">Have a Project in Mind?</div>
-          <h2 class="section-heading">Let's create something <span class="gold">great.</span></h2>
-          <p>
-            Interested in working together? Add your professional email
-            or WhatsApp link here so potential clients can reach you.
-          </p>
-          <a class="btn primary" href="mailto:YOUR-EMAIL@example.com">
-            CONTACT ME ↗
-          </a>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <footer>
-    <div class="container">
-      © <span id="year">2026</span> Sunil Saxena · Graphic Designer. All rights reserved.
-    </div>
-  </footer>
-
+  <header><div class="container"><nav>
+    <a class="logo" href="#home">Sunil<span>.</span></a>
+    <div class="nav-links"><a href="#home">Home</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#work">Work</a><a href="#skills">Skills</a><a href="#contact">Contact</a></div>
+  </nav></div></header>
+  <main><div class="container">
+    <section class="hero" id="home" style="border-top:0">
+      <div class="eyebrow">Senior Graphic Designer · 20+ Years of Experience</div>
+      <h1>Ideas into<br><span>Visual Impact.</span></h1>
+      <p>I’m Sunil Kumar Saxena, a Senior Graphic Designer based in Bhopal, India. I turn ideas into purposeful visual communication across branding, institutional design, digital campaigns and print production.</p>
+      <div class="actions">
+        <a class="btn primary" href="#work">EXPLORE MY WORK ↗</a>
+        <a class="btn" href="https://www.behance.net/sunilsaxen9611" target="_blank" rel="noopener">VIEW BEHANCE ↗</a>
+        <a class="btn" href="mailto:sunilkumar.saxena@gmail.com">CONTACT ME</a>
+      </div>
+    </section>
+    <section id="about">
+      <div class="eyebrow">Professional Introduction</div>
+      <h2 class="section-heading">Design with <span class="gold">purpose.</span></h2>
+      <p class="about-text">I am a creative and detail-oriented Senior Graphic Designer with more than 20 years of experience in advertising, branding, print production and institutional communication. My work covers the complete design process—from developing concepts and visual direction to preparing final, production-ready artwork. I create brochures, admission campaigns, hoardings, social media creatives, marketing collateral and presentation materials for academic and corporate audiences. Alongside a strong eye for typography, layout and visual consistency, I bring hands-on pre-press knowledge, print-vendor coordination and a practical understanding of delivering high-quality work to deadlines.</p>
+    </section>
+    <section id="experience">
+      <div class="eyebrow">Career Journey</div>
+      <h2 class="section-heading">Professional <span class="gold">Experience.</span></h2>
+      <div class="services">
+        <article class="service"><div class="number">FEB 2022 — PRESENT</div><h3>Senior Graphic Designer</h3><p><strong>SAGE University, Bhopal</strong><br>University branding, admission campaigns, brochures, digital creatives, event collateral and print production coordination.</p></article>
+        <article class="service"><div class="number">MAY 2008 — JAN 2022</div><h3>Senior Graphic Designer</h3><p><strong>Sunrise Publicity, Bhopal</strong><br>Branding and marketing projects for 20+ clients, including logos, brochures, newsletters, advertisements and promotional materials.</p></article>
+        <article class="service"><div class="number">JUN 2003 — APR 2008</div><h3>Senior Graphic Designer</h3><p><strong>Insignia, New Delhi</strong><br>Indoor and outdoor media campaigns, layout development, print execution and client coordination.</p></article>
+        <article class="service"><div class="number">MAY 2001 — JUN 2003</div><h3>Graphic Designer</h3><p><strong>Preface Communication, New Delhi</strong><br>Pre-press design, layout concepts and final artwork preparation for print.</p></article>
+        <article class="service"><div class="number">1998 — APR 2001</div><h3>Graphic Designer</h3><p><strong>RR Bags, New Delhi</strong><br>Canvas printing layouts, production-ready artwork and end-to-end design implementation.</p></article>
+        <article class="service"><div class="number">APPROACH</div><h3>Concept to Production</h3><p>Creative thinking balanced with typography, brand consistency, technical accuracy and print-ready execution.</p></article>
+      </div>
+    </section>
+    <section id="services">
+      <div class="eyebrow">What I Do</div><h2 class="section-heading">Creative <span class="gold">Services.</span></h2>
+      <div class="services">
+        <article class="service"><div class="number">01 / BRANDING</div><h3>Brand Identity</h3><p>Visual branding, creative concepts, typography and consistent brand communication.</p></article>
+        <article class="service"><div class="number">02 / DIGITAL</div><h3>Digital & Social Media</h3><p>Campaign creatives, promotional graphics and institutional digital communication.</p></article>
+        <article class="service"><div class="number">03 / PRINT</div><h3>Print & Publication</h3><p>Brochures, posters, banners, editorial layouts and production-ready artwork.</p></article>
+      </div>
+    </section>
+    <section id="work">
+      <div class="eyebrow">Selected Projects</div><h2 class="section-heading">A Curated <span class="gold">Gallery.</span></h2>
+      <p class="about-text" style="margin-bottom:28px">A selection of visual directions across branding, digital campaigns and print design. Replace the sample images below with your own completed projects before sharing this portfolio with clients.</p>
+      <div class="portfolio-filters" role="group" aria-label="Filter portfolio projects">
+        <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All Projects</button><button class="filter-btn" type="button" data-filter="branding" aria-pressed="false">Branding</button><button class="filter-btn" type="button" data-filter="social" aria-pressed="false">Social Media</button><button class="filter-btn" type="button" data-filter="print" aria-pressed="false">Print Design</button><button class="filter-btn" type="button" data-filter="artwork" aria-pressed="false">Artwork</button>
+      </div>
+      <div class="portfolio-grid" id="portfolioGrid">
+        <article class="project" data-category="branding"><div class="project-image"><img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1000&q=85" alt="Sample branding and visual identity inspiration" loading="lazy"></div><div class="project-info"><span class="project-category">Branding</span><h3>Branding & Identity</h3><p>Visual identity · Creative direction</p></div></article>
+        <article class="project" data-category="social"><div class="project-image"><img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=85" alt="Sample colourful digital campaign artwork" loading="lazy"></div><div class="project-info"><span class="project-category">Social Media</span><h3>Digital Campaigns</h3><p>Colour · Composition · Digital visuals</p></div></article>
+        <article class="project" data-category="artwork"><div class="project-image"><img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1000&q=85" alt="Sample creative workspace and design inspiration" loading="lazy"></div><div class="project-info"><span class="project-category">Artwork</span><h3>Creative Direction</h3><p>Ideas · Research · Art direction</p></div></article>
+        <article class="project" data-category="print"><div class="project-image"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85" alt="Sample editorial and print layout inspiration" loading="lazy"></div><div class="project-info"><span class="project-category">Print Design</span><h3>Print & Layout</h3><p>Editorial · Layout · Print communication</p></div></article>
+        <article class="project" data-category="branding"><div class="project-image"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85" alt="Sample visual concept and art direction reference" loading="lazy"></div><div class="project-info"><span class="project-category">Branding</span><h3>Visual Concepts</h3><p>Concept development · Mood and tone</p></div></article>
+        <article class="project" data-category="social"><div class="project-image"><img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1000&q=85" alt="Sample creative artwork and colour exploration" loading="lazy"></div><div class="project-info"><span class="project-category">Social Media</span><h3>Colour & Composition</h3><p>Visual storytelling · Digital creativity</p></div></article>
+      </div>
+      <p class="about-text" style="margin-top:22px;font-size:13px">Note: Gallery images are sample references for layout only, not verified client projects.</p>
+    </section>
+    <section id="skills">
+      <div class="eyebrow">My Toolkit</div><h2 class="section-heading">Tools & <span class="gold">Skills.</span></h2>
+      <div class="skills"><span class="skill">Adobe Photoshop</span><span class="skill">Adobe Illustrator</span><span class="skill">CorelDRAW</span><span class="skill">Adobe InDesign</span><span class="skill">MS Office</span><span class="skill">Typography</span><span class="skill">Layout Design</span><span class="skill">Social Media Design</span><span class="skill">Branding</span><span class="skill">Pre-Press</span><span class="skill">Print Production</span><span class="skill">Basic Video Editing</span></div>
+    </section>
+    <section id="education">
+      <div class="eyebrow">Education & Languages</div><h2 class="section-heading">Foundation & <span class="gold">Learning.</span></h2>
+      <p class="about-text"><strong>Certificate in Graphic Design</strong> — CRISP, Bhopal (2009)<br><strong>B.Com (Correspondence)</strong> — Delhi University<br><strong>Intermediate & High School</strong> — CBSE<br><br><strong>Languages:</strong> Hindi and English</p>
+    </section>
+    <section id="contact"><div class="contact-box">
+      <div class="eyebrow">Have a Project in Mind?</div><h2 class="section-heading">Let's create something <span class="gold">great.</span></h2>
+      <p>For design projects, collaborations or professional enquiries, get in touch by email or explore my work on Behance.</p>
+      <div class="actions"><a class="btn primary" href="mailto:sunilkumar.saxena@gmail.com">EMAIL ME ↗</a><a class="btn" href="https://www.behance.net/sunilsaxen9611" target="_blank" rel="noopener">BEHANCE PORTFOLIO ↗</a></div>
+      <p style="margin-bottom:0">Bhopal, Madhya Pradesh · 8109149370 · sunilkumar.saxena@gmail.com</p>
+    </div></section>
+  </div></main>
+  <footer><div class="container">© <span id="year">2026</span> Sunil Kumar Saxena · Senior Graphic Designer. All rights reserved.</div></footer>
   <script>
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const projectCards = document.querySelectorAll(".project");
-
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const selectedFilter = button.dataset.filter;
-
-        filterButtons.forEach((item) => {
-          const isActive = item === button;
-          item.classList.toggle("active", isActive);
-          item.setAttribute("aria-pressed", String(isActive));
-        });
-
-        projectCards.forEach((card) => {
-          const shouldShow = selectedFilter === "all" || card.dataset.category === selectedFilter;
-          card.hidden = !shouldShow;
-        });
-      });
-    });
+    const filterButtons=document.querySelectorAll(".filter-btn");
+    const projectCards=document.querySelectorAll(".project");
+    filterButtons.forEach(button=>button.addEventListener("click",()=>{
+      const selectedFilter=button.dataset.filter;
+      filterButtons.forEach(item=>{const active=item===button;item.classList.toggle("active",active);item.setAttribute("aria-pressed",String(active));});
+      projectCards.forEach(card=>{card.hidden=!(selectedFilter==="all"||card.dataset.category===selectedFilter);});
+    }));
+    document.getElementById("year").textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
