@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raaj | Graphic Designer</title>
+  <meta name="description" content="Graphic design portfolio of Raaj, specializing in branding, social media creatives and print design.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #101010;
+      --panel: #191919;
+      --gold: #d8b66a;
+      --text: #f7f5ef;
+      --muted: #aaa69c;
+      --line: #33312b;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    header {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .logo span,
+    .gold {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .hero {
+      min-height: 590px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 90px 0;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(48px, 9vw, 100px);
+      line-height: 1.04;
+      letter-spacing: -4px;
+      margin: 24px 0;
+    }
+
+    h1 span {
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-weight: normal;
+      font-style: italic;
+    }
+
+    .hero p {
+      max-width: 600px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 22px;
+      border: 1px solid var(--gold);
+      font-weight: bold;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .btn.primary {
+      background: var(--gold);
+      color: #111;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    section {
+      padding: 75px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      font-size: clamp(32px, 5vw, 48px);
+      margin: 12px 0 32px;
+    }
+
+    .about-text {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .service {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 25px;
+    }
+
+    .service .number {
+      color: var(--gold);
+      font-size: 13px;
+    }
+
+    .service h3 {
+      margin: 16px 0 8px;
+      font-size: 20px;
+    }
+
+    .service p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .project {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .project img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .project:hover img {
+      transform: scale(1.04);
+    }
+
+    .project-info {
+      padding: 20px;
+    }
+
+    .project-info h3 {
+      margin-bottom: 5px;
+    }
+
+    .project-info p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill {
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-size: 14px;
+    }
+
+    .contact-box {
+      padding: 38px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin: 14px 0 24px;
+    }
+
+    footer {
+      padding: 28px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      .nav-links {
+        gap: 12px;
+      }
+
+      .hero {
+        min-height: 480px;
+        padding: 65px 0;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .services,
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-box {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="logo" href="#home">RAAJ<span>.</span></a>
+        <div class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero" id="home" style="border-top:0">
+        <div class="eyebrow">Graphic Designer · Visual Creator</div>
+        <h1>Ideas into<br><span>Visual Impact.</span></h1>
+        <p>
+          I create thoughtful visual experiences through graphic design,
+          branding, social media creatives and print design.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#work">EXPLORE MY WORK ↗</a>
+          <a class="btn" href="#contact">LET'S CONNECT</a>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="eyebrow">A Little About Me</div>
+        <h2 class="section-heading">Design with a <span class="gold">purpose.</span></h2>
+        <p class="about-text">
+          I'm Raaj, a graphic designer passionate about turning ideas into
+          clear, engaging and memorable visuals. My work spans digital
+          creatives, branding, layouts and print communication. I enjoy
+          combining strong typography, thoughtful composition and meaningful
+          visual storytelling.
+        </p>
+      </section>
+
+      <section id="services">
+        <div class="eyebrow">What I Do</div>
+        <h2 class="section-heading">Creative <span class="gold">Services.</span></h2>
+
+        <div class="services">
+          <article class="service">
+            <div class="number">01 / DIGITAL</div>
+            <h3>Social Media Design</h3>
+            <p>Campaign creatives, promotional graphics and digital content.</p>
+          </article>
+
+          <article class="service">
+            <div class="number">02 / PRINT</div>
+            <h3>Print Design</h3>
+            <p>Brochures, posters, banners, invitations and print layouts.</p>
+          </article>
+
+          <article class="service">
+            <div class="number">03 / BRANDING</div>
+            <h3>Visual Identity</h3>
+            <p>Creative concepts, typography, layouts and brand visuals.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="work">
+        <div class="eyebrow">Selected Projects</div>
+        <h2 class="section-heading">My <span class="gold">Portfolio.</span></h2>
+
+        <div class="portfolio-grid">
+          <article class="project">
+            <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=900&q=85"
+                 alt="Creative graphic design and branding project">
+            <div class="project-info">
+              <h3>Branding & Identity</h3>
+              <p>Visual identity · Creative direction</p>
+            </div>
+          </article>
+
+          <article class="project">
+            <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=900&q=85"
+                 alt="Colourful abstract creative artwork">
+            <div class="project-info">
+              <h3>Digital Creativity</h3>
+              <p>Colour · Composition · Visual design</p>
+            </div>
+          </article>
+
+          <article class="project">
+            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=900&q=85"
+                 alt="Creative workspace and design inspiration">
+            <div class="project-info">
+              <h3>Creative Process</h3>
+              <p>Ideas · Research · Art direction</p>
+            </div>
+          </article>
+
+          <article class="project">
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85"
+                 alt="Modern creative studio">
+            <div class="project-info">
+              <h3>Print & Layout</h3>
+              <p>Editorial · Layout · Print communication</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="about-text" style="margin-top:22px;font-size:13px">
+          Note: These are sample visuals for the initial layout. Replace them
+          with your own completed projects before presenting this portfolio
+          to clients.
+        </p>
+      </section>
+
+      <section id="skills">
+        <div class="eyebrow">My Toolkit</div>
+        <h2 class="section-heading">Tools & <span class="gold">Skills.</span></h2>
+        <div class="skills">
+          <span class="skill">Adobe Photoshop</span>
+          <span class="skill">Adobe Illustrator</span>
+          <span class="skill">CorelDRAW</span>
+          <span class="skill">Typography</span>
+          <span class="skill">Layout Design</span>
+          <span class="skill">Social Media</span>
+          <span class="skill">Print Production</span>
+          <span class="skill">Branding</span>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="contact-box">
+          <div class="eyebrow">Have a Project in Mind?</div>
+          <h2 class="section-heading">Let's create something <span class="gold">great.</span></h2>
+          <p>
+            Interested in working together? Add your professional email
+            or WhatsApp link here so potential clients can reach you.
+          </p>
+          <a class="btn primary" href="mailto:YOUR-EMAIL@example.com">
+            CONTACT ME ↗
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year">2026</span> Raaj · Graphic Designer. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
