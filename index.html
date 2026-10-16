@@ -232,7 +232,21 @@
       .project-info{height:auto}
     }
 
-</style>
+
+    /* Hero workspace slideshow */
+    .hero-slideshow{position:relative;isolation:isolate;overflow:hidden;min-height:600px}
+    .hero-visual{position:absolute;inset:0;z-index:-1;overflow:hidden;background:#101010}
+    .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center right;opacity:0;transform:scale(1.025);transition:opacity 1.4s ease,transform 8s ease;background-color:#101010}
+    .hero-slide.is-active{opacity:1;transform:scale(1)}
+    .hero-slide:nth-child(1){background-image:url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1800&q=85")}
+    .hero-slide:nth-child(2){background-image:url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85")}
+    .hero-slide:nth-child(3){background-image:url("https://images.unsplash.com/photo-1455390582262-044c619d7e06?auto=format&fit=crop&w=1800&q=85")}
+    .hero-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,.99) 0%,rgba(10,10,10,.93) 34%,rgba(10,10,10,.58) 58%,rgba(10,10,10,.16) 100%),linear-gradient(0deg,rgba(10,10,10,.38),transparent 42%)}
+    .hero-content{position:relative;z-index:1;width:100%}
+    @media(max-width:700px){.hero-slideshow{min-height:auto}.hero-visual{opacity:.55}.hero-slide{background-position:center}.hero-visual:after{background:linear-gradient(90deg,rgba(10,10,10,.93),rgba(10,10,10,.68)),linear-gradient(0deg,rgba(10,10,10,.35),rgba(10,10,10,.1))}.hero-content{width:100%}}
+    @media(prefers-reduced-motion:reduce){.hero-slide{transition:none}}
+
+  </style>
 </head>
 <body>
   <header><div class="container"><nav>
@@ -240,7 +254,9 @@
     <div class="nav-links"><a href="#home">Home</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#work">Work</a><a href="#freelance">Freelancing</a><a href="#skills">Skills</a><a href="#contact">Contact</a><a href="Resume%20Sunil%20Saxena%281%29.pdf" target="_blank" rel="noopener">Resume ↗</a></div>
   </nav></div></header>
   <main><div class="container">
-    <section class="hero" id="home" style="border-top:0">
+    <section class="hero hero-slideshow" id="home" style="border-top:0">
+      <div class="hero-visual" aria-hidden="true"><div class="hero-slide is-active"></div><div class="hero-slide"></div><div class="hero-slide"></div></div>
+      <div class="hero-content">
       <div class="eyebrow">Senior Graphic Designer · 20+ Years of Experience</div>
       <h1>Ideas into<br><span>Visual Impact.</span></h1>
       <p>I’m Sunil Kumar Saxena, a Senior Graphic Designer with 20+ years of experience creating bold visuals, meaningful brand identities and impactful campaigns. I turn creative ideas into designs that connect, communicate and leave a lasting impression.</p>
@@ -249,6 +265,7 @@
         <a class="btn" href="https://www.behance.net/sunilsaxen9611" target="_blank" rel="noopener">VIEW BEHANCE ↗</a>
         <a class="btn" href="Resume%20Sunil%20Saxena%281%29.pdf" target="_blank" rel="noopener">DOWNLOAD RESUME ↓</a>
         <a class="btn" href="mailto:sunilkumar.saxena@gmail.com">CONTACT ME</a>
+      </div>
       </div>
     </section>
     <section id="about">
@@ -472,6 +489,18 @@
       if(event.key==="ArrowLeft")showArtwork(currentArtwork-1);
       if(event.key==="ArrowRight")showArtwork(currentArtwork+1);
     });
+
+    // Rotate workspace images every 12 seconds with a gentle fade.
+    (function(){
+      const slides=Array.from(document.querySelectorAll(".hero-slide"));
+      if(slides.length<2)return;
+      let active=0;
+      window.setInterval(()=>{
+        slides[active].classList.remove("is-active");
+        active=(active+1)%slides.length;
+        slides[active].classList.add("is-active");
+      },12000);
+    })();
     document.getElementById("year").textContent=new Date().getFullYear();
   </script></body>
 </html>
