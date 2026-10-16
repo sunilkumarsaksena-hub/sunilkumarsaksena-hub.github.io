@@ -461,6 +461,7 @@
       renderProjects();
     }));
     loadMoreButton.addEventListener("click",()=>{allWorkLimit+=allWorkPageSize;renderProjects();});
+    renderProjects();
     const lightbox=document.getElementById("artwork-lightbox");
     const lightboxImage=lightbox.querySelector(".lightbox-image");
     let currentArtwork=0;
