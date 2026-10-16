@@ -182,16 +182,56 @@
       font-size: 14px;
     }
 
+    .portfolio-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: -8px 0 28px;
+    }
+
+    .filter-btn {
+      padding: 9px 15px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      color: #111;
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
     }
 
     .project {
       background: var(--panel);
       border: 1px solid var(--line);
       overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .project:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    .project[hidden] {
+      display: none;
+    }
+
+    .project-image {
+      overflow: hidden;
+      background: #222;
     }
 
     .project img {
@@ -199,19 +239,31 @@
       aspect-ratio: 4 / 3;
       object-fit: cover;
       display: block;
-      transition: transform 0.4s;
+      transition: transform 0.45s ease;
     }
 
     .project:hover img {
-      transform: scale(1.04);
+      transform: scale(1.045);
     }
 
     .project-info {
       padding: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .project-category {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
     .project-info h3 {
       margin-bottom: 5px;
+      font-size: 20px;
     }
 
     .project-info p {
@@ -345,50 +397,97 @@
 
       <section id="work">
         <div class="eyebrow">Selected Projects</div>
-        <h2 class="section-heading">My <span class="gold">Portfolio.</span></h2>
+        <h2 class="section-heading">A Curated <span class="gold">Gallery.</span></h2>
+        <p class="about-text" style="margin-bottom:28px">
+          A selection of visual directions across branding, digital campaigns and print design.
+          Explore the categories to find the kind of work you need.
+        </p>
 
-        <div class="portfolio-grid">
-          <article class="project">
-            <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=900&q=85"
-                 alt="Creative graphic design and branding project">
+        <div class="portfolio-filters" role="group" aria-label="Filter portfolio projects">
+          <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All Projects</button>
+          <button class="filter-btn" type="button" data-filter="branding" aria-pressed="false">Branding</button>
+          <button class="filter-btn" type="button" data-filter="social" aria-pressed="false">Social Media</button>
+          <button class="filter-btn" type="button" data-filter="print" aria-pressed="false">Print Design</button>
+          <button class="filter-btn" type="button" data-filter="artwork" aria-pressed="false">Artwork</button>
+        </div>
+
+        <div class="portfolio-grid" id="portfolioGrid">
+          <article class="project" data-category="branding">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1000&q=85"
+                   alt="Sample branding and visual identity inspiration" loading="lazy">
+            </div>
             <div class="project-info">
+              <span class="project-category">Branding</span>
               <h3>Branding & Identity</h3>
               <p>Visual identity · Creative direction</p>
             </div>
           </article>
 
-          <article class="project">
-            <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=900&q=85"
-                 alt="Colourful abstract creative artwork">
+          <article class="project" data-category="social">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=85"
+                   alt="Sample colourful digital campaign artwork" loading="lazy">
+            </div>
             <div class="project-info">
-              <h3>Digital Creativity</h3>
-              <p>Colour · Composition · Visual design</p>
+              <span class="project-category">Social Media</span>
+              <h3>Digital Campaigns</h3>
+              <p>Colour · Composition · Digital visuals</p>
             </div>
           </article>
 
-          <article class="project">
-            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=900&q=85"
-                 alt="Creative workspace and design inspiration">
+          <article class="project" data-category="artwork">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1000&q=85"
+                   alt="Sample creative workspace and design inspiration" loading="lazy">
+            </div>
             <div class="project-info">
-              <h3>Creative Process</h3>
+              <span class="project-category">Artwork</span>
+              <h3>Creative Direction</h3>
               <p>Ideas · Research · Art direction</p>
             </div>
           </article>
 
-          <article class="project">
-            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85"
-                 alt="Modern creative studio">
+          <article class="project" data-category="print">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85"
+                   alt="Sample editorial and print layout inspiration" loading="lazy">
+            </div>
             <div class="project-info">
+              <span class="project-category">Print Design</span>
               <h3>Print & Layout</h3>
               <p>Editorial · Layout · Print communication</p>
+            </div>
+          </article>
+
+          <article class="project" data-category="branding">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85"
+                   alt="Sample visual concept and art direction reference" loading="lazy">
+            </div>
+            <div class="project-info">
+              <span class="project-category">Branding</span>
+              <h3>Visual Concepts</h3>
+              <p>Concept development · Mood and tone</p>
+            </div>
+          </article>
+
+          <article class="project" data-category="social">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1000&q=85"
+                   alt="Sample creative artwork and colour exploration" loading="lazy">
+            </div>
+            <div class="project-info">
+              <span class="project-category">Social Media</span>
+              <h3>Colour & Composition</h3>
+              <p>Visual storytelling · Digital creativity</p>
             </div>
           </article>
         </div>
 
         <p class="about-text" style="margin-top:22px;font-size:13px">
-          Note: These are sample visuals for the initial layout. Replace them
-          with your own completed projects before presenting this portfolio
-          to clients.
+          Note: Gallery images are sample references for layout only, not verified client projects.
+          Replace them with your own finished designs before sharing this portfolio with clients.
         </p>
       </section>
 
@@ -428,5 +527,27 @@
       © <span id="year">2026</span> Sunil Saxena · Graphic Designer. All rights reserved.
     </div>
   </footer>
+
+  <script>
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const projectCards = document.querySelectorAll(".project");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedFilter = button.dataset.filter;
+
+        filterButtons.forEach((item) => {
+          const isActive = item === button;
+          item.classList.toggle("active", isActive);
+          item.setAttribute("aria-pressed", String(isActive));
+        });
+
+        projectCards.forEach((card) => {
+          const shouldShow = selectedFilter === "all" || card.dataset.category === selectedFilter;
+          card.hidden = !shouldShow;
+        });
+      });
+    });
+  </script>
 </body>
 </html>
