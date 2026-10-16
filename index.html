@@ -212,6 +212,26 @@
       .project-title{letter-spacing:-.15px}
     }
 
+
+    /* Consistent alignment and equal-height content cards */
+    .about-text{text-align:justify;text-justify:inter-word;hyphens:auto}
+    .service{display:flex;flex-direction:column;height:100%;min-width:0}
+    .service p{flex:1;text-align:justify;text-justify:inter-word;hyphens:auto}
+    .services{align-items:stretch}
+    .project-info{display:flex;flex-direction:column;align-items:stretch;height:100%;text-align:left}
+    .project-title{min-height:2.7em}
+    .project-desc{flex:1;text-align:justify;text-justify:inter-word;hyphens:auto}
+    .project-category{min-height:1.4em}
+    .project{height:100%;display:flex;flex-direction:column}
+    .project-image{flex-shrink:0}
+    @media(max-width:700px){
+      .about-text{text-align:justify;text-justify:inter-word}
+      .service p{font-size:13px;line-height:1.7}
+      .project-title{min-height:0}
+      .project-desc{text-align:left}
+      .project-info{height:auto}
+    }
+
 </style>
 </head>
 <body>
