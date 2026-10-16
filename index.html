@@ -136,6 +136,30 @@
       .project-image{padding:4px}
       .hero{padding-top:56px}
     }
+
+    /* Balanced mobile composition */
+    @media(max-width:700px){
+      .hero{align-items:center;text-align:center}
+      .hero .eyebrow{max-width:100%;letter-spacing:1.5px}
+      .hero h1{width:100%;font-size:clamp(42px,11vw,62px);letter-spacing:-1.5px}
+      .hero p{max-width:520px;margin-inline:auto;text-align:center}
+      .hero .actions{width:100%;max-width:420px}
+      section:not(.hero) > .eyebrow,
+      section:not(.hero) > .section-heading{text-align:center}
+      .about-text{max-width:100%;text-align:left}
+      #work > .about-text{text-align:center}
+      .services{width:100%}
+      .service{text-align:left}
+      #skills .skills{justify-content:center}
+      #education .about-text{text-align:center}
+      .contact-box{text-align:center}
+      .contact-box .actions{width:100%}
+      footer{text-align:center}
+    }
+    @media(max-width:380px){
+      .hero h1{font-size:clamp(38px,10.5vw,48px)}
+      .hero .eyebrow{font-size:9px}
+    }
 </style>
 </head>
 <body>
