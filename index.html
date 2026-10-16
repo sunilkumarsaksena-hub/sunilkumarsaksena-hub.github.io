@@ -160,6 +160,34 @@
       .hero h1{font-size:clamp(38px,10.5vw,48px)}
       .hero .eyebrow{font-size:9px}
     }
+
+    /* Refined hero typography: lighter, more editorial, and mobile-balanced */
+    .hero{min-height:540px;padding:76px 0 82px}
+    .hero .eyebrow{letter-spacing:3px;font-size:11px}
+    h1{font-size:clamp(46px,7.2vw,82px);line-height:1.08;letter-spacing:-2.8px;font-weight:600;margin:22px 0}
+    h1 span{font-weight:400;letter-spacing:-1.8px}
+    .hero p{max-width:650px;font-size:17px;line-height:1.8}
+    .hero .actions{gap:10px;margin-top:27px}
+    .hero .btn{padding:12px 18px;font-size:12px;letter-spacing:.25px}
+    @media(min-width:701px){
+      .hero{align-items:flex-start}
+      .hero h1{max-width:850px}
+    }
+    @media(max-width:700px){
+      .hero{align-items:flex-start;text-align:left;min-height:auto;padding:56px 0 54px}
+      .hero .eyebrow{font-size:9px;letter-spacing:1.7px;line-height:1.8}
+      h1{font-size:clamp(39px,9.5vw,54px);line-height:1.1;letter-spacing:-1.7px;margin:17px 0 18px}
+      h1 span{letter-spacing:-1px}
+      .hero p{font-size:14px;line-height:1.8;max-width:100%}
+      .hero .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;max-width:460px;gap:9px;margin-top:23px}
+      .hero .btn{width:100%;min-width:0;min-height:44px;padding:11px 7px;font-size:10px;letter-spacing:0;text-align:center;display:flex;align-items:center;justify-content:center}
+    }
+    @media(max-width:380px){
+      h1{font-size:38px;letter-spacing:-1.3px}
+      .hero .actions{grid-template-columns:1fr 1fr}
+      .hero .btn{font-size:9px}
+    }
+
 </style>
 </head>
 <body>
