@@ -583,8 +583,7 @@
             <strong>SAGE University Bhopal</strong><span>Open the complete Coffee Table Book PDF</span>
           </button>
           <button class="book-choice" type="button" data-book-pdf="mahakumbh-book.pdf">
-            <img src="Mahakumbh%202025%20Editorial%20Booklet%20Mockup.png" alt="Mahakumbh 2025 booklet mockup">
-            <strong>Mahakumbh 2025</strong><span>Event Coffee Table Book · PDF link pending upload</span>
+            <strong>Mahakumbh 2025</strong><span>Open the complete Coffee Table Book PDF</span>
           </button>
         </div>
       </div>
@@ -688,7 +687,6 @@
     bookPicker.addEventListener("click",event=>{if(event.target===bookPicker)closeBookPicker();});
     bookPicker.querySelectorAll("[data-book-pdf]").forEach(choice=>choice.addEventListener("click",()=>{
       const file=choice.dataset.bookPdf;
-      if(file==="mahakumbh-book.pdf"){window.alert("Mahakumbh 2025 ki original PDF abhi website par upload nahi hai. PDF upload karte hi yahan se open ho jayegi.");return;}
       window.open(file,"_blank","noopener");closeBookPicker();
     }));
 
