@@ -348,6 +348,14 @@
       .hero-content{z-index:2!important}
     }
 
+  
+    /* AI skills subsection */
+    .ai-skills-block{margin-top:34px;padding:28px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(216,182,106,.08),rgba(25,25,25,.92));border-radius:8px}
+    .ai-skills-heading{font-size:clamp(23px,3vw,32px);line-height:1.2;margin:10px 0}
+    .ai-skills-description{max-width:760px;color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:20px}
+    .ai-skills .skill{border-color:rgba(216,182,106,.35)}
+    @media(max-width:700px){.ai-skills-block{margin-top:24px;padding:20px 16px}.ai-skills-description{font-size:13px}.ai-skills{gap:8px}.ai-skills .skill{padding:9px 10px;font-size:12px}}
+
   </style>
 </head>
 <body>
@@ -526,6 +534,20 @@
     <section id="skills">
       <div class="eyebrow">My Toolkit</div><h2 class="section-heading">Tools & <span class="gold">Skills.</span></h2>
       <div class="skills"><span class="skill">Adobe Photoshop</span><span class="skill">Adobe Illustrator</span><span class="skill">CorelDRAW</span><span class="skill">Adobe InDesign</span><span class="skill">MS Office</span><span class="skill">Typography</span><span class="skill">Layout Design</span><span class="skill">Social Media Design</span><span class="skill">Branding</span><span class="skill">Pre-Press</span><span class="skill">Print Production</span><span class="skill">Basic Video Editing</span></div>
+      <div class="ai-skills-block">
+        <div class="eyebrow">AI & Creative Technology</div>
+        <h3 class="ai-skills-heading">AI-powered <span class="gold">Creative Workflow.</span></h3>
+        <p class="ai-skills-description">Using AI tools to support ideation, visual exploration, image generation and creative productivity—combined with professional design judgment and production-ready execution.</p>
+        <div class="skills ai-skills">
+          <span class="skill">ChatGPT</span>
+          <span class="skill">ChatGPT Image Generation</span>
+          <span class="skill">Canva AI</span>
+          <span class="skill">Google Gemini</span>
+          <span class="skill">AI-Assisted Ideation</span>
+          <span class="skill">AI Image Generation & Editing</span>
+          <span class="skill">Creative Prompting</span>
+        </div>
+      </div>
     </section>
     <section id="education">
       <div class="eyebrow">Education & Languages</div><h2 class="section-heading">Foundation & <span class="gold">Learning.</span></h2>
