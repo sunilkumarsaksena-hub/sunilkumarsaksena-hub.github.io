@@ -661,6 +661,10 @@
     }
     function closeArtwork(){lightbox.hidden=true;lightboxImage.src="";document.body.style.overflow="";}
     projectCards.forEach(card=>card.addEventListener("click",()=>{
+      if(card.dataset.pdf==="mahakumbh-book.pdf"){
+        window.alert("Mahakumbh 2025 ki original PDF abhi upload nahi hui hai. PDF upload karne ke baad yahan se book open hogi.");
+        return;
+      }
       if(card.dataset.pdf){window.open(card.dataset.pdf,"_blank","noopener");return;}
       showArtwork(projectCards.filter(item=>!item.hidden).indexOf(card));
     }));
