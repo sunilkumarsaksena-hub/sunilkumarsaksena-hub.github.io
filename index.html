@@ -56,7 +56,6 @@
     .project-category{display:block;color:var(--gold);font-size:9px;font-weight:bold;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:7px}
     .project-title{display:block;margin-bottom:5px;font-size:15px;font-weight:700;line-height:1.35}
     .project-desc{display:block;color:var(--muted);font-size:12px;line-height:1.5}
-    .book-picker[hidden]{display:none}.book-picker{position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:24px}.book-picker-panel{width:min(760px,100%);background:#191919;border:1px solid #d8b66a;padding:28px;color:#f7f5ef;position:relative}.book-picker-title{font-size:clamp(25px,4vw,36px);margin:0 42px 8px 0}.book-picker-subtitle{color:#aaa69c;margin-bottom:22px}.book-picker-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.book-choice{background:#101010;border:1px solid #33312b;color:#f7f5ef;text-align:left;padding:14px;cursor:pointer;font:inherit}.book-choice:hover{border-color:#d8b66a}.book-choice img{width:100%;height:220px;object-fit:contain;background:#f5f0e5;margin-bottom:12px}.book-choice strong{display:block;font-size:17px;margin-bottom:5px}.book-choice span{color:#aaa69c;font-size:13px}.book-picker-close{position:absolute;right:16px;top:12px;background:transparent;color:#fff;border:1px solid #555;border-radius:50%;width:38px;height:38px;font-size:24px;cursor:pointer}@media(max-width:560px){.book-picker-panel{padding:20px}.book-picker-grid{grid-template-columns:1fr}.book-choice img{height:170px}}
     .load-more-wrap{display:flex;justify-content:center;margin-top:28px}
     .load-more-btn{padding:12px 24px;border:1px solid var(--gold);background:transparent;color:var(--gold);font:inherit;font-size:13px;font-weight:bold;letter-spacing:.5px;cursor:pointer;transition:.2s}
     .load-more-btn:hover{background:var(--gold);color:#111}
@@ -516,13 +515,13 @@
           <div class="project-image"><img src="sagex-brochure-mockup.png" alt="SAGEX premium education brochure mockup showing cover and four brochure pages" loading="lazy"></div>
           <span class="project-info"><span class="project-category">Brochure & Prospectus Design</span><span class="project-title">SAGEX — Premium Education Brochure</span><span class="project-desc">Four-page educational brochure concept presenting online learning, flagship programmes, student benefits and career development.</span></span>
         </button>
-        <button class="project publication-project" type="button" data-category="annual-report" data-book-selector="true" aria-label="Choose a coffee table book to open">
-          <div class="project-image publication-cover" aria-hidden="true"><span class="publication-kicker">SAGE UNIVERSITY BHOPAL</span><strong>COFFEE<br>TABLE BOOKS</strong><span class="publication-subtitle">SAGE University • Mahakumbh 2025</span><span class="publication-footer">SELECT A BOOK TO OPEN</span></div>
-          <span class="project-info"><span class="project-category">Coffee Table Books</span><span class="project-title">Coffee Table Books — Select a Book</span><span class="project-desc">Click here to choose either the SAGE University Bhopal book or Mahakumbh 2025.</span></span>
+        <button class="project publication-project" type="button" data-category="annual-report" data-pdf="coffee-table-book-final.pdf" aria-label="Open SAGE University Bhopal Coffee Table Book PDF">
+          <div class="project-image publication-cover" aria-hidden="true"><span class="publication-kicker">SAGE UNIVERSITY BHOPAL</span><strong>COFFEE<br>TABLE BOOK</strong><span class="publication-subtitle">Campus • People • Achievements</span><span class="publication-footer">THOUGHTS & INNOVATIONS</span></div>
+          <span class="project-info"><span class="project-category">Coffee Table Book</span><span class="project-title">SAGE University Bhopal — Coffee Table Book</span><span class="project-desc">Click to open the complete university book PDF.</span></span>
         </button>
-        <button class="project publication-project" type="button" data-category="annual-report" aria-label="View Mahakumbh 2025 Coffee Table Book mockup in full size">
-          <div class="project-image"><img src="Mahakumbh%202025%20Editorial%20Booklet%20Mockup.png" alt="Mahakumbh 2025 event coffee table book mockup" loading="lazy"></div>
-          <span class="project-info"><span class="project-category">Coffee Table Book</span><span class="project-title">Mahakumbh 2025 — Event Coffee Table Book</span><span class="project-desc">A visual publication celebrating the spiritual, cultural and social significance of Mahakumbh 2025.</span></span>
+        <button class="project publication-project" type="button" data-category="annual-report" data-pdf="mahakumbh-book.pdf" aria-label="Open Mahakumbh 2025 Coffee Table Book PDF">
+          <div class="project-image publication-cover mahakumbh-cover" aria-hidden="true"><span class="publication-kicker">MAHAKUMBH</span><strong>2025</strong><span class="publication-subtitle">THE WORLD'S LARGEST SPIRITUAL GATHERING</span><span class="publication-footer">EVENT COFFEE TABLE BOOK</span></div>
+          <span class="project-info"><span class="project-category">Coffee Table Book</span><span class="project-title">Mahakumbh 2025 — Event Coffee Table Book</span><span class="project-desc">Click to open the complete Mahakumbh book PDF.</span></span>
         </button>
         <button class="project" type="button" data-category="branding" aria-label="View SAGE Phoenix logo in full size">
           <div class="project-image"><img src="Sage%20Phoenix%20Esports%20Emblem%20Logo.png" alt="SAGE Phoenix logo design" loading="lazy"></div>
@@ -573,21 +572,6 @@
       <div class="load-more-wrap"><button id="load-more" class="load-more-btn" type="button">LOAD MORE PROJECTS ↓</button></div>
       <p id="empty-category" class="about-text" hidden style="margin-top:20px">No projects in this category yet.</p>
     </section>
-    <div class="book-picker" id="book-picker" hidden role="dialog" aria-modal="true" aria-labelledby="book-picker-title">
-      <div class="book-picker-panel">
-        <button class="book-picker-close" type="button" aria-label="Close book selection">×</button>
-        <h2 class="book-picker-title" id="book-picker-title">Choose a Coffee Table Book</h2>
-        <p class="book-picker-subtitle">Select the book you want to open.</p>
-        <div class="book-picker-grid">
-          <button class="book-choice" type="button" data-book-pdf="coffee-table-book-final.pdf">
-            <strong>SAGE University Bhopal</strong><span>Open the complete Coffee Table Book PDF</span>
-          </button>
-          <button class="book-choice" type="button" data-book-pdf="mahakumbh-book.pdf">
-            <strong>Mahakumbh 2025</strong><span>Open the complete Coffee Table Book PDF</span>
-          </button>
-        </div>
-      </div>
-    </div>
     <div class="lightbox" id="artwork-lightbox" role="dialog" aria-modal="true" aria-label="Full artwork preview" hidden>
       <button class="lightbox-close" type="button" aria-label="Close full artwork preview">×</button>
       <button class="lightbox-prev" type="button" aria-label="Previous artwork">‹</button>
@@ -676,20 +660,10 @@
       document.body.style.overflow="hidden";
     }
     function closeArtwork(){lightbox.hidden=true;lightboxImage.src="";document.body.style.overflow="";}
-    const bookPicker=document.getElementById("book-picker");
-    function closeBookPicker(){bookPicker.hidden=true;document.body.style.overflow="";}
     projectCards.forEach(card=>card.addEventListener("click",()=>{
-      if(card.dataset.bookSelector){bookPicker.hidden=false;document.body.style.overflow="hidden";return;}
       if(card.dataset.pdf){window.open(card.dataset.pdf,"_blank","noopener");return;}
       showArtwork(projectCards.filter(item=>!item.hidden).indexOf(card));
     }));
-    bookPicker.querySelector(".book-picker-close").addEventListener("click",closeBookPicker);
-    bookPicker.addEventListener("click",event=>{if(event.target===bookPicker)closeBookPicker();});
-    bookPicker.querySelectorAll("[data-book-pdf]").forEach(choice=>choice.addEventListener("click",()=>{
-      const file=choice.dataset.bookPdf;
-      window.open(file,"_blank","noopener");closeBookPicker();
-    }));
-
     lightbox.querySelector(".lightbox-close").addEventListener("click",closeArtwork);
     lightbox.querySelector(".lightbox-prev").addEventListener("click",()=>showArtwork(currentArtwork-1));
     lightbox.querySelector(".lightbox-next").addEventListener("click",()=>showArtwork(currentArtwork+1));
