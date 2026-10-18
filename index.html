@@ -482,20 +482,21 @@
       .nav-links a{transition:none}
     }
 
-    /* Foundation & Learning — subtle premium cards, original facts preserved */
-    .foundation-section .foundation-intro{max-width:680px;color:var(--muted);font-size:15px;line-height:1.8;margin:-12px 0 28px}
-    .foundation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-    .foundation-card{position:relative;min-width:0;padding:24px;background:linear-gradient(135deg,rgba(216,182,106,.075),rgba(25,25,25,.96) 58%);border:1px solid var(--line);border-radius:7px;overflow:hidden;transition:border-color .2s ease,transform .2s ease}
-    .foundation-card:before{content:"";position:absolute;top:0;left:0;width:54px;height:2px;background:var(--gold)}
-    .foundation-card:hover{border-color:rgba(216,182,106,.65);transform:translateY(-2px)}
-    .foundation-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;margin-bottom:18px;border:1px solid rgba(216,182,106,.42);border-radius:50%;color:var(--gold);font-family:Georgia,serif;font-size:18px}
-    .foundation-label{color:var(--gold);font-size:9px;font-weight:700;letter-spacing:1.7px;margin-bottom:9px}
-    .foundation-card h3{font-size:18px;line-height:1.4;margin:0 0 7px;overflow-wrap:anywhere}
-    .foundation-card p{color:var(--muted);font-size:13px;line-height:1.7}
+    /* Foundation & Learning — aligned with the site's existing typography and panel style */
+    .foundation-section .foundation-intro{max-width:850px;color:var(--muted);font-size:17px;line-height:1.8;margin:-12px 0 28px}
+    .foundation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+    .foundation-card{position:relative;min-width:0;padding:25px;background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow:hidden;transition:border-color .2s ease}
+    .foundation-card:before{content:"";position:absolute;top:0;left:0;width:42px;height:2px;background:var(--gold)}
+    .foundation-card:hover{border-color:var(--gold)}
+    .foundation-icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin-bottom:16px;border:1px solid var(--line);border-radius:4px;color:var(--gold);font-family:Georgia,serif;font-size:17px}
+    .foundation-label{color:var(--gold);font-size:10px;font-weight:700;letter-spacing:1.2px;margin-bottom:9px}
+    .foundation-card h3{font-size:18px;line-height:1.4;margin:0 0 8px;overflow-wrap:anywhere}
+    .foundation-card p{color:var(--muted);font-size:14px;line-height:1.7}
     .foundation-card p span{color:var(--gold)}
     .language-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .language-pills span{padding:7px 12px;border:1px solid rgba(216,182,106,.35);border-radius:3px;color:var(--text);font-size:12px}
-    @media(max-width:700px){.foundation-section .foundation-intro{font-size:14px;margin:-8px 0 22px}.foundation-grid{grid-template-columns:1fr;gap:11px}.foundation-card{padding:20px}.foundation-icon{margin-bottom:14px}.foundation-card h3{font-size:17px}}
+    .language-pills span{padding:6px 11px;border:1px solid var(--line);border-radius:3px;color:var(--text);font-size:12px}
+    @media(max-width:1050px){.foundation-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:700px){.foundation-section .foundation-intro{font-size:15px;margin:-8px 0 22px}.foundation-grid{grid-template-columns:1fr;gap:12px}.foundation-card{padding:20px}.foundation-icon{margin-bottom:13px}.foundation-card h3{font-size:17px}}
     @media(prefers-reduced-motion:reduce){.foundation-card{transition:none}}
 </style>
 </head>
