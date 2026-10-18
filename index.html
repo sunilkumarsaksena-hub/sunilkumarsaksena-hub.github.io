@@ -1135,7 +1135,8 @@
       const applyPreviewScale=()=>{
         if(!image.naturalWidth||!image.naturalHeight)return;
         const ratio=image.naturalWidth/image.naturalHeight;
-        image.classList.toggle("preview-compact",ratio<1.35);
+        const isNewspaperAd=card.dataset.category==="newspaper-ad";
+        image.classList.toggle("preview-compact",!isNewspaperAd && ratio<1.35);
         image.classList.toggle("preview-wide",ratio>2);
       };
       image.addEventListener("load",applyPreviewScale);
