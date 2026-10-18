@@ -508,6 +508,51 @@
     .foundation-language-pills .skill{padding:7px 11px;font-size:12px}
     @media(max-width:760px){.foundation-services{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
     @media(max-width:480px){.foundation-services{grid-template-columns:1fr}}
+
+    /* Hero slideshow refinement — retain existing artwork, text and branding */
+    .hero-slideshow{
+      min-height:clamp(500px,58vw,660px);
+      isolation:isolate;
+      background:#101010;
+      border-color:rgba(216,182,106,.32);
+      box-shadow:inset 0 0 0 1px rgba(216,182,106,.04),0 18px 50px rgba(0,0,0,.16);
+    }
+    .hero-visual{z-index:0!important;inset:0;overflow:hidden;background:#101010}
+    .hero-slide{
+      background-repeat:no-repeat;
+      background-size:cover;
+      background-position:center right;
+      will-change:opacity,transform;
+    }
+    .hero-slide:nth-child(2){background-position:center center}
+    .hero-slide:nth-child(3){background-position:center center}
+    .hero-visual:after{
+      background:
+        linear-gradient(90deg,rgba(8,8,8,.96) 0%,rgba(12,10,7,.88) 38%,rgba(18,13,7,.62) 68%,rgba(10,8,5,.42) 100%),
+        linear-gradient(0deg,rgba(10,8,4,.40),rgba(10,8,4,.08) 58%,rgba(10,8,4,.20));
+      box-shadow:inset 0 0 90px rgba(216,182,106,.10);
+    }
+    .hero-content{z-index:1;position:relative;max-width:790px}
+    .hero .eyebrow{text-shadow:0 2px 18px rgba(0,0,0,.75)}
+    .hero h1,.hero p,.hero .actions{position:relative}
+    .hero p{color:#d1cec6;text-shadow:0 1px 12px rgba(0,0,0,.65)}
+    .hero .btn{transition:background-color .2s ease,color .2s ease,border-color .2s ease,transform .2s ease}
+    .hero .btn:focus-visible{outline:2px solid #f5d88e;outline-offset:4px}
+    @media(max-width:760px){
+      .hero-slideshow{min-height:0}
+      .hero-visual{opacity:1!important}
+      .hero-slide{background-position:center center}
+      .hero-visual:after{
+        background:linear-gradient(90deg,rgba(8,8,8,.90),rgba(10,9,7,.74)),
+                   linear-gradient(0deg,rgba(10,8,4,.38),rgba(10,8,4,.20));
+      }
+      .hero-content{max-width:100%}
+      .hero p{max-width:36rem}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .hero-slide{transition:none!important;transform:none!important}
+      .hero .btn{transition:none!important}
+    }
 </style>
 </head>
 <body>
@@ -785,16 +830,33 @@
       if(event.key==="ArrowRight")showArtwork(currentArtwork+1);
     });
 
-    // Rotate creative design visuals every 5 seconds with a gentle fade.
+    // Accessible hero slideshow: pauses for reduced motion, hidden tabs, hover and keyboard focus.
     (function(){
+      const hero=document.querySelector(".hero-slideshow");
       const slides=Array.from(document.querySelectorAll(".hero-slide"));
-      if(slides.length<2)return;
+      if(!hero||slides.length<2)return;
+      const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
       let active=Math.max(0,slides.findIndex(slide=>slide.classList.contains("is-active")));
-      window.setInterval(()=>{
+      let timer=null;
+      function stop(){if(timer!==null){window.clearInterval(timer);timer=null;}}
+      function next(){
         slides[active].classList.remove("is-active");
         active=(active+1)%slides.length;
         slides[active].classList.add("is-active");
-      },5000);
+      }
+      function start(){
+        stop();
+        if(reduceMotion.matches||document.hidden||hero.matches(":hover")||hero.contains(document.activeElement))return;
+        timer=window.setInterval(next,6000);
+      }
+      hero.addEventListener("mouseenter",stop);
+      hero.addEventListener("mouseleave",start);
+      hero.addEventListener("focusin",stop);
+      hero.addEventListener("focusout",start);
+      document.addEventListener("visibilitychange",start);
+      if(reduceMotion.addEventListener)reduceMotion.addEventListener("change",start);
+      else if(reduceMotion.addListener)reduceMotion.addListener(start);
+      start();
     })();
     document.getElementById("year").textContent=new Date().getFullYear();
   </script></body>
