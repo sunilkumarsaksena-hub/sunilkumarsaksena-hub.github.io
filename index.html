@@ -619,6 +619,45 @@
       #work .project-image.publication-cover{padding:10px!important}
     }
 
+  
+    /* Final portfolio polish: coherent rhythm, calm surfaces and readable hierarchy */
+    :root{--bg:#0d0d0d;--panel:#151515;--gold:#d8b66a;--text:#f7f4ed;--muted:#aaa69c;--line:rgba(216,182,106,.18)}
+    body{line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    header{border-bottom-color:rgba(216,182,106,.18)}
+    .nav-links{align-items:center}
+    .nav-links a{padding:7px 0}
+    section{padding-top:clamp(58px,7vw,88px);padding-bottom:clamp(58px,7vw,88px);border-top-color:rgba(216,182,106,.13)}
+    .section-heading{margin:12px 0 26px}
+    .eyebrow{line-height:1.7}
+    .about-text{line-height:1.85}
+    .service,.contact-box,.skill{border-color:rgba(216,182,106,.16)}
+    .service{border-radius:6px;background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.008)),var(--panel)}
+    .service h3{line-height:1.35}
+    .btn,.filter-btn,.load-more-btn{transition:background-color .22s ease,color .22s ease,border-color .22s ease,transform .22s ease}
+    .btn:focus-visible,.nav-links a:focus-visible{outline:2px solid #f0cf82;outline-offset:4px}
+    #work .portfolio-note{margin:0 0 20px;line-height:1.7}
+    #work .project{box-shadow:0 10px 28px rgba(0,0,0,.2)}
+    #work .project-info{min-height:130px}
+    #work .project-category{font-size:9px;letter-spacing:1px}
+    #work .project-desc{text-align:left;hyphens:none}
+    #work .project-image{background:#f5f4f0}
+    #work .project-image:not(.publication-cover) img{filter:none}
+    #work .project-image.publication-cover{background:linear-gradient(145deg,#f7f0df,#fffdf7 58%,#e9d8b0)}
+    #work .load-more-wrap{margin-top:30px}
+    .contact-box{border-radius:8px;background:linear-gradient(145deg,#191815,#121212)}
+    footer{border-top:1px solid rgba(216,182,106,.13)}
+    @media(max-width:700px){
+      section{padding-top:54px;padding-bottom:54px}
+      .section-heading{margin-bottom:20px}
+      .about-text{line-height:1.8}
+      #work .project-info{min-height:0}
+      #work .project-desc{text-align:left}
+      .contact-box{padding:24px 18px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+    }
+
   </style>
 </head>
 <body>
@@ -841,6 +880,7 @@
     const allWorkPageSize=4;
     let selectedFilter="all";
     let allWorkLimit=allWorkPageSize;
+    let showAllProjects=false;
     let rotatingCards=[];
     let rotationTimer=null;
     let rotationPaused=false;
@@ -864,7 +904,7 @@
     }
     function startRotation(){
       stopRotation();
-      if(selectedFilter!=="all"||rotationPaused||document.hidden)return;
+      if(selectedFilter!=="all"||showAllProjects||rotationPaused||document.hidden)return;
       rotationTimer=window.setInterval(chooseRandomFour,rotationInterval);
     }
     // Count categories from real cards so empty categories do not lead to dead ends.
@@ -895,14 +935,15 @@
       const hasMore=selectedFilter==="all"&&allWorkLimit<projectCards.length;
       loadMoreButton.hidden=!hasMore;
       portfolioNote.hidden=matchingCards.length===0;
-      if(selectedFilter==="all"){
-        portfolioNote.textContent="Showing 4 projects at a time. The selection changes automatically; use Load More to view all projects.";
-      }else{
+      if(selectedFilter==="all"&&!showAllProjects){
+        portfolioNote.textContent="Showing 4 selected projects. The selection updates automatically; choose a category or view all projects.";
+      }else if(selectedFilter!=="all"){
         portfolioNote.textContent=matchingCards.length+" project"+(matchingCards.length===1?"":"s")+" in this category.";
       }
     }
     filterButtons.forEach(button=>button.addEventListener("click",()=>{
       selectedFilter=button.dataset.filter;
+      showAllProjects=false;
       allWorkLimit=allWorkPageSize;
       rotatingCards=[];
       filterButtons.forEach(item=>{const active=item===button;item.classList.toggle("active",active);item.setAttribute("aria-pressed",String(active));});
@@ -911,6 +952,7 @@
     }));
     loadMoreButton.addEventListener("click",()=>{
       stopRotation();
+      showAllProjects=true;
       selectedFilter="all";
       projectCards.forEach(card=>{card.hidden=false;});
       rotatingCards=projectCards.slice();
