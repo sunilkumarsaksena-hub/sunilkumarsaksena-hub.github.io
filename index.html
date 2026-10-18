@@ -464,7 +464,25 @@
       transform:none;
     }
 
-  </style>
+  
+    /* Subtle homepage polish — preserves existing layout and artwork */
+    header{background:rgba(16,16,16,.96)}
+    .nav-links a{transition:color .2s ease,opacity .2s ease}
+    .nav-links a:hover{color:var(--gold);opacity:1}
+    .hero-slideshow{border:1px solid rgba(216,182,106,.22);border-radius:10px;margin-top:12px;margin-bottom:8px}
+    .hero-visual{border-radius:10px}
+    .hero .eyebrow{display:inline-block;color:#e5c77f;text-shadow:0 1px 12px rgba(0,0,0,.3)}
+    .hero .btn{border-radius:4px}
+    .hero .btn.primary{box-shadow:0 5px 20px rgba(216,182,106,.12)}
+    @media(max-width:760px){
+      .hero-slideshow{margin-top:4px;border-radius:8px}
+      .hero-visual{border-radius:8px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .nav-links a{transition:none}
+    }
+
+</style>
 </head>
 <body>
   <header><div class="container"><nav>
