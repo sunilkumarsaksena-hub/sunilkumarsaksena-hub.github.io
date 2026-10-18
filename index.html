@@ -712,6 +712,15 @@
       #work .project-desc{font-size:8px!important}
     }
 
+  
+    /* Harmonize thumbnail scale: compact logos, let wide banner artwork use the canvas */
+    #work .project-image img{object-fit:contain;object-position:center}
+    #work .project-image img.preview-compact{max-width:72%;max-height:72%;width:72%;height:72%}
+    #work .project-image img.preview-wide{max-width:100%;max-height:100%;width:100%;height:auto}
+    @media(max-width:700px){
+      #work .project-image img.preview-compact{max-width:68%;max-height:68%;width:68%;height:68%}
+    }
+
   </style>
 </head>
 <body>
@@ -1056,34 +1065,24 @@
       if(event.key==="ArrowRight")showArtwork(currentArtwork+1);
     });
 
-    // Accessible hero slideshow: pauses for reduced motion, hidden tabs, hover and keyboard focus.
-    (function(){
-      const hero=document.querySelector(".hero-slideshow");
-      const slides=Array.from(document.querySelectorAll(".hero-slide"));
-      if(!hero||slides.length<2)return;
-      const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
-      let active=Math.max(0,slides.findIndex(slide=>slide.classList.contains("is-active")));
-      let timer=null;
-      function stop(){if(timer!==null){window.clearInterval(timer);timer=null;}}
-      function next(){
-        slides[active].classList.remove("is-active");
-        active=(active+1)%slides.length;
-        slides[active].classList.add("is-active");
-      }
-      function start(){
-        stop();
-        if(reduceMotion.matches||document.hidden||hero.matches(":hover")||hero.contains(document.activeElement))return;
-        timer=window.setInterval(next,6000);
-      }
-      hero.addEventListener("mouseenter",stop);
-      hero.addEventListener("mouseleave",start);
-      hero.addEventListener("focusin",stop);
-      hero.addEventListener("focusout",start);
-      document.addEventListener("visibilitychange",start);
-      if(reduceMotion.addEventListener)reduceMotion.addEventListener("change",start);
-      else if(reduceMotion.addListener)reduceMotion.addListener(start);
-      start();
-    })();
+    // Keep the hero background fixed; no automatic image changes.
+    const heroSlides=Array.from(document.querySelectorAll(".hero-slide"));
+    heroSlides.forEach((slide,index)=>slide.classList.toggle("is-active",index===0));
+
+    // Scale square/portrait artwork down slightly; panoramic banners get the full preview width.
+    projectCards.forEach(card=>{
+      const image=card.querySelector(".project-image img");
+      if(!image)return;
+      const applyPreviewScale=()=>{
+        if(!image.naturalWidth||!image.naturalHeight)return;
+        const ratio=image.naturalWidth/image.naturalHeight;
+        image.classList.toggle("preview-compact",ratio<1.35);
+        image.classList.toggle("preview-wide",ratio>2);
+      };
+      image.addEventListener("load",applyPreviewScale);
+      if(image.complete)applyPreviewScale();
+    });
+
     document.getElementById("year").textContent=new Date().getFullYear();
   </script></body>
 </html>
