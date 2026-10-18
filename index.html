@@ -509,6 +509,27 @@
     @media(max-width:760px){.foundation-services{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
     @media(max-width:480px){.foundation-services{grid-template-columns:1fr}}
 
+    /* Premium portfolio gallery refinement; original artwork and copy remain untouched */
+    #work .portfolio-grid{align-items:stretch;gap:18px}
+    #work .project{display:flex;flex-direction:column;min-width:0;overflow:hidden;text-align:left;background:linear-gradient(155deg,#171613,#101010 72%);border:1px solid rgba(216,182,106,.2);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.16);transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease}
+    #work .project:hover{transform:translateY(-5px);border-color:rgba(216,182,106,.78);box-shadow:0 16px 34px rgba(0,0,0,.32)}
+    #work .project:focus-visible,#work .filter-btn:focus-visible,#work .load-more-btn:focus-visible{outline:2px solid #f0cf82;outline-offset:3px}
+    #work .project-image{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:clamp(180px,21vw,260px);padding:12px;overflow:hidden;background:radial-gradient(ellipse at 50% 38%,rgba(216,182,106,.09),transparent 65%),#0c0c0c;border-bottom:1px solid rgba(216,182,106,.16)}
+    #work .project-image img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;transition:transform .35s ease;filter:drop-shadow(0 5px 12px rgba(0,0,0,.18))}
+    #work .project:hover .project-image img{transform:scale(1.035)}
+    #work .project-info{display:flex;flex:1;flex-direction:column;gap:7px;min-width:0;padding:17px 16px 18px}
+    #work .project-category{color:var(--gold);font-size:10px;font-weight:700;letter-spacing:1.15px;text-transform:uppercase;line-height:1.5}
+    #work .project-title{color:#f6f1e6;font-size:15px;font-weight:700;line-height:1.45;overflow-wrap:anywhere}
+    #work .project-desc{color:#aaa69c;font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+    #work .filter-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+    #work .filter-count{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;border-radius:20px;background:rgba(216,182,106,.1);color:inherit;font-size:10px;line-height:1}
+    #work .filter-btn.active .filter-count{background:#d8b66a;color:#111}
+    #work .portfolio-note{color:#aaa69c;font-size:12px;letter-spacing:.2px}
+    #work .load-more-btn{min-width:220px;border-radius:4px;box-shadow:0 5px 18px rgba(0,0,0,.12)}
+    @media(max-width:1050px){#work .portfolio-grid{gap:15px}#work .project-image{height:230px}}
+    @media(max-width:700px){#work .portfolio-grid{gap:11px}#work .project-image{height:clamp(155px,35vw,220px);padding:8px}#work .project-info{gap:6px;padding:12px 11px 14px}#work .project-category{font-size:9px;letter-spacing:.8px}#work .project-title{font-size:13px}#work .project-desc{font-size:11px;line-height:1.55}#work .filter-btn{white-space:normal;min-height:42px}#work .load-more-btn{width:100%;min-width:0}}
+    @media(max-width:430px){#work .portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#work .project-image{height:155px;padding:6px}#work .project-info{padding:10px 9px 12px}#work .project-title{font-size:12px}#work .project-desc{font-size:10px}#work .filter-count{min-width:18px;height:18px}}
+    @media(prefers-reduced-motion:reduce){#work .project,#work .project-image img{transition:none!important}#work .project:hover{transform:none}#work .project:hover .project-image img{transform:none}}
     /* Hero slideshow refinement — retain existing artwork, text and branding */
     .hero-slideshow{
       min-height:clamp(500px,58vw,660px);
@@ -774,6 +795,17 @@
     const allWorkPageSize=4;
     let selectedFilter="all";
     let allWorkLimit=allWorkPageSize;
+    // Count categories from real cards so empty categories do not lead to dead ends.
+    filterButtons.forEach(button=>{
+      const filter=button.dataset.filter;
+      const count=filter==="all"?projectCards.length:projectCards.filter(card=>card.dataset.category===filter).length;
+      button.hidden=count===0;
+      const badge=document.createElement("span");
+      badge.className="filter-count";
+      badge.setAttribute("aria-label",count+" projects");
+      badge.textContent=count;
+      button.appendChild(badge);
+    });
     function renderProjects(){
       const matchingCards=projectCards.filter(card=>selectedFilter==="all"||card.dataset.category===selectedFilter);
       matchingCards.forEach((card,index)=>{card.hidden=selectedFilter==="all"&&index>=allWorkLimit;});
@@ -784,7 +816,7 @@
       portfolioNote.hidden=matchingCards.length===0;
       if(selectedFilter==="all"){
         const shown=Math.min(allWorkLimit,matchingCards.length);
-        portfolioNote.textContent="Showing "+shown+" of "+matchingCards.length+" projects. Load more to explore the full portfolio.";
+        portfolioNote.textContent="Showing "+shown+" of "+matchingCards.length+" selected projects. Use Load More to explore the gallery.";
       }else{
         portfolioNote.textContent=matchingCards.length+" project"+(matchingCards.length===1?"":"s")+" in this category.";
       }
