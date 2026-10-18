@@ -849,11 +849,12 @@
       }
       return copy;
     }
+    const rotationPool=shuffle(projectCards);
     function stopRotation(){
       if(rotationTimer!==null){window.clearInterval(rotationTimer);rotationTimer=null;}
     }
     function chooseRandomSix(){
-      const pool=projectCards.slice(0,Math.min(allWorkLimit,projectCards.length));
+      const pool=rotationPool.slice(0,Math.min(allWorkLimit,rotationPool.length));
       rotatingCards=shuffle(pool).slice(0,Math.min(allWorkPageSize,pool.length));
       renderProjects();
     }
