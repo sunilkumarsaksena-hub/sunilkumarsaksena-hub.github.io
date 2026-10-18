@@ -581,6 +581,10 @@
     }
 
     
+    /* Four larger portfolio previews with more breathing room */
+    #work .portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+    @media(max-width:700px){#work .portfolio-grid{gap:14px}}
+    @media(max-width:420px){#work .portfolio-grid{grid-template-columns:1fr;gap:16px}}
     /* Uniform artwork windows for every portfolio card; contain artwork without cropping */
     #work .project-image{
       width:100%;
@@ -834,7 +838,7 @@
     const emptyCategory=document.getElementById("empty-category");
     const loadMoreButton=document.getElementById("load-more");
     const portfolioNote=document.getElementById("portfolio-note");
-    const allWorkPageSize=6;
+    const allWorkPageSize=4;
     let selectedFilter="all";
     let allWorkLimit=allWorkPageSize;
     let rotatingCards=[];
@@ -853,7 +857,7 @@
     function stopRotation(){
       if(rotationTimer!==null){window.clearInterval(rotationTimer);rotationTimer=null;}
     }
-    function chooseRandomSix(){
+    function chooseRandomFour(){
       const pool=rotationPool;
       rotatingCards=shuffle(pool).slice(0,Math.min(allWorkPageSize,pool.length));
       renderProjects();
@@ -861,7 +865,7 @@
     function startRotation(){
       stopRotation();
       if(selectedFilter!=="all"||rotationPaused||document.hidden)return;
-      rotationTimer=window.setInterval(chooseRandomSix,rotationInterval);
+      rotationTimer=window.setInterval(chooseRandomFour,rotationInterval);
     }
     // Count categories from real cards so empty categories do not lead to dead ends.
     filterButtons.forEach(button=>{
@@ -892,7 +896,7 @@
       loadMoreButton.hidden=!hasMore;
       portfolioNote.hidden=matchingCards.length===0;
       if(selectedFilter==="all"){
-        portfolioNote.textContent="Showing 6 projects at a time. The selection changes automatically; use Load More to add more projects to the rotation.";
+        portfolioNote.textContent="Showing 4 projects at a time. The selection changes automatically; use Load More to view all projects.";
       }else{
         portfolioNote.textContent=matchingCards.length+" project"+(matchingCards.length===1?"":"s")+" in this category.";
       }
@@ -921,7 +925,7 @@
       workSection.addEventListener("focusin",()=>{stopRotation();});
       workSection.addEventListener("focusout",()=>{window.setTimeout(startRotation,500);});
     }
-    chooseRandomSix();
+    chooseRandomFour();
     startRotation();
     const lightbox=document.getElementById("artwork-lightbox");
     const lightboxImage=lightbox.querySelector(".lightbox-image");
