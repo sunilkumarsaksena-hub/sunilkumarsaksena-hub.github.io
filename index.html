@@ -854,7 +854,7 @@
       if(rotationTimer!==null){window.clearInterval(rotationTimer);rotationTimer=null;}
     }
     function chooseRandomSix(){
-      const pool=rotationPool.slice(0,Math.min(allWorkLimit,rotationPool.length));
+      const pool=rotationPool;
       rotatingCards=shuffle(pool).slice(0,Math.min(allWorkPageSize,pool.length));
       renderProjects();
     }
@@ -906,10 +906,12 @@
       startRotation();
     }));
     loadMoreButton.addEventListener("click",()=>{
-      allWorkLimit=Math.min(allWorkLimit+allWorkPageSize,projectCards.length);
-      rotatingCards=[];
-      chooseRandomSix();
-      startRotation();
+      stopRotation();
+      selectedFilter="all";
+      projectCards.forEach(card=>{card.hidden=false;});
+      rotatingCards=projectCards.slice();
+      loadMoreButton.hidden=true;
+      portfolioNote.textContent="Showing all "+projectCards.length+" projects.";
     });
     document.addEventListener("visibilitychange",startRotation);
     const workSection=document.getElementById("work");
