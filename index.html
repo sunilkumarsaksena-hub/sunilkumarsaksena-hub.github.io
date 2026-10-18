@@ -837,6 +837,31 @@
     const allWorkPageSize=6;
     let selectedFilter="all";
     let allWorkLimit=allWorkPageSize;
+    let rotatingCards=[];
+    let rotationTimer=null;
+    let rotationPaused=false;
+    const rotationInterval=6000;
+    function shuffle(items){
+      const copy=items.slice();
+      for(let i=copy.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [copy[i],copy[j]]=[copy[j],copy[i]];
+      }
+      return copy;
+    }
+    function stopRotation(){
+      if(rotationTimer!==null){window.clearInterval(rotationTimer);rotationTimer=null;}
+    }
+    function chooseRandomSix(){
+      const pool=projectCards.slice(0,Math.min(allWorkLimit,projectCards.length));
+      rotatingCards=shuffle(pool).slice(0,Math.min(allWorkPageSize,pool.length));
+      renderProjects();
+    }
+    function startRotation(){
+      stopRotation();
+      if(selectedFilter!=="all"||rotationPaused||document.hidden)return;
+      rotationTimer=window.setInterval(chooseRandomSix,rotationInterval);
+    }
     // Count categories from real cards so empty categories do not lead to dead ends.
     filterButtons.forEach(button=>{
       const filter=button.dataset.filter;
@@ -850,15 +875,23 @@
     });
     function renderProjects(){
       const matchingCards=projectCards.filter(card=>selectedFilter==="all"||card.dataset.category===selectedFilter);
-      matchingCards.forEach((card,index)=>{card.hidden=selectedFilter==="all"&&index>=allWorkLimit;});
-      projectCards.filter(card=>!matchingCards.includes(card)).forEach(card=>card.hidden=true);
+      let visibleCards;
+      if(selectedFilter==="all"){
+        const pool=projectCards.slice(0,Math.min(allWorkLimit,projectCards.length));
+        visibleCards=rotatingCards.length?rotatingCards:pool.slice(0,allWorkPageSize);
+        visibleCards.forEach(card=>{card.hidden=false;});
+        projectCards.filter(card=>!visibleCards.includes(card)).forEach(card=>card.hidden=true);
+      }else{
+        visibleCards=matchingCards;
+        matchingCards.forEach(card=>{card.hidden=false;});
+        projectCards.filter(card=>!matchingCards.includes(card)).forEach(card=>card.hidden=true);
+      }
       emptyCategory.hidden=matchingCards.length>0;
-      const hasMore=selectedFilter==="all"&&allWorkLimit<matchingCards.length;
+      const hasMore=selectedFilter==="all"&&allWorkLimit<projectCards.length;
       loadMoreButton.hidden=!hasMore;
       portfolioNote.hidden=matchingCards.length===0;
       if(selectedFilter==="all"){
-        const shown=Math.min(allWorkLimit,matchingCards.length);
-        portfolioNote.textContent="Showing "+shown+" of "+matchingCards.length+" selected projects. Use Load More to explore the gallery.";
+        portfolioNote.textContent="Showing 6 projects at a time. The selection changes automatically; use Load More to add more projects to the rotation.";
       }else{
         portfolioNote.textContent=matchingCards.length+" project"+(matchingCards.length===1?"":"s")+" in this category.";
       }
@@ -866,11 +899,27 @@
     filterButtons.forEach(button=>button.addEventListener("click",()=>{
       selectedFilter=button.dataset.filter;
       allWorkLimit=allWorkPageSize;
+      rotatingCards=[];
       filterButtons.forEach(item=>{const active=item===button;item.classList.toggle("active",active);item.setAttribute("aria-pressed",String(active));});
       renderProjects();
+      startRotation();
     }));
-    loadMoreButton.addEventListener("click",()=>{allWorkLimit+=allWorkPageSize;renderProjects();});
-    renderProjects();
+    loadMoreButton.addEventListener("click",()=>{
+      allWorkLimit=Math.min(allWorkLimit+allWorkPageSize,projectCards.length);
+      rotatingCards=[];
+      chooseRandomSix();
+      startRotation();
+    });
+    document.addEventListener("visibilitychange",startRotation);
+    const workSection=document.getElementById("work");
+    if(workSection){
+      workSection.addEventListener("mouseenter",()=>{stopRotation();});
+      workSection.addEventListener("mouseleave",startRotation);
+      workSection.addEventListener("focusin",()=>{stopRotation();});
+      workSection.addEventListener("focusout",()=>{window.setTimeout(startRotation,500);});
+    }
+    chooseRandomSix();
+    startRotation();
     const lightbox=document.getElementById("artwork-lightbox");
     const lightboxImage=lightbox.querySelector(".lightbox-image");
     let currentArtwork=0;
