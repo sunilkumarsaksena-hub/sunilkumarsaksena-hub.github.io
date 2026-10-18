@@ -819,6 +819,7 @@
         <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true"><span aria-hidden="true">✦</span> All Work</button>
         <button class="filter-btn" type="button" data-filter="branding" aria-pressed="false"><span aria-hidden="true">◉</span> Logo Design & Brand Identity</button>
         <button class="filter-btn" type="button" data-filter="educational-book" aria-pressed="false"><span aria-hidden="true">▤</span> Book Design</button>
+        <button class="filter-btn" type="button" data-filter="newsletter" aria-pressed="false"><span aria-hidden="true">▥</span> Newsletter</button>
         <button class="filter-btn" type="button" data-filter="brochure" aria-pressed="false"><span aria-hidden="true">▧</span> Brochure & Prospectus Design</button>
         <button class="filter-btn" type="button" data-filter="social" aria-pressed="false"><span aria-hidden="true">▣</span> Social Media Creatives</button>
         <button class="filter-btn" type="button" data-filter="poster" aria-pressed="false"><span aria-hidden="true">▤</span> Workshop & Event Poster Design</button>
@@ -1059,7 +1060,7 @@
     filterButtons.forEach(button=>{
       const filter=button.dataset.filter;
       const count=filter==="all"?projectCards.length:projectCards.filter(card=>card.dataset.category===filter||(filter==="banners"&&card.dataset.category==="standee")).length;
-      button.hidden=count===0;
+      button.hidden=count===0&&filter!=="newsletter";
       const badge=document.createElement("span");
       badge.className="filter-count";
       badge.setAttribute("aria-label",count+" projects");
