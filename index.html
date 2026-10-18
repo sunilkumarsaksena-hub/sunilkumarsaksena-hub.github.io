@@ -658,6 +658,36 @@
       *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
     }
 
+  
+    /* Compact portfolio overview: six projects, two rows, click to view full artwork */
+    #work .portfolio-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    #work .project-image{aspect-ratio:4/3!important;padding:8px;max-height:190px}
+    #work .project-info{min-height:112px;padding:12px 13px 14px;gap:5px}
+    #work .project-category{font-size:9px;letter-spacing:.8px}
+    #work .project-title{font-size:14px;line-height:1.35}
+    #work .project-desc{font-size:11px;line-height:1.5}
+    @media(max-width:760px){
+      #work .portfolio-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+      #work .project-image{max-height:none;padding:5px}
+      #work .project-info{padding:9px 8px 10px;gap:4px}
+      #work .project-category{font-size:8px;letter-spacing:.45px}
+      #work .project-title{font-size:12px}
+      #work .project-desc{font-size:10px;line-height:1.4}
+    }
+    @media(max-width:520px){
+      #work .portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+      #work .project-image{padding:6px}
+      #work .project-info{padding:10px 9px 11px}
+      #work .project-category{font-size:8px;letter-spacing:.65px}
+      #work .project-title{font-size:12px}
+      #work .project-desc{font-size:10px}
+    }
+    @media(max-width:360px){
+      #work .portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+      #work .project-image{padding:4px}
+      #work .project-info{padding:8px 7px}
+    }
+
   </style>
 </head>
 <body>
@@ -877,7 +907,7 @@
     const emptyCategory=document.getElementById("empty-category");
     const loadMoreButton=document.getElementById("load-more");
     const portfolioNote=document.getElementById("portfolio-note");
-    const allWorkPageSize=4;
+    const allWorkPageSize=6;
     let selectedFilter="all";
     let allWorkLimit=allWorkPageSize;
     let showAllProjects=false;
@@ -897,7 +927,7 @@
     function stopRotation(){
       if(rotationTimer!==null){window.clearInterval(rotationTimer);rotationTimer=null;}
     }
-    function chooseRandomFour(){
+    function chooseRandomSix(){
       const pool=rotationPool;
       rotatingCards=shuffle(pool).slice(0,Math.min(allWorkPageSize,pool.length));
       renderProjects();
@@ -905,7 +935,7 @@
     function startRotation(){
       stopRotation();
       if(selectedFilter!=="all"||showAllProjects||rotationPaused||document.hidden)return;
-      rotationTimer=window.setInterval(chooseRandomFour,rotationInterval);
+      rotationTimer=window.setInterval(chooseRandomSix,rotationInterval);
     }
     // Count categories from real cards so empty categories do not lead to dead ends.
     filterButtons.forEach(button=>{
@@ -936,7 +966,7 @@
       loadMoreButton.hidden=!hasMore;
       portfolioNote.hidden=matchingCards.length===0;
       if(selectedFilter==="all"&&!showAllProjects){
-        portfolioNote.textContent="Showing 4 selected projects. The selection updates automatically; choose a category or view all projects.";
+        portfolioNote.textContent="Showing 6 selected projects. The selection updates automatically; choose a category or view all projects.";
       }else if(selectedFilter!=="all"){
         portfolioNote.textContent=matchingCards.length+" project"+(matchingCards.length===1?"":"s")+" in this category.";
       }
@@ -967,7 +997,7 @@
       workSection.addEventListener("focusin",()=>{stopRotation();});
       workSection.addEventListener("focusout",()=>{window.setTimeout(startRotation,500);});
     }
-    chooseRandomFour();
+    chooseRandomSix();
     startRotation();
     const lightbox=document.getElementById("artwork-lightbox");
     const lightboxImage=lightbox.querySelector(".lightbox-image");
