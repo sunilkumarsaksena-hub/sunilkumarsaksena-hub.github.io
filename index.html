@@ -498,6 +498,15 @@
     @media(max-width:1050px){.foundation-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:700px){.foundation-section .foundation-intro{font-size:15px;margin:-8px 0 22px}.foundation-grid{grid-template-columns:1fr;gap:12px}.foundation-card{padding:20px}.foundation-icon{margin-bottom:13px}.foundation-card h3{font-size:17px}}
     @media(prefers-reduced-motion:reduce){.foundation-card{transition:none}}
+    /* Foundation & Learning uses the same service-card system as Experience and Services */
+    .foundation-services{margin-top:28px}
+    .foundation-services .service .number{color:var(--gold);font-size:10px;letter-spacing:1.2px}
+    .foundation-services .service h3{margin:16px 0 8px}
+    .foundation-services .service p{font-size:14px;line-height:1.7;text-align:left}
+    .foundation-language-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .foundation-language-pills .skill{padding:7px 11px;font-size:12px}
+    @media(max-width:760px){.foundation-services{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+    @media(max-width:480px){.foundation-services{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -689,48 +698,17 @@
       <p class="skills-intro">Using AI tools to explore creative directions, develop visual concepts, generate and refine imagery, and support everyday design workflows.</p>
       <div class="skills"><span class="skill ai-skill">ChatGPT</span><span class="skill ai-skill">ChatGPT Image Generation</span><span class="skill ai-skill">Canva AI</span><span class="skill ai-skill">Google Gemini</span><span class="skill ai-skill">AI-Assisted Design</span><span class="skill ai-skill">AI Image Generation & Editing</span><span class="skill ai-skill">Creative Ideation & Prompting</span></div>
     </section>
-    <section id="education" class="foundation-section">
+    <section id="education">
       <div class="eyebrow">Education & Languages</div>
       <h2 class="section-heading">Foundation & <span class="gold">Learning.</span></h2>
-      <p class="foundation-intro">My design journey combines formal education, hands-on creative experience and a commitment to keep learning. I bring together visual communication, practical design thinking and production awareness to create work with purpose.</p>
-      <div class="foundation-grid">
-        <article class="foundation-card">
-          <span class="foundation-icon" aria-hidden="true">✦</span>
-          <div class="foundation-label">PROFESSIONAL TRAINING</div>
-          <h3>Certificate in Graphic Design</h3>
-          <p>CRISP, Bhopal <span>·</span> 2009</p>
-        </article>
-        <article class="foundation-card">
-          <span class="foundation-icon" aria-hidden="true">◈</span>
-          <div class="foundation-label">GRADUATION</div>
-          <h3>B.Com (Correspondence)</h3>
-          <p>Delhi University</p>
-        </article>
-        <article class="foundation-card">
-          <span class="foundation-icon" aria-hidden="true">▤</span>
-          <div class="foundation-label">SCHOOL EDUCATION</div>
-          <h3>Intermediate & High School</h3>
-          <p>CBSE</p>
-        </article>
-        <article class="foundation-card foundation-languages">
-          <span class="foundation-icon" aria-hidden="true">Aa</span>
-          <div class="foundation-label">LANGUAGES</div>
-          <h3>Communication</h3>
-          <p>Comfortable communicating in Hindi and English.</p>
-          <div class="language-pills"><span>Hindi</span><span>English</span></div>
-        </article>
-        <article class="foundation-card">
-          <span class="foundation-icon" aria-hidden="true">↗</span>
-          <div class="foundation-label">CONTINUOUS LEARNING</div>
-          <h3>Growing with Design</h3>
-          <p>Exploring evolving visual trends, AI-assisted creative tools and new ways to communicate ideas effectively.</p>
-        </article>
-        <article class="foundation-card">
-          <span class="foundation-icon" aria-hidden="true">✧</span>
-          <div class="foundation-label">PRACTICAL APPROACH</div>
-          <h3>Concept to Production</h3>
-          <p>Connecting creative thinking with typography, brand consistency, digital communication and print-ready execution.</p>
-        </article>
+      <p class="about-text">My design journey combines formal education, hands-on creative experience and a commitment to keep learning. I bring together visual communication, practical design thinking and production awareness to create work with purpose.</p>
+      <div class="services foundation-services">
+        <article class="service"><div class="number">PROFESSIONAL TRAINING</div><h3>Certificate in Graphic Design</h3><p>CRISP, Bhopal <span class="gold">·</span> 2009</p></article>
+        <article class="service"><div class="number">GRADUATION</div><h3>B.Com (Correspondence)</h3><p>Delhi University</p></article>
+        <article class="service"><div class="number">SCHOOL EDUCATION</div><h3>Intermediate & High School</h3><p>CBSE</p></article>
+        <article class="service"><div class="number">LANGUAGES</div><h3>Communication</h3><p>Comfortable communicating in Hindi and English.</p><div class="skills foundation-language-pills"><span class="skill">Hindi</span><span class="skill">English</span></div></article>
+        <article class="service"><div class="number">CONTINUOUS LEARNING</div><h3>Growing with Design</h3><p>Exploring evolving visual trends, AI-assisted creative tools and new ways to communicate ideas effectively.</p></article>
+        <article class="service"><div class="number">PRACTICAL APPROACH</div><h3>Concept to Production</h3><p>Connecting creative thinking with typography, brand consistency, digital communication and print-ready execution.</p></article>
       </div>
     </section>
     <section id="contact"><div class="contact-box">
