@@ -688,6 +688,30 @@
       #work .project-info{padding:8px 7px}
     }
 
+  
+    /* Final portfolio gallery: stable six previews, 3 columns x 2 rows, click for full-size */
+    #work .portfolio-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
+    #work .project-image{height:135px!important;max-height:135px!important;aspect-ratio:4/3!important;padding:6px!important}
+    #work .project-info{padding:9px 10px 11px!important;min-height:90px!important;gap:4px!important}
+    #work .project-category{font-size:8px!important;letter-spacing:.6px!important;margin-bottom:2px!important}
+    #work .project-title{font-size:12px!important;line-height:1.25!important;min-height:0!important;margin-bottom:2px!important}
+    #work .project-desc{font-size:10px!important;line-height:1.35!important}
+    @media(max-width:700px){
+      #work .portfolio-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
+      #work .project-image{height:95px!important;max-height:95px!important;padding:4px!important}
+      #work .project-info{padding:7px 6px 8px!important;min-height:78px!important}
+      #work .project-category{font-size:7px!important;letter-spacing:.25px!important}
+      #work .project-title{font-size:10px!important;line-height:1.25!important}
+      #work .project-desc{font-size:9px!important;line-height:1.25!important}
+    }
+    @media(max-width:380px){
+      #work .portfolio-grid{gap:6px!important}
+      #work .project-image{height:82px!important;max-height:82px!important;padding:3px!important}
+      #work .project-info{padding:6px 5px!important;min-height:70px!important}
+      #work .project-title{font-size:9px!important}
+      #work .project-desc{font-size:8px!important}
+    }
+
   </style>
 </head>
 <body>
@@ -923,19 +947,17 @@
       }
       return copy;
     }
-    const rotationPool=shuffle(projectCards);
     function stopRotation(){
       if(rotationTimer!==null){window.clearInterval(rotationTimer);rotationTimer=null;}
     }
     function chooseRandomSix(){
-      const pool=rotationPool;
-      rotatingCards=shuffle(pool).slice(0,Math.min(allWorkPageSize,pool.length));
+      // Keep a stable, non-random selection of the first six portfolio projects.
+      rotatingCards=projectCards.slice(0,Math.min(allWorkPageSize,projectCards.length));
       renderProjects();
     }
     function startRotation(){
+      // Automatic gallery rotation is intentionally disabled.
       stopRotation();
-      if(selectedFilter!=="all"||showAllProjects||rotationPaused||document.hidden)return;
-      rotationTimer=window.setInterval(chooseRandomSix,rotationInterval);
     }
     // Count categories from real cards so empty categories do not lead to dead ends.
     filterButtons.forEach(button=>{
