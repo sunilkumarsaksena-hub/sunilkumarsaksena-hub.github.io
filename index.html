@@ -1057,6 +1057,8 @@
       if(rotationTimer!==null){window.clearInterval(rotationTimer);rotationTimer=null;}
     }
     function projectWorkKey(card){
+      // In All Work, show at most one flex/banner design in the six-card preview.
+      if(card.dataset.category==="banners")return "flex-banner";
       const title=(card.querySelector(".project-title")?.textContent||"").toLowerCase()
         .replace(/—|–/g," ")
         .replace(/\b(variation|alternate|version|design|creative|poster|banner|flex|advertisement)\b/g," ")
