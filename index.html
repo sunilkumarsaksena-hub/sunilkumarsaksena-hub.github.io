@@ -1056,9 +1056,34 @@
     function stopRotation(){
       if(rotationTimer!==null){window.clearInterval(rotationTimer);rotationTimer=null;}
     }
+    function projectWorkKey(card){
+      const title=(card.querySelector(".project-title")?.textContent||"").toLowerCase()
+        .replace(/—|–/g," ")
+        .replace(/\b(variation|alternate|version|design|creative|poster|banner|flex|advertisement)\b/g," ")
+        .replace(/\b\d+\b/g," ")
+        .replace(/[^a-z0-9]+/g," ")
+        .trim()
+        .replace(/\s+/g," ");
+      // Treat alternate versions of the same campaign/publication as one work.
+      if(title.includes("sarv gun sampann champion"))return "sarv gun sampann champion";
+      if(title.includes("fimis"))return "fimis";
+      if(title.includes("dastan e mohabat"))return "dastan e mohabat";
+      if(title.includes("tedx"))return "tedx";
+      return title;
+    }
     function chooseRandomSix(){
-      // Keep a stable, non-random selection of the first six portfolio projects.
-      rotatingCards=projectCards.slice(0,Math.min(allWorkPageSize,projectCards.length));
+      // Random selection, while preventing alternate designs of the same work appearing together.
+      const shuffled=shuffle(projectCards);
+      const chosen=[];
+      const usedWorks=new Set();
+      for(const card of shuffled){
+        const key=projectWorkKey(card);
+        if(!key||usedWorks.has(key))continue;
+        chosen.push(card);
+        usedWorks.add(key);
+        if(chosen.length>=Math.min(allWorkPageSize,projectCards.length))break;
+      }
+      rotatingCards=chosen;
       renderProjects();
     }
     function startRotation(){
