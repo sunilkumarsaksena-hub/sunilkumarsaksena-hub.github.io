@@ -1146,6 +1146,7 @@
       stopRotation();
       showAllProjects=true;
       selectedFilter="all";
+      allWorkLimit=projectCards.length;
       rotatingCards=projectCards.slice();
       filterButtons.forEach(item=>{
         const active=item.dataset.filter==="all";
