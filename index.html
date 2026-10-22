@@ -817,7 +817,7 @@
       <p class="about-text" style="margin-bottom:26px">Choose a category to browse projects. Click any artwork to view the complete design in a large preview.</p>
       <div class="portfolio-filters" aria-label="Portfolio categories">
         <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true"><span aria-hidden="true">✦</span> All Work</button>
-        <button class="filter-btn" type="button" data-filter="educational-book" aria-pressed="false"><span aria-hidden="true">▤</span> Newsletter</button>
+        <button class="filter-btn" type="button" data-filter="educational-book" aria-pressed="false"><span aria-hidden="true">▤</span> Book Design</button>
         <button class="filter-btn" type="button" data-filter="brochure" aria-pressed="false"><span aria-hidden="true">▧</span> Brochure & Prospectus Design</button>
         <button class="filter-btn" type="button" data-filter="certificate" aria-pressed="false"><span aria-hidden="true">▧</span> Certificate Design</button>
         <button class="filter-btn" type="button" data-filter="annual-report" aria-pressed="false"><span aria-hidden="true">▥</span> Coffee Table Book Design</button>
@@ -1146,9 +1146,13 @@
       stopRotation();
       showAllProjects=true;
       selectedFilter="all";
-      projectCards.forEach(card=>{card.hidden=false;});
       rotatingCards=projectCards.slice();
-      loadMoreButton.hidden=true;
+      filterButtons.forEach(item=>{
+        const active=item.dataset.filter==="all";
+        item.classList.toggle("active",active);
+        item.setAttribute("aria-pressed",String(active));
+      });
+      renderProjects();
       portfolioNote.textContent="Showing all "+projectCards.length+" projects.";
     });
     document.addEventListener("visibilitychange",startRotation);
@@ -1195,9 +1199,6 @@
       if(event.key==="ArrowLeft")showArtwork(currentArtwork-1);
       if(event.key==="ArrowRight")showArtwork(currentArtwork+1);
     });
-
-    // Resume the hero slideshow when the visitor returns to the tab.
-    document.addEventListener("visibilitychange",()=>{if(document.hidden)stopRotation();else startRotation();});
 
     // Scale square/portrait artwork down slightly; panoramic banners get the full preview width.
     projectCards.forEach(card=>{
