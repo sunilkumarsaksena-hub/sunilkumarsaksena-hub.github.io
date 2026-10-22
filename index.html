@@ -1092,7 +1092,7 @@
     }
     function startRotation(){
       stopRotation();
-      if(heroSlides.length<2 || document.hidden || window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+      if(heroSlides.length<2 || document.hidden)return;
       rotationTimer=window.setInterval(()=>{
         const activeIndex=heroSlides.findIndex(slide=>slide.classList.contains("is-active"));
         const nextIndex=(activeIndex+1)%heroSlides.length;
