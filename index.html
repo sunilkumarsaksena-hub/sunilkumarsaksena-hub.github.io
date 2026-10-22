@@ -1045,6 +1045,8 @@
     let rotationTimer=null;
     let rotationPaused=false;
     const rotationInterval=6000;
+    const heroSlides=Array.from(document.querySelectorAll(".hero-slide"));
+    heroSlides.forEach((slide,index)=>slide.classList.toggle("is-active",index===0));
     function shuffle(items){
       const copy=items.slice();
       for(let i=copy.length-1;i>0;i--){
@@ -1194,9 +1196,7 @@
       if(event.key==="ArrowRight")showArtwork(currentArtwork+1);
     });
 
-    // Rotate the three hero backgrounds while respecting reduced-motion preferences.
-    const heroSlides=Array.from(document.querySelectorAll(".hero-slide"));
-    heroSlides.forEach((slide,index)=>slide.classList.toggle("is-active",index===0));
+    // Resume the hero slideshow when the visitor returns to the tab.
     document.addEventListener("visibilitychange",()=>{if(document.hidden)stopRotation();else startRotation();});
 
     // Scale square/portrait artwork down slightly; panoramic banners get the full preview width.
