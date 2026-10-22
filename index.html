@@ -1143,7 +1143,6 @@
       startRotation();
     }));
     loadMoreButton.addEventListener("click",()=>{
-      stopRotation();
       showAllProjects=true;
       selectedFilter="all";
       allWorkLimit=projectCards.length;
@@ -1158,10 +1157,10 @@
     });
     document.addEventListener("visibilitychange",startRotation);
     const workSection=document.getElementById("work");
+    // Keep the hero slideshow running independently of portfolio hover/touch interactions.
+    // On mobile, a touch can trigger a persistent hover state and leave the slideshow stopped.
     if(workSection){
-      workSection.addEventListener("mouseenter",()=>{stopRotation();});
       workSection.addEventListener("mouseleave",startRotation);
-      workSection.addEventListener("focusin",()=>{stopRotation();});
       workSection.addEventListener("focusout",()=>{window.setTimeout(startRotation,500);});
     }
     chooseRandomSix();
