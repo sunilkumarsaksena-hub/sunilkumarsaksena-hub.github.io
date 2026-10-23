@@ -1105,9 +1105,9 @@
       return title;
     }
     function chooseRandomSix(){
-      // Show the first six projects initially; Load More reveals the next batch of six.
+      // Keep All Work empty until the visitor clicks to reveal the first batch of six.
       rotatingCards=[];
-      allWorkLimit=Math.min(allWorkPageSize,projectCards.length);
+      allWorkLimit=0;
       renderProjects();
     }
     function startRotation(){
@@ -1143,11 +1143,15 @@
       emptyCategory.hidden=matchingCards.length>0;
       const hasMore=selectedFilter==="all"&&allWorkLimit<projectCards.length;
       loadMoreButton.hidden=!hasMore;
-      portfolioNote.hidden=matchingCards.length===0;
       if(selectedFilter==="all"){
+        portfolioNote.hidden=false;
         const shown=Math.min(allWorkLimit,projectCards.length);
-        portfolioNote.textContent="Showing "+shown+" of "+projectCards.length+" projects. Load more to see the next 6.";
+        portfolioNote.textContent=shown===0
+          ?"Projects are hidden. Click below to reveal the first 6 projects."
+          :"Showing "+shown+" of "+projectCards.length+" projects. Click below to reveal 6 more.";
+        loadMoreButton.textContent=shown===0?"SHOW FIRST 6 PROJECTS ↓":"LOAD 6 MORE PROJECTS ↓";
       }else{
+        portfolioNote.hidden=matchingCards.length===0;
         portfolioNote.textContent=matchingCards.length+" project"+(matchingCards.length===1?"":"s")+" in this category.";
       }
     }
