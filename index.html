@@ -17,6 +17,9 @@
   <link rel="canonical" href="https://sunilkumarsaksena-hub.github.io/">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#101010">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/svg+xml" href="./icons/icon-192.svg">
+  <link rel="apple-touch-icon" href="./icons/icon-192.svg">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Sunil Kumar Saxena | Senior Graphic Designer">
   <meta property="og:description" content="Portfolio of Sunil Kumar Saxena, Senior Graphic Designer with 20+ years of experience in branding, institutional design, digital campaigns and print production.">
@@ -1309,5 +1312,13 @@
     });
 
     document.getElementById("year").textContent=new Date().getFullYear();
-  </script></body>
+  </script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch((error) => console.warn("Service worker registration failed:", error));
+      });
+    }
+  </script>
+</body>
 </html>
