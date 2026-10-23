@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-<rect width="512" height="512" rx="92" fill="#101010"/>
-<circle cx="256" cy="256" r="218" fill="#F6F0DF" stroke="#D8B66A" stroke-width="14"/>
-<circle cx="256" cy="256" r="190" fill="none" stroke="#B99A50" stroke-width="4"/>
-<path d="M168 196 Q220 134 278 180 Q321 214 267 253 Q224 281 192 322 Q237 346 299 304" fill="none" stroke="#8B6A25" stroke-width="8" stroke-linecap="round"/>
-<text x="256" y="296" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="92" fill="#4B3716">Sunil</text>
-<path d="M168 352 Q256 376 344 352" fill="none" stroke="#B99A50" stroke-width="6"/>
+<rect width="512" height="512" fill="#101010"/>
+<circle cx="256" cy="256" r="230" fill="#F6F0DF" stroke="#D8B66A" stroke-width="14"/>
+<defs><clipPath id="circle"><circle cx="256" cy="256" r="212"/></clipPath></defs>
+<image href="https://sunilkumarsaksena-hub.github.io/sunil%20logo.jpg" x="44" y="44" width="424" height="424" preserveAspectRatio="xMidYMid slice" clip-path="url(#circle)"/>
+<circle cx="256" cy="256" r="220" fill="none" stroke="#D8B66A" stroke-width="8"/>
 </svg>
