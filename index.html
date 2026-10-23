@@ -1105,18 +1105,9 @@
       return title;
     }
     function chooseRandomSix(){
-      // Random selection, while preventing alternate designs of the same work appearing together.
-      const shuffled=shuffle(projectCards);
-      const chosen=[];
-      const usedWorks=new Set();
-      for(const card of shuffled){
-        const key=projectWorkKey(card);
-        if(!key||usedWorks.has(key))continue;
-        chosen.push(card);
-        usedWorks.add(key);
-        if(chosen.length>=Math.min(allWorkPageSize,projectCards.length))break;
-      }
-      rotatingCards=chosen;
+      // Show the first six projects initially; Load More reveals the next batch of six.
+      rotatingCards=[];
+      allWorkLimit=Math.min(allWorkPageSize,projectCards.length);
       renderProjects();
     }
     function startRotation(){
@@ -1141,14 +1132,11 @@
     });
     function renderProjects(){
       const matchingCards=projectCards.filter(card=>selectedFilter==="all"||card.dataset.category===selectedFilter||(selectedFilter==="banners"&&card.dataset.category==="standee"));
-      let visibleCards;
       if(selectedFilter==="all"){
-        const pool=projectCards.slice(0,Math.min(allWorkLimit,projectCards.length));
-        visibleCards=rotatingCards.length?rotatingCards:pool.slice(0,allWorkPageSize);
+        const visibleCards=projectCards.slice(0,Math.min(allWorkLimit,projectCards.length));
         visibleCards.forEach(card=>{card.hidden=false;});
         projectCards.filter(card=>!visibleCards.includes(card)).forEach(card=>card.hidden=true);
       }else{
-        visibleCards=matchingCards;
         matchingCards.forEach(card=>{card.hidden=false;});
         projectCards.filter(card=>!matchingCards.includes(card)).forEach(card=>card.hidden=true);
       }
@@ -1156,9 +1144,10 @@
       const hasMore=selectedFilter==="all"&&allWorkLimit<projectCards.length;
       loadMoreButton.hidden=!hasMore;
       portfolioNote.hidden=matchingCards.length===0;
-      if(selectedFilter==="all"&&!showAllProjects){
-        portfolioNote.textContent="Showing 6 selected projects. The selection updates automatically; choose a category or view all projects.";
-      }else if(selectedFilter!=="all"){
+      if(selectedFilter==="all"){
+        const shown=Math.min(allWorkLimit,projectCards.length);
+        portfolioNote.textContent="Showing "+shown+" of "+projectCards.length+" projects. Load more to see the next 6.";
+      }else{
         portfolioNote.textContent=matchingCards.length+" project"+(matchingCards.length===1?"":"s")+" in this category.";
       }
     }
@@ -1172,17 +1161,16 @@
       startRotation();
     }));
     loadMoreButton.addEventListener("click",()=>{
-      showAllProjects=true;
       selectedFilter="all";
-      allWorkLimit=projectCards.length;
-      rotatingCards=projectCards.slice();
+      showAllProjects=true;
+      allWorkLimit=Math.min(allWorkLimit+allWorkPageSize,projectCards.length);
+      rotatingCards=[];
       filterButtons.forEach(item=>{
         const active=item.dataset.filter==="all";
         item.classList.toggle("active",active);
         item.setAttribute("aria-pressed",String(active));
       });
       renderProjects();
-      portfolioNote.textContent="Showing all "+projectCards.length+" projects.";
     });
     document.addEventListener("visibilitychange",startRotation);
     const workSection=document.getElementById("work");
