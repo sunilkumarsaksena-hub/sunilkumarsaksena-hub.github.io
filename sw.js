@@ -1,5 +1,5 @@
-const CACHE_NAME = "sunil-portfolio-v2";
-const CORE_ASSETS = ["./", "./index.html", "./manifest.json", "./icons/icon-192.svg", "./icons/icon-512.svg"];
+const CACHE_NAME = "sunil-portfolio-v3";
+const CORE_ASSETS = ["./", "./index.html", "./manifest.json", "./icons/icon-192.svg", "./icons/icon-512.svg", "./sunil%20logo.jpg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS)));
