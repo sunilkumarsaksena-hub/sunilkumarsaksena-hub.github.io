@@ -912,7 +912,7 @@
 <body>
   <header><div class="container"><nav>
     <a class="logo" href="#home" aria-label="Sunil Kumar Saxena home" style="display:flex;align-items:center;gap:12px"><img src="sunil%20logo.jpg" alt="Sunil Ganesh logo" style="width:54px;height:54px;object-fit:contain;object-position:center;flex:0 0 54px;border-radius:50%;border:1px solid var(--gold);background:#fff;padding:2px"><span style="font-size:20px;letter-spacing:1px">Sunil<span>.</span></span></a>
-    <div class="nav-links"><a href="#home">Home</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#work">Work</a><a href="#freelance">Freelancing</a><a href="#skills">Skills</a><a href="#contact">Contact</a><a href="Resume%20Sunil%20Saxena%281%29.pdf" target="_blank" rel="noopener">Resume ↗</a><a href="https://www.linkedin.com/in/sunil-saxena-70aa54222" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+    <div class="nav-links"><a href="#home">Home</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#work">Work</a><a href="#freelance">Freelancing</a><a href="#skills">Skills</a><a href="#contact">Contact</a><a href="Resume%20Sunil%20Saxena%281%29.pdf" download="Sunil-Saxena-Resume.pdf">Resume ↗</a><a href="https://www.linkedin.com/in/sunil-saxena-70aa54222" target="_blank" rel="noopener">LinkedIn ↗</a></div>
   </nav></div></header>
   <main><div class="container">
     <section class="hero hero-slideshow" id="home" style="border-top:0">
@@ -924,7 +924,7 @@
       <div class="actions">
         <a class="btn primary" href="#work">EXPLORE MY WORK ↗</a>
         <a class="btn" href="https://www.behance.net/sunilsaxen9611" target="_blank" rel="noopener">VIEW BEHANCE ↗</a>
-        <a class="btn" href="Resume%20Sunil%20Saxena%281%29.pdf" target="_blank" rel="noopener">DOWNLOAD RESUME ↓</a>
+        <a class="btn" href="Resume%20Sunil%20Saxena%281%29.pdf" download="Sunil-Saxena-Resume.pdf">DOWNLOAD RESUME ↓</a>
         <a class="btn" href="#contact">CONTACT ME</a>
       </div>
       </div>
@@ -1293,7 +1293,7 @@
     <section id="contact"><div class="contact-box">
       <div class="eyebrow">Have a Project in Mind?</div><h2 class="section-heading">Let's create something <span class="gold">great.</span></h2>
       <p>For design projects, collaborations or professional enquiries, get in touch by email or explore my work on Behance.</p>
-      <div class="actions"><a class="btn primary" href="mailto:sunilkumarsaksena@gmail.com">EMAIL ME ↗</a><a class="btn" href="https://api.whatsapp.com/send?phone=918109149370&text=Hello%2C%20I%20am%20interested%20in%20your%20design%20services." target="_blank" rel="noopener">WHATSAPP ME ↗</a><a class="btn" href="https://www.behance.net/sunilsaxen9611" target="_blank" rel="noopener">BEHANCE PORTFOLIO ↗</a><a class="btn" href="https://www.linkedin.com/in/sunil-saxena-70aa54222" target="_blank" rel="noopener">CONNECT ON LINKEDIN ↗</a><a class="btn" href="Resume%20Sunil%20Saxena%281%29.pdf" target="_blank" rel="noopener">DOWNLOAD RESUME ↓</a></div>
+      <div class="actions"><a class="btn primary" href="mailto:sunilkumarsaksena@gmail.com">EMAIL ME ↗</a><a class="btn" href="https://api.whatsapp.com/send?phone=918109149370&text=Hello%2C%20I%20am%20interested%20in%20your%20design%20services." target="_blank" rel="noopener">WHATSAPP ME ↗</a><a class="btn" href="https://www.behance.net/sunilsaxen9611" target="_blank" rel="noopener">BEHANCE PORTFOLIO ↗</a><a class="btn" href="https://www.linkedin.com/in/sunil-saxena-70aa54222" target="_blank" rel="noopener">CONNECT ON LINKEDIN ↗</a><a class="btn" href="Resume%20Sunil%20Saxena%281%29.pdf" download="Sunil-Saxena-Resume.pdf">DOWNLOAD RESUME ↓</a></div>
       <p style="margin-bottom:0">Bhopal, Madhya Pradesh · 8109149370 · sunilkumarsaksena@gmail.com</p>
     </div></section>
   </div></main>
@@ -1493,17 +1493,26 @@
     }
   </style>
   <script>
-    // Artwork view-only deterrents: block image context menus and drag-to-desktop.
-    // Publicly served images can still be retrieved through browser tools or screenshots.
+    // Casual saving deterrents for publicly viewable portfolio artwork.
+    // Resume download links remain available; public files cannot be made fully download-proof.
     (function(){
-      const artworkSelector = '.project img, .lightbox-image, #featured-image, #dastan-stage iframe';
+      function isResumeDownload(target){
+        const link = target && target.closest ? target.closest('a[download="Sunil-Saxena-Resume.pdf"]') : null;
+        return !!link;
+      }
       document.addEventListener('contextmenu', function(event){
-        if(event.target && event.target.closest && event.target.closest(artworkSelector)){
+        if(isResumeDownload(event.target)) return;
+        event.preventDefault();
+      }, true);
+      document.addEventListener('dragstart', function(event){
+        if(isResumeDownload(event.target)) return;
+        if(event.target && event.target.closest && event.target.closest('img, iframe, a, .project, .book-stage')){
           event.preventDefault();
         }
       }, true);
-      document.addEventListener('dragstart', function(event){
-        if(event.target && event.target.closest && event.target.closest(artworkSelector)){
+      document.addEventListener('keydown', function(event){
+        const key=(event.key||'').toLowerCase();
+        if((event.ctrlKey||event.metaKey) && ['s','u'].includes(key)){
           event.preventDefault();
         }
       }, true);
