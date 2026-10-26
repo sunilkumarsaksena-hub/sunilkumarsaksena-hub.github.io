@@ -875,6 +875,37 @@
 #featured-project-carousel .book-thumb{min-width:96px;justify-content:center}
 
 </style>
+
+  <style>
+    .project-showcase-grid{max-width:1240px;margin:58px auto;padding:0 24px;color:var(--text,#f5f1e8)}
+    .project-showcase-heading{text-align:center;margin:0 auto 26px}
+    .project-showcase-heading h2{font-family:Georgia,serif;font-size:clamp(30px,4vw,48px);margin:10px 0}
+    .project-showcase-heading p{color:var(--muted,#b9b5ad)}
+    .project-showcase-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+    .showcase-project-card{overflow:hidden;border:1px solid rgba(212,165,74,.55);border-radius:16px;background:linear-gradient(145deg,#171717,#090909);box-shadow:0 16px 42px rgba(0,0,0,.25)}
+    .showcase-project-visual{height:330px;display:flex;position:relative;align-items:center;justify-content:center;overflow:hidden;text-decoration:none;background:radial-gradient(ellipse at center,#51452a 0%,#171512 55%,#080808 100%)}
+    .cortijo-book-preview{height:82%;aspect-ratio:1.05/1.35;transform:perspective(900px) rotateY(-9deg) rotateZ(-1deg);filter:drop-shadow(16px 18px 12px rgba(0,0,0,.5));border-radius:3px 7px 7px 3px;background:linear-gradient(90deg,#0b2518,#123a25 8%,#0a2a1b 12%,#17452a 100%);padding:10px 12px 10px 16px;box-shadow:inset 5px 0 8px rgba(0,0,0,.45),inset -3px 0 0 rgba(255,255,255,.15)}
+    .cortijo-book-cover{height:100%;border:1px solid rgba(230,237,203,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:16px 8px;color:#f8f7e9;background:linear-gradient(140deg,rgba(1,30,16,.5),rgba(1,20,11,.15)),url('cortijo.pdf') center/cover}
+    .cortijo-cover-brand{font-family:Georgia,serif;font-size:clamp(25px,3vw,43px);letter-spacing:-2px;text-shadow:0 2px 4px #000}
+    .cortijo-cover-city{font-family:cursive;font-size:20px}
+    .cortijo-cover-tagline{font-family:cursive;font-size:12px;line-height:1.3}
+    .chai-project-visual{background:radial-gradient(ellipse at center,#67482b 0%,#2c1c12 60%,#100b08 100%)}
+    .chai-mockup-props{width:88%;height:78%;display:grid;grid-template-columns:1.1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;transform:rotate(-2deg)}
+    .chai-cap-prop,.chai-paper-prop,.chai-diary-prop{display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:9px;box-shadow:0 12px 22px rgba(0,0,0,.35)}
+    .chai-cap-prop{grid-row:span 2;background:linear-gradient(145deg,#fff,#d9d7ce);border-radius:48% 48% 28% 28%}
+    .chai-paper-prop{background:#fff}
+    .chai-diary-prop{background:linear-gradient(135deg,#704426,#28170d);border:1px solid #aa8046}
+    .chai-mockup-props img{width:94%;height:auto;object-fit:contain;mix-blend-mode:multiply}
+    .chai-diary-prop img{mix-blend-mode:normal;background:#fff;border-radius:3px}
+    .showcase-visual-hint{position:absolute;bottom:12px;right:14px;font-size:10px;letter-spacing:1.3px;color:#f0c46e;background:rgba(0,0,0,.72);padding:8px 10px;border-radius:30px}
+    .showcase-project-copy{padding:20px 24px 24px}
+    .showcase-project-copy h3{font:clamp(22px,2.4vw,29px) Georgia,serif;margin:8px 0 10px}
+    .showcase-project-copy p{color:var(--muted,#b9b5ad);line-height:1.65;margin:0 0 18px}
+    .showcase-project-link{display:inline-flex;gap:18px;align-items:center;border:1px solid #d6a84f;border-radius:30px;padding:10px 17px;color:#edc36d;text-decoration:none;font-weight:600}
+    .showcase-project-link:hover{background:#d6a84f;color:#15110a}
+    @media(max-width:760px){.project-showcase-cards{grid-template-columns:1fr}.showcase-project-visual{height:290px}.project-showcase-grid{padding:0 16px}}
+  </style>
+
 </head>
 <body>
   <header><div class="container"><nav>
@@ -1209,6 +1240,51 @@
         </div>
         <p class="book-showcase-note" id="featured-caption">Mahakumbh 2025 • Editorial Booklet Mockup</p>
       </div>
+
+      <section class="project-showcase-grid" id="brand-mockup-projects" aria-label="Separate featured mockup projects">
+        <div class="project-showcase-heading">
+          <span class="eyebrow">BRAND & PRINT PRESENTATION</span>
+          <h2>More Featured <span class="gold">Projects</span></h2>
+          <p>Explore each project separately using the original artwork.</p>
+        </div>
+        <div class="project-showcase-cards">
+          <article class="showcase-project-card">
+            <a class="showcase-project-visual cortijo-project-visual" href="cortijo.pdf" target="_blank" rel="noopener" aria-label="Open original CORTIJO coffee table book PDF">
+              <div class="cortijo-book-preview">
+                <div class="cortijo-book-cover">
+                  <span class="cortijo-cover-brand">CoRtiJo</span>
+                  <span class="cortijo-cover-city">Bhopal</span>
+                  <span class="cortijo-cover-tagline">Your Health Happiness and Prosperity</span>
+                </div>
+              </div>
+              <span class="showcase-visual-hint">OPEN ORIGINAL 16-PAGE PDF ↗</span>
+            </a>
+            <div class="showcase-project-copy">
+              <span class="project-category">PRINT DESIGN • EDITORIAL</span>
+              <h3>CORTIJO Coffee Table Book</h3>
+              <p>Original CORTIJO Bhopal book with the green-leaf cover, property layouts, amenities and site visuals.</p>
+              <a class="showcase-project-link" href="cortijo.pdf" target="_blank" rel="noopener">View Original Book <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+          <article class="showcase-project-card">
+            <a class="showcase-project-visual chai-project-visual" href="Chai%20pe%20Charcha%20Glossy%20Emblem.png" target="_blank" rel="noopener" aria-label="Open original Chai Pe Charcha logo">
+              <div class="chai-mockup-props">
+                <div class="chai-cap-prop"><img src="Chai%20pe%20Charcha%20Glossy%20Emblem.png" alt="Original Chai Pe Charcha logo on cap mockup" loading="lazy"></div>
+                <div class="chai-paper-prop"><img src="Chai%20pe%20Charcha%20Glossy%20Emblem.png" alt="Original Chai Pe Charcha logo on stationery mockup" loading="lazy"></div>
+                <div class="chai-diary-prop"><img src="Chai%20pe%20Charcha%20Glossy%20Emblem.png" alt="Original Chai Pe Charcha logo on diary mockup" loading="lazy"></div>
+              </div>
+              <span class="showcase-visual-hint">OPEN ORIGINAL LOGO ↗</span>
+            </a>
+            <div class="showcase-project-copy">
+              <span class="project-category">BRAND IDENTITY • MERCHANDISE</span>
+              <h3>Chai Pe Charcha — Branding</h3>
+              <p>Separate branding presentation featuring your original logo across cap, letterhead and diary-style applications.</p>
+              <a class="showcase-project-link" href="Chai%20pe%20Charcha%20Glossy%20Emblem.png" target="_blank" rel="noopener">View Original Logo <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <div class="book-showcase" id="dastan-showcase">
         <div class="book-showcase-head">
           <span class="eyebrow">EDITORIAL • HERITAGE BOOKLET</span>
