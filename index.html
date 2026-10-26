@@ -35,35 +35,40 @@
   })();
 
 
-  // Featured design slideshow: Mahakumbh, SAGEX, Chai Pe Charcha
+  // Featured design slideshow — autoplay continuously, even when the pointer is over the window.
   (function(){
-    const image=document.getElementById('featured-image'); if(!image) return;
-    const slides=[
-      {label:'MAHAKUMBH 2025 • COFFEE TABLE BOOK',caption:'Mahakumbh 2025 • Editorial Booklet Mockup',src:'Mahakumbh%202025%20Editorial%20Booklet%20Mockup.png',alt:'Mahakumbh 2025 editorial book mockup'},
-      {label:'SAGEX • PREMIUM EDUCATION BROCHURE',caption:'SAGEX • Premium Education Brochure Mockup',src:'SAGEX%20Premium%20Education%20Brochure%20Mockup.png',alt:'SAGEX premium education brochure mockup'},
-      {label:'CHAI PE CHARCHA • BRAND IDENTITY',caption:'Chai Pe Charcha • Original glossy emblem logo showcase',src:'Chai%20pe%20Charcha%20Glossy%20Emblem.png',alt:'Chai Pe Charcha original glossy emblem logo'}
-    ];
-    let active=0,timer=null;
-    function show(i){
-      active=(i+slides.length)%slides.length;
-      const s=slides[active];
-      image.style.opacity='0.15';
-      window.setTimeout(()=>{image.src=s.src;image.alt=s.alt;image.style.opacity='1'},120);
-      document.getElementById('featured-label').textContent=s.label;
-      document.getElementById('featured-caption').textContent=s.caption;
-      document.getElementById('featured-count').textContent=String(active+1).padStart(2,'0')+' / 03';
-      document.querySelectorAll('[data-featured]').forEach((b,j)=>{b.classList.toggle('active',j===active);b.setAttribute('aria-pressed',j===active?'true':'false')});
+    function initFeaturedSlideshow(){
+      const image=document.getElementById('featured-image');
+      const carousel=document.getElementById('featured-project-carousel');
+      if(!image||!carousel) return;
+      const slides=[
+        {label:'MAHAKUMBH 2025 • COFFEE TABLE BOOK',caption:'Mahakumbh 2025 • Editorial Booklet Mockup',src:'Mahakumbh%202025%20Editorial%20Booklet%20Mockup.png',alt:'Mahakumbh 2025 editorial book mockup'},
+        {label:'SAGEX • PREMIUM EDUCATION BROCHURE',caption:'SAGEX • Premium Education Brochure Mockup',src:'SAGEX%20Premium%20Education%20Brochure%20Mockup.png',alt:'SAGEX premium education brochure mockup'},
+        {label:'CHAI PE CHARCHA • BRAND IDENTITY',caption:'Chai Pe Charcha • Original glossy emblem logo showcase',src:'Chai%20pe%20Charcha%20Glossy%20Emblem.png',alt:'Chai Pe Charcha original glossy emblem logo'}
+      ];
+      let active=0;
+      function show(i){
+        active=(i+slides.length)%slides.length;
+        const s=slides[active];
+        image.src=s.src;
+        image.alt=s.alt;
+        document.getElementById('featured-label').textContent=s.label;
+        document.getElementById('featured-caption').textContent=s.caption;
+        document.getElementById('featured-count').textContent=String(active+1).padStart(2,'0')+' / 03';
+        carousel.querySelectorAll('[data-featured]').forEach((b,j)=>{
+          b.classList.toggle('active',j===active);
+          b.setAttribute('aria-pressed',j===active?'true':'false');
+        });
+      }
+      carousel.querySelectorAll('[data-featured]').forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.featured))));
+      document.getElementById('featured-prev').addEventListener('click',()=>show(active-1));
+      document.getElementById('featured-next').addEventListener('click',()=>show(active+1));
+      show(0);
+      window.setInterval(()=>show(active+1),4000);
     }
-    function restart(){if(timer) window.clearInterval(timer);timer=window.setInterval(()=>show(active+1),5000)}
-    document.querySelectorAll('[data-featured]').forEach(b=>b.addEventListener('click',()=>{show(Number(b.dataset.featured));restart()}));
-    document.getElementById('featured-prev').addEventListener('click',()=>{show(active-1);restart()});
-    document.getElementById('featured-next').addEventListener('click',()=>{show(active+1);restart()});
-    show(0);restart();
-    const carousel=document.getElementById('featured-project-carousel');
-    carousel.addEventListener('mouseenter',()=>{if(timer)window.clearInterval(timer)});
-    carousel.addEventListener('mouseleave',restart);
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFeaturedSlideshow);
+    else initFeaturedSlideshow();
   })();
-
 </script>
   <script>
     window.dataLayer = window.dataLayer || [];
