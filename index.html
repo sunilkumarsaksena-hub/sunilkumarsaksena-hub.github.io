@@ -3,37 +3,6 @@
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Z3VNCVFH3">
-  // Book showcase window: cycle through mockup and the original PDF pages
-  (function(){
-    const stage=document.getElementById('book-stage');
-    if(!stage) return;
-    const views=[
-      {label:'COVER MOCKUP',type:'image',src:'Mahakumbh%202025%20Editorial%20Booklet%20Mockup.png',alt:'Mahakumbh 2025 book mockup'},
-      {label:'INNER PAGES',type:'pdf',src:'coffee-table-book-final.pdf#page=2&view=FitH'},
-      {label:'BOOK SPREAD',type:'pdf',src:'coffee-table-book-final.pdf#page=4&view=FitH'},
-      {label:'BACK / FINAL PAGES',type:'pdf',src:'coffee-table-book-final.pdf#page=last&view=FitH'}
-    ];
-    let active=0;
-    function show(i){
-      active=(i+views.length)%views.length;
-      const v=views[active];
-      stage.replaceChildren();
-      if(v.type==='image'){
-        const img=document.createElement('img');img.className='book-stage-image';img.src=v.src;img.alt=v.alt;img.loading='lazy';stage.appendChild(img);
-      }else{
-        const frame=document.createElement('iframe');frame.title=v.label+' — Mahakumbh 2025 book PDF';frame.src=v.src;frame.loading='lazy';stage.appendChild(frame);
-      }
-      document.getElementById('book-view-label').textContent=v.label;
-      document.getElementById('book-count').textContent=String(active+1).padStart(2,'0')+' / '+String(views.length).padStart(2,'0');
-      document.querySelectorAll('.book-thumb').forEach((b,j)=>{b.classList.toggle('active',j===active);b.setAttribute('aria-pressed',j===active?'true':'false')});
-    }
-    document.querySelectorAll('.book-thumb').forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.view))));
-    document.getElementById('book-prev').addEventListener('click',()=>show(active-1));
-    document.getElementById('book-next').addEventListener('click',()=>show(active+1));
-    show(0);
-  })();
-
-
   // Dastan-e-Mohabbat showcase uses the original booklet PDF.
   (function(){
     const stage=document.getElementById('dastan-stage');
@@ -1208,30 +1177,7 @@
       <p id="empty-category" class="about-text" hidden style="margin-top:20px">No projects in this category yet.</p>
     </section>
 
-      <div class="book-showcase" id="book-showcase">
-        <div class="book-showcase-head">
-          <span class="eyebrow">EDITORIAL • COFFEE TABLE BOOKS</span>
-          <h3>Book <span class="gold">&amp; Coffee Table</span> Showcase</h3>
-          <p>Explore the book from different angles — cover mockup, inner pages and back cover.</p>
-        </div>
-        <div class="book-window">
-          <div class="book-window-top"><span class="book-live-dot"></span><span id="book-view-label">COVER MOCKUP</span><span class="book-count" id="book-count">01 / 04</span></div>
-          <div class="book-stage" id="book-stage">
-            <img class="book-stage-image" id="book-stage-image" src="Mahakumbh%202025%20Editorial%20Booklet%20Mockup.png" alt="Mahakumbh 2025 original book mockup" loading="lazy">
-          </div>
-          <div class="book-window-bottom">
-            <button class="book-nav" type="button" id="book-prev" aria-label="Previous book view">‹</button>
-            <div class="book-thumbs" role="group" aria-label="Book views">
-              <button class="book-thumb active" type="button" data-view="0"><span>01</span><small>Mockup</small></button>
-              <button class="book-thumb" type="button" data-view="1"><span>02</span><small>Inner pages</small></button>
-              <button class="book-thumb" type="button" data-view="2"><span>03</span><small>Book pages</small></button>
-              <button class="book-thumb" type="button" data-view="3"><span>04</span><small>Back / PDF</small></button>
-            </div>
-            <button class="book-nav" type="button" id="book-next" aria-label="Next book view">›</button>
-          </div>
-        </div>
-        <p class="book-showcase-note">Mahakumbh 2025 • Coffee Table Book</p>
-      </div>
+      
 
 
       <div class="book-showcase project-carousel" id="featured-project-carousel">
