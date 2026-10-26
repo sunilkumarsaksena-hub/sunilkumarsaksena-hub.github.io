@@ -33,6 +33,38 @@
     show(0);
   })();
 
+
+  // Dastan-e-Mohabbat showcase uses the original booklet PDF.
+  (function(){
+    const stage=document.getElementById('dastan-stage');
+    if(!stage) return;
+    const pdf='Dastan%20e%20mohabat%20v1.pdf';
+    const views=[
+      {label:'FRONT COVER',page:1},
+      {label:'INNER PAGE',page:2},
+      {label:'PAGE SPREAD',page:3},
+      {label:'BACK / FINAL PAGE',page:4}
+    ];
+    let active=0;
+    function show(i){
+      active=(i+views.length)%views.length;
+      const v=views[active];
+      stage.replaceChildren();
+      const frame=document.createElement('iframe');
+      frame.title='Dastan-e-Mohabbat — '+v.label;
+      frame.src=pdf+'#page='+v.page+'&view=FitH';
+      frame.loading='lazy';
+      stage.appendChild(frame);
+      document.getElementById('dastan-view-label').textContent=v.label;
+      document.getElementById('dastan-count').textContent=String(active+1).padStart(2,'0')+' / '+String(views.length).padStart(2,'0');
+      document.querySelectorAll('[data-dastan-view]').forEach((b,j)=>{b.classList.toggle('active',j===active);b.setAttribute('aria-pressed',j===active?'true':'false')});
+    }
+    document.querySelectorAll('[data-dastan-view]').forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.dastanView))));
+    document.getElementById('dastan-prev').addEventListener('click',()=>show(active-1));
+    document.getElementById('dastan-next').addEventListener('click',()=>show(active+1));
+    show(0);
+  })();
+
 </script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -1163,6 +1195,31 @@
           </div>
         </div>
         <p class="book-showcase-note">Mahakumbh 2025 • Coffee Table Book</p>
+      </div>
+
+      <div class="book-showcase" id="dastan-showcase">
+        <div class="book-showcase-head">
+          <span class="eyebrow">EDITORIAL • HERITAGE BOOKLET</span>
+          <h3>Dastan-e-<span class="gold">Mohabbat</span></h3>
+          <p>Browse the original booklet PDF in the same interactive display window.</p>
+        </div>
+        <div class="book-window">
+          <div class="book-window-top"><span class="book-live-dot"></span><span id="dastan-view-label">FRONT COVER</span><span class="book-count" id="dastan-count">01 / 04</span></div>
+          <div class="book-stage" id="dastan-stage">
+            <iframe title="Dastan-e-Mohabbat original booklet — front cover" src="Dastan%20e%20mohabat%20v1.pdf#page=1&view=FitH" loading="lazy"></iframe>
+          </div>
+          <div class="book-window-bottom">
+            <button class="book-nav" type="button" id="dastan-prev" aria-label="Previous Dastan-e-Mohabbat view">‹</button>
+            <div class="book-thumbs" role="group" aria-label="Dastan-e-Mohabbat book views">
+              <button class="book-thumb active" type="button" data-dastan-view="0"><span>01</span><small>Cover</small></button>
+              <button class="book-thumb" type="button" data-dastan-view="1"><span>02</span><small>Inner page</small></button>
+              <button class="book-thumb" type="button" data-dastan-view="2"><span>03</span><small>Page spread</small></button>
+              <button class="book-thumb" type="button" data-dastan-view="3"><span>04</span><small>Back / final</small></button>
+            </div>
+            <button class="book-nav" type="button" id="dastan-next" aria-label="Next Dastan-e-Mohabbat view">›</button>
+          </div>
+        </div>
+        <p class="book-showcase-note">Dastan-e-Mohabbat • Original Booklet Design</p>
       </div>
     <div class="lightbox" id="artwork-lightbox" role="dialog" aria-modal="true" aria-label="Full artwork preview" hidden>
       <button class="lightbox-close" type="button" aria-label="Close full artwork preview">×</button>
