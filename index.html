@@ -45,7 +45,9 @@
       const slides=[
         {label:'MAHAKUMBH 2025 • COFFEE TABLE BOOK',caption:'Mahakumbh 2025 • Editorial Booklet Mockup',src:'Mahakumbh%202025%20Editorial%20Booklet%20Mockup.png',alt:'Mahakumbh 2025 editorial book mockup'},
         {label:'SAGEX • PREMIUM EDUCATION BROCHURE',caption:'SAGEX • Premium Education Brochure Mockup',src:'SAGEX%20Premium%20Education%20Brochure%20Mockup.png',alt:'SAGEX premium education brochure mockup'},
-        {label:'CHAI PE CHARCHA • BRAND IDENTITY',caption:'Chai Pe Charcha • Original glossy emblem logo showcase',src:'Chai%20pe%20Charcha%20Glossy%20Emblem.png',alt:'Chai Pe Charcha original glossy emblem logo'}
+        {label:'CHAI PE CHARCHA • BRAND IDENTITY',caption:'Chai Pe Charcha • Original glossy emblem logo showcase',src:'Chai%20pe%20Charcha%20Glossy%20Emblem.png',alt:'Chai Pe Charcha original glossy emblem logo'},
+        {label:'CORTIJO • COFFEE TABLE BOOK',caption:'CORTIJO Bhopal • Original 16-page coffee table book cover and editorial layouts',src:'cortijo-cover-preview.png',alt:'Original CORTIJO coffee table book cover mockup'},
+        {label:'CHAI PE CHARCHA • BRANDING MOCKUP',caption:'Chai Pe Charcha • Branding applications for cap, letterhead and diary',src:'chai-mockup-web.jpg',alt:'Chai Pe Charcha branding mockup with cap, letterhead and diary'}
       ];
       let active=0;
       function show(i){
@@ -55,7 +57,7 @@
         image.alt=s.alt;
         document.getElementById('featured-label').textContent=s.label;
         document.getElementById('featured-caption').textContent=s.caption;
-        document.getElementById('featured-count').textContent=String(active+1).padStart(2,'0')+' / 03';
+        document.getElementById('featured-count').textContent=String(active+1).padStart(2,'0')+' / 05';
         carousel.querySelectorAll('[data-featured]').forEach((b,j)=>{
           b.classList.toggle('active',j===active);
           b.setAttribute('aria-pressed',j===active?'true':'false');
@@ -1224,7 +1226,7 @@
           <p>One project at a time — use the arrows or let the showcase play automatically.</p>
         </div>
         <div class="book-window">
-          <div class="book-window-top"><span class="book-live-dot"></span><span id="featured-label">MAHAKUMBH 2025 • COFFEE TABLE BOOK</span><span class="book-count" id="featured-count">01 / 03</span></div>
+          <div class="book-window-top"><span class="book-live-dot"></span><span id="featured-label">MAHAKUMBH 2025 • COFFEE TABLE BOOK</span><span class="book-count" id="featured-count">01 / 05</span></div>
           <div class="book-stage featured-stage">
             <img class="book-stage-image" id="featured-image" src="Mahakumbh%202025%20Editorial%20Booklet%20Mockup.png" alt="Mahakumbh 2025 editorial book mockup">
           </div>
@@ -1234,6 +1236,8 @@
               <button class="book-thumb active" type="button" data-featured="0"><span>01</span><small>Mahakumbh</small></button>
               <button class="book-thumb" type="button" data-featured="1"><span>02</span><small>SAGEX</small></button>
               <button class="book-thumb" type="button" data-featured="2"><span>03</span><small>Chai Pe Charcha</small></button>
+              <button class="book-thumb" type="button" data-featured="3"><span>04</span><small>CORTIJO Book</small></button>
+              <button class="book-thumb" type="button" data-featured="4"><span>05</span><small>Chai Branding</small></button>
             </div>
             <button class="book-nav" type="button" id="featured-next" aria-label="Next featured project">›</button>
           </div>
@@ -1241,45 +1245,7 @@
         <p class="book-showcase-note" id="featured-caption">Mahakumbh 2025 • Editorial Booklet Mockup</p>
       </div>
 
-      <section class="project-showcase-grid" id="brand-mockup-projects" aria-label="Separate featured mockup projects">
-        <div class="project-showcase-heading">
-          <span class="eyebrow">BRAND & PRINT PRESENTATION</span>
-          <h2>More Featured <span class="gold">Projects</span></h2>
-          <p>Explore each project separately using the original artwork.</p>
-        </div>
-        <div class="project-showcase-cards">
-          <article class="showcase-project-card">
-            <a class="showcase-project-visual cortijo-project-visual" href="cortijo.pdf" target="_blank" rel="noopener" aria-label="Open original CORTIJO coffee table book PDF">
-              <div class="cortijo-book-preview">
-                <div class="cortijo-book-cover"><iframe title="Original CORTIJO cover preview" src="cortijo.pdf#page=1&view=FitH" loading="lazy"></iframe></div>
-              </div>
-              <span class="showcase-visual-hint">OPEN ORIGINAL 16-PAGE PDF ↗</span>
-            </a>
-            <div class="showcase-project-copy">
-              <span class="project-category">PRINT DESIGN • EDITORIAL</span>
-              <h3>CORTIJO Coffee Table Book</h3>
-              <p>Original CORTIJO Bhopal book with the green-leaf cover, property layouts, amenities and site visuals.</p>
-              <a class="showcase-project-link" href="cortijo.pdf" target="_blank" rel="noopener">View Original Book <span aria-hidden="true">→</span></a>
-            </div>
-          </article>
-          <article class="showcase-project-card">
-            <a class="showcase-project-visual chai-project-visual" href="Chai%20pe%20Charcha%20Glossy%20Emblem.png" target="_blank" rel="noopener" aria-label="Open original Chai Pe Charcha logo">
-              <div class="chai-mockup-props">
-                <div class="chai-cap-prop"><img src="Chai%20pe%20Charcha%20Glossy%20Emblem.png" alt="Original Chai Pe Charcha logo on cap mockup" loading="lazy"></div>
-                <div class="chai-paper-prop"><img src="Chai%20pe%20Charcha%20Glossy%20Emblem.png" alt="Original Chai Pe Charcha logo on stationery mockup" loading="lazy"></div>
-                <div class="chai-diary-prop"><img src="Chai%20pe%20Charcha%20Glossy%20Emblem.png" alt="Original Chai Pe Charcha logo on diary mockup" loading="lazy"></div>
-              </div>
-              <span class="showcase-visual-hint">OPEN ORIGINAL LOGO ↗</span>
-            </a>
-            <div class="showcase-project-copy">
-              <span class="project-category">BRAND IDENTITY • MERCHANDISE</span>
-              <h3>Chai Pe Charcha — Branding</h3>
-              <p>Separate branding presentation featuring your original logo across cap, letterhead and diary-style applications.</p>
-              <a class="showcase-project-link" href="Chai%20pe%20Charcha%20Glossy%20Emblem.png" target="_blank" rel="noopener">View Original Logo <span aria-hidden="true">→</span></a>
-            </div>
-          </article>
-        </div>
-      </section>
+
 
       <div class="book-showcase" id="dastan-showcase">
         <div class="book-showcase-head">
