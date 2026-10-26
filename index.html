@@ -1483,5 +1483,31 @@
       });
     }
   </script>
+
+  <style id="artwork-view-only-styles">
+    /* Discourage casual saving of portfolio artwork; this is not copy protection. */
+    .project img, .lightbox-image, #featured-image {
+      -webkit-user-drag: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+  </style>
+  <script>
+    // Artwork view-only deterrents: block image context menus and drag-to-desktop.
+    // Publicly served images can still be retrieved through browser tools or screenshots.
+    (function(){
+      const artworkSelector = '.project img, .lightbox-image, #featured-image, #dastan-stage iframe';
+      document.addEventListener('contextmenu', function(event){
+        if(event.target && event.target.closest && event.target.closest(artworkSelector)){
+          event.preventDefault();
+        }
+      }, true);
+      document.addEventListener('dragstart', function(event){
+        if(event.target && event.target.closest && event.target.closest(artworkSelector)){
+          event.preventDefault();
+        }
+      }, true);
+    })();
+  </script>
 </body>
 </html>
