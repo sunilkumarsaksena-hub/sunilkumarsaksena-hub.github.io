@@ -65,6 +65,36 @@
     show(0);
   })();
 
+
+  // Featured design slideshow: Mahakumbh, SAGEX, Chai Pe Charcha
+  (function(){
+    const image=document.getElementById('featured-image'); if(!image) return;
+    const slides=[
+      {label:'MAHAKUMBH 2025 • COFFEE TABLE BOOK',caption:'Mahakumbh 2025 • Editorial Booklet Mockup',src:'Mahakumbh%202025%20Editorial%20Booklet%20Mockup.png',alt:'Mahakumbh 2025 editorial book mockup'},
+      {label:'SAGEX • PREMIUM EDUCATION BROCHURE',caption:'SAGEX • Premium Education Brochure Mockup',src:'SAGEX%20Premium%20Education%20Brochure%20Mockup.png',alt:'SAGEX premium education brochure mockup'},
+      {label:'CHAI PE CHARCHA • BRAND IDENTITY',caption:'Chai Pe Charcha • Original glossy emblem logo showcase',src:'Chai%20pe%20Charcha%20Glossy%20Emblem.png',alt:'Chai Pe Charcha original glossy emblem logo'}
+    ];
+    let active=0,timer=null;
+    function show(i){
+      active=(i+slides.length)%slides.length;
+      const s=slides[active];
+      image.style.opacity='0.15';
+      window.setTimeout(()=>{image.src=s.src;image.alt=s.alt;image.style.opacity='1'},120);
+      document.getElementById('featured-label').textContent=s.label;
+      document.getElementById('featured-caption').textContent=s.caption;
+      document.getElementById('featured-count').textContent=String(active+1).padStart(2,'0')+' / 03';
+      document.querySelectorAll('[data-featured]').forEach((b,j)=>{b.classList.toggle('active',j===active);b.setAttribute('aria-pressed',j===active?'true':'false')});
+    }
+    function restart(){if(timer) window.clearInterval(timer);timer=window.setInterval(()=>show(active+1),5000)}
+    document.querySelectorAll('[data-featured]').forEach(b=>b.addEventListener('click',()=>{show(Number(b.dataset.featured));restart()}));
+    document.getElementById('featured-prev').addEventListener('click',()=>{show(active-1);restart()});
+    document.getElementById('featured-next').addEventListener('click',()=>{show(active+1);restart()});
+    show(0);restart();
+    const carousel=document.getElementById('featured-project-carousel');
+    carousel.addEventListener('mouseenter',()=>{if(timer)window.clearInterval(timer)});
+    carousel.addEventListener('mouseleave',restart);
+  })();
+
 </script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -863,6 +893,12 @@
 .book-showcase-note{text-align:center;color:#c6a568;font-size:12px;letter-spacing:2px;margin:18px 0 0}
 @media(max-width:600px){.book-showcase{margin-top:42px}.book-window-bottom{padding:10px;gap:7px}.book-thumb{padding:8px;gap:5px}.book-thumb small{font-size:10px}.book-stage{padding:10px}.book-showcase-head p{padding:0 14px}}
 
+
+.featured-stage{position:relative;transition:opacity .25s ease}
+.featured-stage img{transition:opacity .25s ease}
+#featured-project-carousel .book-window-bottom{justify-content:center}
+#featured-project-carousel .book-thumb{min-width:96px;justify-content:center}
+
 </style>
 </head>
 <body>
@@ -1197,6 +1233,30 @@
         <p class="book-showcase-note">Mahakumbh 2025 • Coffee Table Book</p>
       </div>
 
+
+      <div class="book-showcase project-carousel" id="featured-project-carousel">
+        <div class="book-showcase-head">
+          <span class="eyebrow">SELECTED DESIGN SHOWREEL</span>
+          <h3>Featured <span class="gold">Mockups</span></h3>
+          <p>One project at a time — use the arrows or let the showcase play automatically.</p>
+        </div>
+        <div class="book-window">
+          <div class="book-window-top"><span class="book-live-dot"></span><span id="featured-label">MAHAKUMBH 2025 • COFFEE TABLE BOOK</span><span class="book-count" id="featured-count">01 / 03</span></div>
+          <div class="book-stage featured-stage">
+            <img class="book-stage-image" id="featured-image" src="Mahakumbh%202025%20Editorial%20Booklet%20Mockup.png" alt="Mahakumbh 2025 editorial book mockup">
+          </div>
+          <div class="book-window-bottom">
+            <button class="book-nav" type="button" id="featured-prev" aria-label="Previous featured project">‹</button>
+            <div class="book-thumbs" role="group" aria-label="Featured design slides">
+              <button class="book-thumb active" type="button" data-featured="0"><span>01</span><small>Mahakumbh</small></button>
+              <button class="book-thumb" type="button" data-featured="1"><span>02</span><small>SAGEX</small></button>
+              <button class="book-thumb" type="button" data-featured="2"><span>03</span><small>Chai Pe Charcha</small></button>
+            </div>
+            <button class="book-nav" type="button" id="featured-next" aria-label="Next featured project">›</button>
+          </div>
+        </div>
+        <p class="book-showcase-note" id="featured-caption">Mahakumbh 2025 • Editorial Booklet Mockup</p>
+      </div>
       <div class="book-showcase" id="dastan-showcase">
         <div class="book-showcase-head">
           <span class="eyebrow">EDITORIAL • HERITAGE BOOKLET</span>
