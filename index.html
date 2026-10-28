@@ -5,7 +5,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Z3VNCVFH3"></script>
   <script>
   // Dastan-e-Mohabbat showcase uses the original booklet PDF.
-  (function(){
+  function initDastanShowcase(){
     const stage=document.getElementById('dastan-stage');
     if(!stage) return;
     const pdf='Dastan%20e%20mohabat%20v1.pdf';
@@ -33,7 +33,9 @@
     document.getElementById('dastan-prev').addEventListener('click',()=>show(active-1));
     document.getElementById('dastan-next').addEventListener('click',()=>show(active+1));
     show(0);
-  })();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDastanShowcase);
+  else initDastanShowcase();
 
 
   // Featured design slideshow — autoplay continuously, even when the pointer is over the window.
