@@ -986,6 +986,26 @@
         <article class="service"><div class="number">03 / PRINT</div><h3>Print & Publication</h3><p>Brochures, posters, banners, editorial layouts and production-ready artwork.</p></article>
       </div>
     </section>
+
+    /* Thumbnail-first project cards: polished cover previews for books, newsletters and PDFs */
+    #work .project{overflow:hidden;text-align:left;border-radius:14px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+    #work .project:hover,#work .project:focus-visible{transform:translateY(-4px);border-color:rgba(212,175,55,.7);box-shadow:0 14px 34px rgba(0,0,0,.28)}
+    #work .project-image{position:relative;isolation:isolate;aspect-ratio:4/3;height:auto;min-height:190px;padding:12px;background:linear-gradient(135deg,#111 0%,#242018 48%,#080808 100%)}
+    #work .project-image>img{width:100%;height:100%;max-height:300px;object-fit:contain;transition:transform .35s ease}
+    #work .project:hover .project-image>img{transform:scale(1.035)}
+    #work .publication-cover{position:relative;justify-content:center;min-height:100%;width:100%;overflow:hidden;gap:12px;padding:22px!important;border:1px solid rgba(218,183,95,.72);border-radius:4px;background:linear-gradient(145deg,#f8f0dd 0%,#fffdf7 52%,#e3c98b 100%);box-shadow:0 8px 18px rgba(0,0,0,.22);color:#7e2029;text-align:center}
+    #work .publication-cover:before{content:"";position:absolute;inset:9px;border:1px solid rgba(142,105,37,.42);pointer-events:none}
+    #work .publication-cover:after{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:linear-gradient(90deg,rgba(0,0,0,.22),rgba(255,255,255,.45));pointer-events:none}
+    #work .publication-cover>*{position:relative;z-index:1}
+    #work .publication-kicker{font-size:9px;letter-spacing:2px;font-weight:800}
+    #work .publication-cover strong{font-family:Georgia,serif;font-size:clamp(20px,2.1vw,31px);line-height:1.1;letter-spacing:.6px;text-wrap:balance}
+    #work .publication-subtitle{font-size:10px;letter-spacing:1.3px;line-height:1.5}
+    #work .publication-footer{margin-top:4px;padding-top:9px;border-top:1px solid rgba(126,32,41,.3);font-size:9px;letter-spacing:1.5px;font-weight:800}
+    #work .project-info{background:linear-gradient(180deg,rgba(255,255,255,.015),rgba(255,255,255,.035))}
+    #work .project-category{font-size:10px;letter-spacing:1.1px;text-transform:uppercase;color:var(--gold)}
+    #work .project-desc{line-height:1.55}
+    @media(max-width:700px){#work .project-image{min-height:0;aspect-ratio:3/4;padding:7px}#work .publication-cover{gap:8px;padding:14px!important}#work .publication-cover strong{font-size:clamp(17px,5vw,25px)}#work .publication-subtitle{font-size:8px}#work .publication-footer{font-size:8px}}
+
     <section id="work">
       <div class="eyebrow">Selected Projects</div>
       <h2 class="section-heading">Explore My <span class="gold">Work.</span></h2>
