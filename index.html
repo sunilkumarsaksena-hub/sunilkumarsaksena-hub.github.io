@@ -1703,57 +1703,64 @@
   </script>
 
 <script>
-/* PDF thumbnails: render page one when a PDF exists; retain designed covers as a safe fallback. */
+/* Reliable PDF first-page previews. Use same-origin PDF URLs and disable workers for mobile compatibility. */
 (function(){
+  var started=false;
   function loadPdfJs(done){
     if(window.pdfjsLib){done();return;}
-    if(window.__portfolioPdfLoading){window.__portfolioPdfCallbacks.push(done);return;}
-    window.__portfolioPdfLoading=true;window.__portfolioPdfCallbacks=[done];
+    if(window.__portfolioPdfCallbacks){window.__portfolioPdfCallbacks.push(done);return;}
+    window.__portfolioPdfCallbacks=[done];
     var s=document.createElement('script');
     s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
     s.onload=function(){
-      if(window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-      (window.__portfolioPdfCallbacks||[]).forEach(function(fn){try{fn();}catch(e){}});
-      window.__portfolioPdfCallbacks=[];
+      var callbacks=window.__portfolioPdfCallbacks||[];
+      window.__portfolioPdfCallbacks=null;
+      callbacks.forEach(function(fn){try{fn();}catch(e){}});
     };
-    s.onerror=function(){window.__portfolioPdfCallbacks=[];};
+    s.onerror=function(){window.__portfolioPdfCallbacks=null;};
     document.head.appendChild(s);
   }
-  function renderPdfThumbnails(){
-    var cards=Array.prototype.slice.call(document.querySelectorAll('#work .publication-project[data-pdf]'));
+  function render(){
+    if(started)return;started=true;
+    var cards=document.querySelectorAll('#work .publication-project[data-pdf]');
     if(!cards.length)return;
     loadPdfJs(function(){
-      cards.forEach(function(card){
-        if(card.dataset.thumbAttempted)return;
-        card.dataset.thumbAttempted='1';
+      if(!window.pdfjsLib)return;
+      Array.prototype.forEach.call(cards,function(card){
         var path=card.getAttribute('data-pdf');
-        if(!path)return;
         var frame=card.querySelector('.project-image');
-        if(!frame)return;
-        window.pdfjsLib.getDocument({url:path,disableAutoFetch:true,disableStream:true}).promise.then(function(pdf){
-          return pdf.getPage(1).then(function(page){
-            var viewport=page.getViewport({scale:1});
+        if(!path||!frame||card.dataset.thumbAttempted==='1')return;
+        card.dataset.thumbAttempted='1';
+        /* Keep PDF names with spaces safe and resolve from the site root. */
+        var url=new URL(path,window.location.href).href;
+        window.pdfjsLib.getDocument({url:url,disableWorker:true,disableAutoFetch:true,disableStream:true}).promise
+          .then(function(pdf){return pdf.getPage(1);})
+          .then(function(page){
+            var base=page.getViewport({scale:1});
             var box=frame.getBoundingClientRect();
-            var scale=Math.min((Math.max(box.width,180)-20)/viewport.width,(Math.max(box.height,220)-20)/viewport.height,1.5);
-            var scaled=page.getViewport({scale:Math.max(.25,scale)});
+            var maxW=Math.max(160,box.width-20),maxH=Math.max(190,box.height-20);
+            var scale=Math.min(maxW/base.width,maxH/base.height,1.35);
+            var viewport=page.getViewport({scale:scale});
             var canvas=document.createElement('canvas');
-            var context=canvas.getContext('2d',{alpha:false});
-            canvas.width=Math.ceil(scaled.width*1.5);canvas.height=Math.ceil(scaled.height*1.5);
-            var renderViewport=page.getViewport({scale:scale*1.5});
-            return page.render({canvasContext:context,viewport:renderViewport}).promise.then(function(){
-              var wrap=document.createElement('div');wrap.className='pdf-thumbnail';wrap.setAttribute('aria-hidden','true');
-              canvas.style.width='100%';canvas.style.height='100%';canvas.style.objectFit='contain';
+            var ratio=Math.min(window.devicePixelRatio||1,2);
+            canvas.width=Math.ceil(viewport.width*ratio);
+            canvas.height=Math.ceil(viewport.height*ratio);
+            canvas.style.width='100%';canvas.style.height='100%';canvas.style.objectFit='contain';
+            var ctx=canvas.getContext('2d',{alpha:false});
+            ctx.setTransform(ratio,0,0,ratio,0,0);
+            return page.render({canvasContext:ctx,viewport:viewport}).promise.then(function(){
+              var wrap=document.createElement('div');
+              wrap.className='pdf-thumbnail';wrap.setAttribute('aria-hidden','true');
               wrap.appendChild(canvas);
-              var label=document.createElement('span');label.className='pdf-thumb-label';label.textContent='PDF Preview';wrap.appendChild(label);
-              frame.appendChild(wrap);frame.classList.add('pdf-rendered');
+              var tag=document.createElement('span');tag.className='pdf-thumb-label';tag.textContent='PDF Preview';
+              wrap.appendChild(tag);frame.appendChild(wrap);frame.classList.add('pdf-rendered');
             });
-          });
-        }).catch(function(){/* Missing/unavailable PDF: keep the designed cover visible. */});
+          }).catch(function(err){console.warn('PDF preview could not load:',path,err);});
       });
     });
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',renderPdfThumbnails);
-  else renderPdfThumbnails();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);
+  else render();
 })();
 </script>
 
