@@ -928,6 +928,16 @@
     @media(max-width:600px){.project-enquiry-form{padding:16px}.enquiry-fields{grid-template-columns:1fr;gap:13px}.enquiry-full{grid-column:auto}.enquiry-intro h3{font-size:20px}}
   </style>
 
+
+  <style id="mobile-header-spacing-fix">
+    /* Reduce excess vertical space above the navigation on phones. */
+    @media (max-width: 760px) {
+      header { padding: 4px 0 !important; }
+      header nav { gap: 6px !important; }
+      header .nav-links { padding-top: 0 !important; padding-bottom: 4px !important; }
+    }
+  </style>
+
 </head>
 <body>
   <header><div class="container"><nav>
