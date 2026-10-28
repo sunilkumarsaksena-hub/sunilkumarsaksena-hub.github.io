@@ -1422,9 +1422,9 @@
       return title;
     }
     function chooseRandomSix(){
-      // Keep All Work empty until the visitor clicks to reveal the first batch of six.
+      // Show the first six projects immediately; visitors can load more when they want.
       rotatingCards=[];
-      allWorkLimit=0;
+      allWorkLimit=allWorkPageSize;
       renderProjects();
     }
     function startRotation(){
@@ -1630,5 +1630,26 @@
     })();
   </script>
 
+  <script>
+    // Put the portfolio and its adjacent showcases directly after the hero.
+    // This lets visitors see the work first while preserving all existing markup and styling.
+    (function(){
+      const hero=document.getElementById('home');
+      const work=document.getElementById('work');
+      if(!hero||!work||!hero.parentNode||hero.parentNode!==work.parentNode)return;
+      const parent=hero.parentNode;
+      const group=[work];
+      let node=work.nextSibling;
+      while(node && !(node.nodeType===1 && node.tagName==='SECTION')){
+        const next=node.nextSibling;
+        group.push(node);
+        node=next;
+      }
+      const fragment=document.createDocumentFragment();
+      group.forEach(item=>fragment.appendChild(item));
+      if(hero.nextSibling)parent.insertBefore(fragment,hero.nextSibling);
+      else parent.appendChild(fragment);
+    })();
+  </script>
 </body>
 </html>
