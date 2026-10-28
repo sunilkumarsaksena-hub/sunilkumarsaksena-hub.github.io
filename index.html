@@ -1380,6 +1380,25 @@
   </div></main>
   <footer><div class="container">© <span id="year">2026</span> Sunil Kumar Saxena · Senior Graphic Designer. All rights reserved.</div></footer>
   <script>
+    // Curate the initial All Work sequence so the first screen shows varied disciplines,
+    // rather than several similar banners or posters in a row.
+    const projectGrid=document.querySelector(".portfolio-grid");
+    if(projectGrid){
+      const cards=Array.from(projectGrid.querySelectorAll(".project"));
+      const categoryPriority=["branding","social","newspaper-ad","poster","banners"];
+      const ordered=[];
+      const used=new Set();
+      let added=true;
+      while(added){
+        added=false;
+        categoryPriority.forEach(category=>{
+          const card=cards.find(item=>!used.has(item)&&item.dataset.category===category);
+          if(card){ordered.push(card);used.add(card);added=true;}
+        });
+      }
+      cards.forEach(card=>{if(!used.has(card))ordered.push(card);});
+      ordered.forEach(card=>projectGrid.appendChild(card));
+    }
     const filterButtons=document.querySelectorAll(".filter-btn");
     const projectCards=Array.from(document.querySelectorAll(".project"));
     const emptyCategory=document.getElementById("empty-category");
