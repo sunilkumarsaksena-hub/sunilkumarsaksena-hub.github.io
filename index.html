@@ -952,6 +952,28 @@
     }
   </style>
 
+
+<style id="portfolio-feedback-styles">
+.project-feedback{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:12px}
+.project-feedback .feedback-action{display:inline-flex;align-items:center;gap:5px;color:var(--gold);cursor:pointer;background:transparent;border:0;padding:4px 2px;font:inherit}
+.project-feedback .feedback-action:hover{color:#fff}
+.project-feedback .feedback-action[aria-pressed="true"]{color:#f08b9b}
+.project-feedback .feedback-count{color:var(--muted)}
+.feedback-modal[hidden]{display:none}
+.feedback-modal{position:fixed;inset:0;z-index:10010;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:18px}
+.feedback-dialog{width:min(560px,100%);max-height:90vh;overflow:auto;background:#171717;border:1px solid var(--gold);border-radius:12px;padding:22px;box-shadow:0 20px 70px #000}
+.feedback-dialog h3{font-size:24px;margin:0 0 5px}
+.feedback-dialog label{display:grid;gap:6px;margin:14px 0;color:var(--muted);font-size:13px}
+.feedback-dialog input,.feedback-dialog textarea{width:100%;padding:12px;background:#0c0c0c;color:#fff;border:1px solid #514938;border-radius:6px;font:inherit}
+.feedback-dialog textarea{min-height:100px;resize:vertical}
+.feedback-dialog .feedback-close{float:right;background:transparent;border:1px solid #665637;color:var(--gold);border-radius:50%;width:34px;height:34px;cursor:pointer}
+.feedback-comments{margin:15px 0;border-top:1px solid var(--line)}
+.feedback-comment{padding:12px 0;border-bottom:1px solid var(--line)}
+.feedback-comment strong{color:var(--gold)}
+.feedback-comment p{white-space:pre-wrap;overflow-wrap:anywhere;color:var(--muted);margin:5px 0}
+.feedback-note{font-size:12px;color:var(--muted)}
+@media(max-width:600px){.project-feedback{gap:8px}.feedback-dialog{padding:17px}}
+</style>
 </head>
 <body>
   <header><div class="container"><nav>
@@ -1707,5 +1729,86 @@
 
 
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script id="portfolio-feedback-app">
+(function(){
+ const SUPABASE_URL='https://eoxehfqbeaxntzbkwivn.supabase.co';
+ const SUPABASE_KEY='sb_publishable_bBfqlcrdGgTTvQVvYMK24w_InwMlXO4';
+ if(!window.supabase||!window.supabase.createClient)return;
+ const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+ const cards=Array.from(document.querySelectorAll('.portfolio-grid .project'));
+ const visitorKey='sunil_portfolio_visitor_v1';
+ let visitorId=localStorage.getItem(visitorKey);
+ if(!visitorId){visitorId=(crypto.randomUUID?crypto.randomUUID():('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:(r&3|8)).toString(16)})));localStorage.setItem(visitorKey,visitorId);}
+ let activeProject=null;
+ const slug=s=>(s||'project').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,70)||'project';
+ function projectId(card){return card.dataset.feedbackId||slug(card.querySelector('.project-title')?.textContent||card.getAttribute('aria-label'));}
+ function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n;}
+ const modal=el('div','feedback-modal');modal.hidden=true;modal.innerHTML='<div class="feedback-dialog" role="dialog" aria-modal="true" aria-labelledby="feedback-title"><button class="feedback-close" type="button" aria-label="Close">×</button><h3 id="feedback-title">Design feedback</h3><div class="feedback-note">Approved comments from visitors</div><div class="feedback-comments" id="feedback-comments"></div><form id="feedback-form"><label>Your name<input name="name" maxlength="50" minlength="2" required placeholder="Your name"></label><label>Your comment<textarea name="body" maxlength="1000" minlength="3" required placeholder="Share your thoughts about this design"></textarea></label><button class="btn primary" type="submit">Submit for approval</button><p class="feedback-note">Your comment will appear publicly only after it is approved by the portfolio owner.</p><div id="feedback-message" class="feedback-note" aria-live="polite"></div></form></div>';
+ document.body.appendChild(modal);
+ const close=()=>{modal.hidden=true;activeProject=null;document.body.style.overflow='';};
+ modal.querySelector('.feedback-close').addEventListener('click',close);
+ modal.addEventListener('click',e=>{if(e.target===modal)close();});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)close();});
+ async function loadProjectFeedback(card){
+   const id=projectId(card),bar=card.querySelector('.project-feedback');
+   const likeCount=bar.querySelector('[data-like-count]'),commentCount=bar.querySelector('[data-comment-count]'),likeBtn=bar.querySelector('[data-like]');
+   const [{count:likes,error:le},{count:comments,error:ce},{data:mine,error:me}]=await Promise.all([
+    db.from('project_likes').select('*',{count:'exact',head:true}).eq('project_id',id),
+    db.from('project_comments').select('*',{count:'exact',head:true}).eq('project_id',id).eq('status','approved'),
+    db.from('project_likes').select('id').eq('project_id',id).eq('visitor_id',visitorId).limit(1)
+   ]);
+   if(!le&&likes!==null)likeCount.textContent=String(likes);
+   if(!ce&&comments!==null)commentCount.textContent=String(comments);
+   if(!me&&mine&&mine.length){likeBtn.setAttribute('aria-pressed','true');likeBtn.querySelector('.heart').textContent='♥';}
+ }
+ cards.forEach(card=>{
+   const title=card.querySelector('.project-title')?.textContent?.trim()||'Creative project';
+   const bar=el('div','project-feedback');
+   const like=el('span','feedback-action');like.setAttribute('role','button');like.tabIndex=0;like.dataset.like='1';like.setAttribute('aria-label','Like '+title);like.setAttribute('aria-pressed','false');
+   const heart=el('span','heart','♡');like.append(heart,el('span','feedback-count','Like '),el('span','feedback-count','0'));like.lastChild.dataset.likeCount='1';
+   const comment=el('span','feedback-action');comment.setAttribute('role','button');comment.tabIndex=0;comment.dataset.comments='1';comment.append(el('span','','💬'),el('span','','Comments '),el('span','feedback-count','0'));comment.lastChild.dataset.commentCount='1';
+   bar.append(like,comment);
+   card.querySelector('.project-info')?.appendChild(bar);
+   loadProjectFeedback(card);
+ });
+ function activateLike(card,button){
+   const id=projectId(card);button.setAttribute('aria-disabled','true');
+   db.from('project_likes').insert({project_id:id,visitor_id:visitorId}).then(async({error})=>{
+     if(error&&error.code!=='23505'){alert('Like save nahi ho paya. Please try again.');}
+     await loadProjectFeedback(card);button.removeAttribute('aria-disabled');
+   });
+ }
+ async function openComments(card){
+   activeProject=card;const id=projectId(card),title=card.querySelector('.project-title')?.textContent?.trim()||'Design';
+   modal.querySelector('#feedback-title').textContent=title;
+   const target=modal.querySelector('#feedback-comments');target.textContent='Loading approved comments…';
+   modal.querySelector('#feedback-message').textContent='';
+   modal.hidden=false;document.body.style.overflow='hidden';
+   const {data,error}=await db.from('project_comments').select('display_name,body,created_at').eq('project_id',id).eq('status','approved').order('created_at',{ascending:false}).limit(50);
+   target.replaceChildren();
+   if(error){target.textContent='Comments could not be loaded right now.';return;}
+   if(!data.length){target.textContent='Be the first to leave feedback.';return;}
+   data.forEach(item=>{const box=el('div','feedback-comment');box.append(el('strong','',item.display_name),el('p','',item.body));target.appendChild(box);});
+ }
+ document.querySelector('.portfolio-grid')?.addEventListener('click',e=>{
+   const like=e.target.closest('[data-like]'),comments=e.target.closest('[data-comments]');
+   if(like){e.preventDefault();e.stopPropagation();const card=like.closest('.project');if(like.getAttribute('aria-pressed')==='true'||like.getAttribute('aria-disabled')==='true')return;activateLike(card,like);}
+   if(comments){e.preventDefault();e.stopPropagation();openComments(comments.closest('.project'));}
+ });
+ document.querySelector('.portfolio-grid')?.addEventListener('keydown',e=>{
+   if((e.key==='Enter'||e.key===' ')&&(e.target.matches('[data-like],[data-comments]'))){e.preventDefault();e.stopPropagation();e.target.click();}
+ });
+ modal.querySelector('#feedback-form').addEventListener('submit',async e=>{
+   e.preventDefault();if(!activeProject)return;
+   const form=e.currentTarget,name=form.elements.name.value.trim(),body=form.elements.body.value.trim();
+   const msg=modal.querySelector('#feedback-message');msg.textContent='Submitting…';
+   const {error}=await db.from('project_comments').insert({project_id:projectId(activeProject),visitor_id:visitorId,display_name:name,body,status:'pending'});
+   if(error){msg.textContent='Comment submit nahi ho paya. Please try again.';return;}
+   form.reset();msg.textContent='Thank you! Your comment has been sent for approval.'; 
+ });
+})();
+</script>
 </body>
 </html>
