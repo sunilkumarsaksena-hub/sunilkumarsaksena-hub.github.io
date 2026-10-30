@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#101010">
+<title>Portfolio Admin | Sunil Kumar Saxena</title>
+<style>
+:root{color-scheme:dark;--bg:#101010;--panel:#191919;--gold:#d8b66a;--text:#f7f5ef;--muted:#aaa69c;--line:#39352d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Arial,sans-serif}
+.wrap{width:min(960px,92%);margin:48px auto}.brand{color:var(--gold);letter-spacing:3px;font-size:12px;font-weight:bold}.head{display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:28px}h1{font-size:clamp(28px,5vw,42px);margin:8px 0}h2{font-size:22px;margin:0 0 16px}.muted{color:var(--muted)}.panel{background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:12px;margin:18px 0}.field{display:grid;gap:7px;margin:14px 0}input,textarea{width:100%;padding:13px;border:1px solid #514938;border-radius:7px;background:#0d0d0d;color:var(--text);font:inherit}button,.btn{border:1px solid var(--gold);background:var(--gold);color:#17130b;padding:11px 16px;border-radius:7px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}button.secondary{background:transparent;color:var(--gold)}button.danger{background:#351c1c;border-color:#9d5555;color:#ffdada}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.comment{border-top:1px solid var(--line);padding:18px 0}.comment:first-child{border-top:0}.comment p{white-space:pre-wrap;overflow-wrap:anywhere}.status{font-size:11px;letter-spacing:1px;color:var(--gold);text-transform:uppercase}.hidden{display:none!important}.notice{padding:12px;border:1px solid var(--line);border-radius:7px;color:var(--muted);margin:12px 0}.error{color:#ffaaaa}.success{color:#a9e5b5}@media(max-width:600px){.wrap{margin:24px auto}.panel{padding:17px}.head{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="head"><div><div class="brand">SUNIL SAXENA · PRIVATE AREA</div><h1>Comment Moderation</h1><div class="muted">Approve, reject or remove portfolio comments.</div></div><a class="btn secondary" href="./">View portfolio ↗</a></header>
+<section id="login-panel" class="panel"><h2>Admin Login</h2><p class="muted">Sign in with the admin email already added in Supabase Authentication.</p>
+<form id="login-form"><label class="field">Email<input id="email" type="email" autocomplete="username" required></label><label class="field">Password<input id="password" type="password" autocomplete="current-password" required></label><button type="submit">Sign in securely</button></form><div id="login-message" class="notice" aria-live="polite">Your admin access is checked securely by Supabase.</div></section>
+<section id="dashboard" class="hidden">
+<div class="panel"><div class="row" style="justify-content:space-between"><div><h2 style="margin-bottom:4px">Comments</h2><div class="muted">Only approved comments are visible on the public portfolio.</div></div><button id="logout" class="secondary">Sign out</button></div>
+<div class="row" style="margin-top:18px"><button class="filter secondary" data-status="pending">Pending</button><button class="filter secondary" data-status="approved">Approved</button><button class="filter secondary" data-status="rejected">Rejected</button><button class="filter secondary" data-status="all">All</button></div>
+<div id="comments-list" class="panel" style="margin-top:18px"><div class="muted">Loading comments…</div></div></div>
+<div class="panel"><h2>Project Likes</h2><div id="likes-list" class="muted">Loading likes…</div></div>
+</section>
+<div id="global-message" class="notice" aria-live="polite">Admin access is protected. Do not share this page's login credentials.</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+ const URL='https://eoxehfqbeaxntzbkwivn.supabase.co';
+ const KEY='sb_publishable_bBfqlcrdGgTTvQVvYMK24w_InwMlXO4';
+ const client=window.supabase.createClient(URL,KEY);
+ const loginPanel=document.getElementById('login-panel'),dashboard=document.getElementById('dashboard');
+ const loginMessage=document.getElementById('login-message'),globalMessage=document.getElementById('global-message');
+ const list=document.getElementById('comments-list');let currentStatus='pending';
+ function say(el,msg,kind){el.textContent=msg;el.className='notice '+(kind||'');}
+ function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+ async function checkSession(){
+   const {data:{session}}=await client.auth.getSession();
+   if(!session){loginPanel.classList.remove('hidden');dashboard.classList.add('hidden');return;}
+   const {data:admin,error}=await client.from('portfolio_admins').select('user_id').eq('user_id',session.user.id).maybeSingle();
+   if(error||!admin){await client.auth.signOut();loginPanel.classList.remove('hidden');dashboard.classList.add('hidden');say(loginMessage,'This account is not registered as a portfolio admin.','error');return;}
+   loginPanel.classList.add('hidden');dashboard.classList.remove('hidden');await loadAll();
+ }
+ async function loadComments(){
+   list.innerHTML='<div class="muted">Loading…</div>';
+   let q=client.from('project_comments').select('*').order('created_at',{ascending:false}).limit(200);
+   if(currentStatus!=='all')q=q.eq('status',currentStatus);
+   const {data,error}=await q;
+   if(error){list.innerHTML='<p class="error">Could not load comments: '+esc(error.message)+'</p>';return;}
+   if(!data.length){list.innerHTML='<p class="muted">No '+esc(currentStatus)+' comments.</p>';return;}
+   list.innerHTML=data.map(c=>'<article class="comment"><div class="row" style="justify-content:space-between"><strong>'+esc(c.display_name)+'</strong><span class="status">'+esc(c.status)+'</span></div><div class="muted">'+esc(c.project_id)+' · '+esc(new Date(c.created_at).toLocaleString())+'</div><p>'+esc(c.body)+'</p><div class="row">'+(c.status!=='approved'?'<button data-action="approve" data-id="'+esc(c.id)+'">Approve</button>':'')+(c.status!=='rejected'?'<button class="secondary" data-action="reject" data-id="'+esc(c.id)+'">Reject</button>':'')+'<button class="danger" data-action="delete" data-id="'+esc(c.id)+'">Delete</button></div></article>').join('');
+ }
+ async function loadLikes(){
+   const el=document.getElementById('likes-list');
+   const {data,error}=await client.from('project_likes').select('project_id').limit(1000);
+   if(error){el.textContent='Could not load likes: '+error.message;return;}
+   const counts={};(data||[]).forEach(x=>counts[x.project_id]=(counts[x.project_id]||0)+1);
+   const entries=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+   el.innerHTML=entries.length?entries.map(([k,v])=>'<div class="row" style="justify-content:space-between;padding:7px 0;border-top:1px solid var(--line)"><span>'+esc(k)+'</span><strong>'+v+' ♥</strong></div>').join(''):'No likes yet.';
+ }
+ async function loadAll(){await Promise.all([loadComments(),loadLikes()]);}
+ document.getElementById('login-form').addEventListener('submit',async e=>{e.preventDefault();say(loginMessage,'Signing in…');const {error}=await client.auth.signInWithPassword({email:document.getElementById('email').value.trim(),password:document.getElementById('password').value});if(error){say(loginMessage,error.message,'error');return;}await checkSession();});
+ document.getElementById('logout').addEventListener('click',async()=>{await client.auth.signOut();await checkSession();});
+ document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',async()=>{currentStatus=b.dataset.status;await loadComments();}));
+ list.addEventListener('click',async e=>{const b=e.target.closest('button[data-action]');if(!b)return;const action=b.dataset.action,id=b.dataset.id;b.disabled=true;let result;if(action==='delete')result=await client.from('project_comments').delete().eq('id',id);else result=await client.from('project_comments').update({status:action==='approve'?'approved':'rejected'}).eq('id',id);if(result.error){say(globalMessage,'Action failed: '+result.error.message,'error');b.disabled=false;return;}say(globalMessage,'Comment '+(action==='delete'?'deleted':action==='approve'?'approved':'rejected')+'.','success');await loadComments();});
+ client.auth.onAuthStateChange(()=>{setTimeout(checkSession,0);});
+ checkSession();
+})();
+</script></body></html>
