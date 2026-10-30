@@ -1796,7 +1796,7 @@
    const like=e.target.closest('[data-like]'),comments=e.target.closest('[data-comments]');
    if(like){e.preventDefault();e.stopPropagation();const card=like.closest('.project');if(like.getAttribute('aria-pressed')==='true'||like.getAttribute('aria-disabled')==='true')return;activateLike(card,like);}
    if(comments){e.preventDefault();e.stopPropagation();openComments(comments.closest('.project'));}
- });
+ },true);
  document.querySelector('.portfolio-grid')?.addEventListener('keydown',e=>{
    if((e.key==='Enter'||e.key===' ')&&(e.target.matches('[data-like],[data-comments]'))){e.preventDefault();e.stopPropagation();e.target.click();}
  });
