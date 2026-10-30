@@ -1675,6 +1675,20 @@
   </script>
 
   <script>
+    // Make the hero CTA land on the actual enquiry form, not just its parent contact section.
+    document.addEventListener('DOMContentLoaded', function(){
+      const startLink=document.querySelector('#home a[href="#project-enquiry-form"]');
+      const enquiryForm=document.getElementById('project-enquiry-form');
+      if(!startLink||!enquiryForm)return;
+      startLink.addEventListener('click',function(event){
+        event.preventDefault();
+        enquiryForm.scrollIntoView({behavior:'smooth',block:'start'});
+        history.replaceState(null,'','#project-enquiry-form');
+        window.setTimeout(()=>enquiryForm.querySelector('input[name="clientName"]')?.focus({preventScroll:true}),450);
+      });
+    });
+  </script>
+  <script>
     // Build a client-ready project brief and open WhatsApp only after the visitor submits the form.
     (function(){
       const form=document.getElementById('project-enquiry-form');
