@@ -1031,14 +1031,12 @@
     }
   </style>
   <style id="hero-adjacent-divider-final-fix">
-    /* Remove any border line at the hero-to-about transition. */
+    /* Keep the About section divider; remove only the hero's bottom edge. */
     main > .container > #home.hero-slideshow {
       border-bottom: 0 !important;
-      box-shadow: none !important;
     }
     main > .container > #about {
-      border-top: 0 !important;
-      border-top-color: transparent !important;
+      border-top: 1px solid rgba(216,182,106,.13) !important;
     }
   </style>
 </head>
