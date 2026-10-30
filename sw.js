@@ -1,4 +1,4 @@
-const CACHE_NAME = "sunil-portfolio-v5";
+const CACHE_NAME = "sunil-portfolio-v6";
 const CORE_ASSETS = ["./", "./index.html", "./manifest.json", "./icons/icon-192.svg", "./icons/icon-512.svg", "./sunil%20logo.jpg"];
 
 self.addEventListener("install", (event) => {
