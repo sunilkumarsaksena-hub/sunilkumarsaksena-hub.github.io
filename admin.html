@@ -38,8 +38,8 @@
  async function checkSession(){
    const {data:{session}}=await client.auth.getSession();
    if(!session){loginPanel.classList.remove('hidden');dashboard.classList.add('hidden');return;}
-   const {data:admin,error}=await client.from('portfolio_admins').select('user_id').eq('user_id',session.user.id).maybeSingle();
-   if(error||!admin){await client.auth.signOut();loginPanel.classList.remove('hidden');dashboard.classList.add('hidden');say(loginMessage,'This account is not registered as a portfolio admin.','error');return;}
+   const {data:isAdmin,error}=await client.rpc('is_portfolio_admin');
+   if(error||isAdmin!==true){await client.auth.signOut();loginPanel.classList.remove('hidden');dashboard.classList.add('hidden');say(loginMessage,'This account is not registered as a portfolio admin.','error');return;}
    loginPanel.classList.add('hidden');dashboard.classList.remove('hidden');await loadAll();
  }
  async function loadComments(){
