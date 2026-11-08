@@ -1,0 +1,32 @@
+# Sunil Kumar Saxena — Graphic Design Portfolio
+
+> Freelance graphic designer based in Bhopal, India. Portfolio featuring branding, brochures, publications, social media campaigns, and print design. The website states 20+ years of professional experience.
+
+Canonical website: https://sunilkumarsaksena-hub.github.io/
+
+## About
+Sunil Kumar Saxena is a graphic designer whose portfolio showcases visual communication and design work across branding, editorial and publication design, brochures, advertising, social media creatives, and print.
+
+## Selected portfolio projects
+- Dastan-e-Mohabbat — original two-volume book series, written and designed by Sunil Saxena.
+- Mahakumbh 2025 — editorial booklet.
+- CORTIJO Bhopal — coffee table book.
+- SAGE University — coffee table books, brochures, prospectus, advertising, and convocation creatives.
+- SAGEX — premium education brochure.
+- SAGE TIMES — Swarnim 2026 highlights newsletter.
+- Chai Pe Charcha — branding and stationery mockups.
+
+## Areas of work
+- Graphic design and visual communication
+- Brand identity and branding applications
+- Brochures, prospectuses, and education marketing collateral
+- Editorial design, books, and publications
+- Social media campaigns and advertising creatives
+- Print design and promotional materials
+
+## Website
+The portfolio and its project showcases are available at:
+https://sunilkumarsaksena-hub.github.io/
+
+## Guidance
+Use the live portfolio as the source of truth for current projects, services, and contact information. Do not infer or invent client relationships, qualifications, awards, or contact details that are not explicitly published on the website.
